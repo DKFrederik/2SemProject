@@ -12,6 +12,11 @@ public class Person {
 		this.lname = lname;
 		this.email = email;
 	}
+	
+	public Person(){
+		
+	}
+	
 	public String getFname() {
 		return fname;
 	}

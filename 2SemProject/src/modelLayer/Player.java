@@ -10,6 +10,10 @@ public class Player extends Person{
 		this.age = age;
 		this.position = position;
 	}
+	
+	public Player(){
+		
+	}
 
 	public int getAge() {
 		return age;
