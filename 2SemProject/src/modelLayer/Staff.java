@@ -2,8 +2,8 @@ package modelLayer;
 
 public class Staff extends Person{
 	
-	public Staff(String name, String email, String phone, String username, String password) {
-		super(name, email, phone);
+	public Staff(String fname, String lname, String email, String phone, String username, String password) {
+		super(fname, lname, email, phone);
 		this.username = username;
 		this.password = password;
 	}

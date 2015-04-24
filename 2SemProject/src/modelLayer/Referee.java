@@ -2,8 +2,8 @@ package modelLayer;
 
 public class Referee extends Person{
 
-	public Referee(String name, String email, String phone) {
-		super(name, email, phone);
+	public Referee(String fname, String lname, String email, String phone) {
+		super(fname, lname, email, phone);
 	}
 
 }

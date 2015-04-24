@@ -5,8 +5,8 @@ public class Player extends Person{
 	private int age;
 	private String position;
 	
-	public Player(String name, String email, String phone, int age, String position) {
-		super(name, email, phone);
+	public Player(String fname, String lname, String email, String phone, int age, String position) {
+		super(fname, lname, email, phone);
 		this.age = age;
 		this.position = position;
 	}

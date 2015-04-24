@@ -27,7 +27,7 @@ public class Team {
 		return league;
 	}
 	
-	public void setLeague(){
+	public void setLeague(int league){
 		this.league = league;
 	}
 
