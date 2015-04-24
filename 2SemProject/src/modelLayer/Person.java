@@ -8,13 +8,17 @@ public class Person {
 	private String phone;
 	
 	public Person(String fname, String lname, String email, String phone){
+		if(email == null){
+			email = "";
+		}
+		
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
+		this.phone = phone;
 	}
 	
 	public Person(){
-		
 	}
 	
 	public String getFname() {

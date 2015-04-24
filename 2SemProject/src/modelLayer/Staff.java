@@ -1,15 +1,15 @@
 package modelLayer;
 
 public class Staff extends Person{
+
+	private String username;
+	private String password;
 	
 	public Staff(String fname, String lname, String email, String phone, String username, String password) {
 		super(fname, lname, email, phone);
 		this.username = username;
 		this.password = password;
 	}
-
-	private String username;
-	private String password;
 	
 	public String getUsername(){
 		return username;
