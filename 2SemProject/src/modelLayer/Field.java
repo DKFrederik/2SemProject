@@ -3,9 +3,12 @@ package modelLayer;
 public class Field {
 	
 	private String type;
+	//A field can contain n numbers of smaller fields. Example: field "1a", field "1b", field "1c"
+	private String number; 
 	
-	public Field(String type){
+	public Field(String type, String number){
 		this.type = type;
+		this.number = number;
 	}
 	
 	public String getType(){
@@ -14,6 +17,14 @@ public class Field {
 	
 	public void setType(String type){
 		this.type = type;
+	}
+	
+	public String getNumber(){
+		return number;
+	}
+	
+	public void setNumber(String number){
+		this.number = number;
 	}
 
 }
