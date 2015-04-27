@@ -3,9 +3,9 @@ package modelLayer;
 public class Player extends Person{
 	
 	private int age;
-	private String position;
+	private char position; //Goalkeeper "G", Defense "D", Midfield "M", Forward "F"
 	
-	public Player(String fname, String lname, String email, String phone, int age, String position) {
+	public Player(String fname, String lname, String email, String phone, int age, char position) {
 		super(fname, lname, email, phone);
 		this.age = age;
 		this.position = position;
@@ -23,11 +23,11 @@ public class Player extends Person{
 		this.age = age;
 	}
 
-	public String getPosition() {
+	public char getPosition() {
 		return position;
 	}
 
-	public void setPosition(String position) {
+	public void setPosition(char position) {
 		this.position = position;
 	}
 
