@@ -220,7 +220,7 @@ public class DBPlayer {
 			playerObj.setEmail(results.getString("email"));
 			playerObj.setPhone(results.getString("phone"));
 			playerObj.setAge(Integer.parseInt(results.getString("age")));
-			playerObj.setPosition(results.getString("position"));
+			playerObj.setPosition(results.getString("position").charAt(0));
 		} 
 		catch (Exception e) {
 			System.out.println("error in building the customer object");
