@@ -79,37 +79,43 @@ public class LinkedGraph implements IFGraph  {
 		}
 
 		@Override
-		public void Clear() {
+		public void clear() {
 			vertices.clear();
 		}
 	
 		@Override
-		public void UnMark() {
+		public void unColor() {
 			System.out.println("Unmarked complete");
 			for(int i = 0; i < vertices.size(); i++)
 			{
-				vertices.get(i).setMark(false);
+				vertices.get(i).setColor(-1);
 			}
 	    }
 
-		@Override
-		public void Dfs(Vertex vertex){
-		System.out.println(vertex.getName() + " is marked");
-		vertex.setMark(true);
-		int index = vertices.indexOf(vertex);
-		for(int i = 0; i < adjList.get(index).size(); i++)
-		{
-			if(!adjList.get(index).get(i).isMark())
-			{
-				Dfs(adjList.get(index).get(i));
-			}
-		}
-		}
+//		@Override
+//		public void dfs(Vertex vertex){
+//		System.out.println(vertex.getName() + " is marked");
+//		vertex.setColor(1);
+//		int index = vertices.indexOf(vertex);
+//		for(int i = 0; i < adjList.get(index).size(); i++)
+//		{
+//			if(!adjList.get(index).get(i).isColor())
+//			{
+//				dfs(adjList.get(index).get(i));
+//			}
+//		}
+//		}
 
 		@Override
 		public void bfs(Vertex vertex) {
 			// TODO Auto-generated method stub
 			
 		}
+
+@Override
+public void dfs(Vertex vertex) {
+	// TODO Auto-generated method stub
+	
+}
 
 }

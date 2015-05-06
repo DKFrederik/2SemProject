@@ -20,11 +20,11 @@ public interface IFGraph {
 
 	public abstract int getNoOfEdges();
 
-	public abstract void Clear();
+	public abstract void clear();
 
-	public abstract void UnMark();
+	public abstract void unColor();
 	
-	public abstract void Dfs(Vertex vertex);
+	public abstract void dfs(Vertex vertex);
 	
 	public abstract void bfs(Vertex vertex);
 

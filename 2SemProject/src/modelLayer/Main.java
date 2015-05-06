@@ -6,90 +6,88 @@ import java.util.LinkedList;
 public class Main {
 
 	public static void main(String[] args) {
-        IFGraph crocAir = new LinkedGraph(10);
+        IFGraph bsi = new LinkedGraph(10);
         LinkedList<Vertex> l;
         // Constructing CrocAirlines...
           
-        System.out.println("IsEmpty() (should be true): " + crocAir.isEmpty());
+        System.out.println("IsEmpty() (should be true): " + bsi.isEmpty());
     
-        Vertex perth = new Vertex("Perth");
-        Vertex blackStump = new Vertex("Black Stump");
-        Vertex darwin = new Vertex("Darwin");
-        Vertex brisbane = new Vertex("Brisbane");
-        Vertex sydney = new Vertex("Sydney");
-        Vertex canberra = new Vertex("Canberra");
-        Vertex adelaide = new Vertex("Adelaide");
-        Vertex melbourne = new Vertex("Melbourne");
-        Vertex hobart = new Vertex("Hobart");
-        Vertex aalborg = new Vertex("Aalborg");
+        Vertex hold1 = new Vertex("Hold 1");
+        Vertex hold2 = new Vertex("Hold 2");
+        Vertex hold3 = new Vertex("Hold 3");
+        Vertex hold4 = new Vertex("Hold 4");
+        Vertex hold5 = new Vertex("Hold 5");
+        Vertex hold6 = new Vertex("Hold 6");
+        Vertex hold7 = new Vertex("Hold 7");
+        Vertex hold8 = new Vertex("Hold 8");
+        Vertex hold9 = new Vertex("Hold 9");
+        Vertex hold10 = new Vertex("Hold 10");
 
-        crocAir.addVertex(perth);
-        crocAir.addVertex(blackStump);
-        crocAir.addVertex(darwin);
-        crocAir.addVertex(brisbane);
-        crocAir.addVertex(sydney);
-        crocAir.addVertex(canberra);
-        crocAir.addVertex(adelaide);
-        crocAir.addVertex(melbourne);
-        crocAir.addVertex(hobart);
-    
-//        crocAir.addVertex(aalborg);
+        bsi.addVertex(hold1);
+        bsi.addVertex(hold2);
+        bsi.addVertex(hold3);
+        bsi.addVertex(hold4);
+        bsi.addVertex(hold5);
+        bsi.addVertex(hold6);
+        bsi.addVertex(hold7);
+        bsi.addVertex(hold8);
+        bsi.addVertex(hold9);
+        bsi.addVertex(hold10);
 
-        System.out.println("IsEmpty(): Should print false: " + crocAir.isEmpty());
+        System.out.println("IsEmpty(): Should print false: " + bsi.isEmpty());
 
-        System.out.println("Should print the number '9': " + crocAir.getNoOfVertices());
+        System.out.println("Should print the number '9': " + bsi.getNoOfVertices());
 
         System.out.println("Testing search in the vertex list: 3 times 'true' - 1 times 'false'");
               
-        System.out.println(crocAir.containsVertex(hobart));
-        System.out.println(crocAir.containsVertex(perth));
-        System.out.println(crocAir.containsVertex(sydney));
-        System.out.println(crocAir.containsVertex(aalborg));
+        System.out.println(bsi.containsVertex(hold1));
+        System.out.println(bsi.containsVertex(hold2));
+        System.out.println(bsi.containsVertex(hold3));
+        System.out.println(bsi.containsVertex(hold4));
 
-        crocAir.addEdge(perth, blackStump);
-        crocAir.addEdge(blackStump, darwin);
-        crocAir.addEdge(darwin, canberra);
-        crocAir.addEdge(canberra, brisbane);
-        crocAir.addEdge(brisbane, sydney);
-        crocAir.addEdge(sydney, canberra);
-        crocAir.addEdge(canberra, sydney);
-        crocAir.addEdge(sydney, melbourne);
-        crocAir.addEdge(canberra, adelaide);
-        crocAir.addEdge(adelaide, perth);
-        crocAir.addEdge(adelaide, melbourne);
-        crocAir.addEdge(melbourne, canberra);
-        crocAir.addEdge(melbourne, hobart);
-        crocAir.addEdge(hobart, melbourne);
+        bsi.addEdge(hold1, hold2);
+        bsi.addEdge(hold1, hold3);
+        bsi.addEdge(hold1, hold6);
+        bsi.addEdge(hold1, hold7);
+        bsi.addEdge(hold1, hold9);
+        bsi.addEdge(hold1, hold10);
+        bsi.addEdge(hold2, hold3);
+        bsi.addEdge(hold3, hold4);
+        bsi.addEdge(hold3, hold5);
+        bsi.addEdge(hold6, hold5);
+        bsi.addEdge(hold7, hold8);
+        bsi.addEdge(hold8, hold9);
+        bsi.addEdge(hold9, hold10);
 
-        System.out.println("Hobart - Melbourne? (true): "
-                + crocAir.isAdjacent(hobart, melbourne));
+        System.out.println("hold1 - hold2? (true): "
+                + bsi.isAdjacent(hold1, hold2));
 
-        System.out.println("Hobart - Sydney? (false): "
-                + crocAir.isAdjacent(hobart, sydney));
+        System.out.println("hold6 - hold2? (false): "
+                + bsi.isAdjacent(hold6, hold2));
         
-        l = crocAir.getAdjacencies(canberra);
-        System.out.println("Testing adjacencies of Canberra (Brisbane, Sydney, Adelaide):");
+        l = bsi.getAdjacencies(hold1);
+        System.out.println("Testing adjacencies of Canberra (hold10, hold9, hold7, hold6, hold3, hold2):");
         for (Vertex v : l)
         	System.out.println(v.getName());
-
-        System.out.println("Number of edges (14): " + crocAir.getNoOfEdges());
-        System.out.println("Dfs starting in Brisbane: ");
-        crocAir.UnMark();
-        crocAir.Dfs(brisbane);
-        System.out.println("Dfs starting in Perth: ");
-        crocAir.UnMark();
-        crocAir.Dfs(perth);
-
-        //System.out.println("Bfs starting in Brisbane: ");
-        //crocAir.UnMark();
-        //crocAir.Bfs(brisbane);
-
-        crocAir.Clear();
-        System.out.println("IsEmpty(): Should print true: " + crocAir.isEmpty());
-
-// 
-
-        System.out.println("System end");
+//
+//        System.out.println("Number of edges (14): " + crocAir.getNoOfEdges());
+//        System.out.println("Dfs starting in Brisbane: ");
+//        crocAir.UnMark();
+//        crocAir.Dfs(brisbane);
+//        System.out.println("Dfs starting in Perth: ");
+//        crocAir.UnMark();
+//        crocAir.Dfs(perth);
+//
+//        //System.out.println("Bfs starting in Brisbane: ");
+//        //crocAir.UnMark();
+//        //crocAir.Bfs(brisbane);
+//
+//        crocAir.Clear();
+//        System.out.println("IsEmpty(): Should print true: " + crocAir.isEmpty());
+//
+//// 
+//
+//        System.out.println("System end");
 
 	}
 

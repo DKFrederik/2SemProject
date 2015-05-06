@@ -2,14 +2,13 @@ package modelLayer;
 public class Vertex {
 	
 	private String name;
-	private boolean mark;
+	private int color;
 	
 	public Vertex(String name){
-		mark = false;
 		this.name = name;
 	}
 	public String toString() { //For debugging purposes
-		return name + "\t" + mark;
+		return name + "\t" + color;
 	}
 	
 	public String getName() {
@@ -20,12 +19,12 @@ public class Vertex {
 		this.name = name;
 	}
 	
-	public boolean isMark() {
-		return mark;
+	public int getColor(){
+		return color;
 	}
 	
-	public void setMark(boolean mark) {
-		this.mark = mark;
+	public void setColor(int color){
+		this.color = color;
 	}
 	
 	public boolean equals(Object obj) {
@@ -35,5 +34,9 @@ public class Vertex {
 	
 	public int getHashCode() {
 		return name.hashCode();
+	}
+	
+	public int isColor(){
+		return color;
 	}
 }
