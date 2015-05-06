@@ -39,19 +39,25 @@ public class LinkedGraph implements IFGraph  {
 
 		   ArrayList<Boolean> tempList = new ArrayList<Boolean>(noVer);
 		   System.out.println(tempList.size());
-		   tempList.add(0, true);
-		   for(int i = 1; i <= noVer; i++){
+		   //tempList.add(0, true);
+		   
+		   for(int i = 0; i < noVer; i++){
 			   tempList.add(i, false);
 		   }
 		   
-		   for(int i = 1; i < noVer; i++){
+		   //For each vertex
+		   for(int i = 1; i <= noVer; i++){
 			   
+			   //For each adjacency
 			   for(int j = 0; j < adjList.get(i).size(); j++){
+				   
+				   //If vertex of the adjacency is colored set the corresponding index in the temporary list to true
 				   if(adjList.get(i).get(j).getColor() != -1){
 					   tempList.set(adjList.get(i).get(j).getColor(), true);
 					   }
 				   }
 			   
+			   //Loops through the temporary list and finds the first available color and assigns it to the vertex 
 			   int u = 0;
 			   boolean found = false;
 			   while(u < noVer && !found){
@@ -61,16 +67,15 @@ public class LinkedGraph implements IFGraph  {
 				   }
 				   u++;
 			   }
-			   
+			   //Resets the temporary list for the next iteration
 			   for(int k = 0; k < noVer; k++){
 				   tempList.set(k, false);
-			   }
-			   
+			   }	   
 		   }
-		   for(int i = 0; i < noVer; i++){
+		   //Prints the color of each vertex
+		   for(int i = 0; i <= noVer; i++){
 			   System.out.println("Vertex " + i + " ---> color " + vertices.get(i).getColor());
-		   }
-		   
+		   } 
 	   }
 
 		@Override
@@ -82,6 +87,8 @@ public class LinkedGraph implements IFGraph  {
 		public void addEdge(Vertex startVertex, Vertex endVertex) {
 			int startIndex = vertices.indexOf(startVertex);
 			adjList.get(startIndex).addFirst(endVertex);
+			int endIndex = vertices.indexOf(endVertex);
+			adjList.get(endIndex).addFirst(startVertex);
 			noOfEdges++;
 		}
 
@@ -99,7 +106,7 @@ public class LinkedGraph implements IFGraph  {
 		public boolean isAdjacent(Vertex startVertex, Vertex endVertex) {
 			LinkedList<Vertex> startAdjacencies = getAdjacencies(startVertex);
 			//LinkedList<Vertex> endAdjacencies = getAdjacencies(endVertex);
-			return startAdjacencies.contains(endVertex); //|| endAdjacencies.contains(startVertex);
+			return startAdjacencies.contains(endVertex); // || endAdjacencies.contains(startVertex);
 		}
 		
 		@Override

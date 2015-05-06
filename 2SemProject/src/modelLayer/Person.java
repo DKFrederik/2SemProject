@@ -56,7 +56,7 @@ public class Person {
 		this.phone = phone;
 	}
 	
-	public static void checkEmail() {
+	public void checkEmail() {
 	       String email = "clausjoergensen91@gmail.com";
 	       String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
 	        
@@ -67,7 +67,6 @@ public class Person {
 	            System.out.println(email + " is ok");
 	        else
 	            System.out.println(email + " is not ok");
-	        
 	}
 
 
