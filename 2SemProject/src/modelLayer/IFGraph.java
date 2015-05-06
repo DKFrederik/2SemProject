@@ -28,4 +28,6 @@ public interface IFGraph {
 	
 	public abstract void bfs(Vertex vertex);
 
+	public abstract void graphColoring();
+
 }

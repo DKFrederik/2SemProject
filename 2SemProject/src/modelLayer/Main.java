@@ -58,6 +58,7 @@ public class Main {
         bsi.addEdge(hold7, hold8);
         bsi.addEdge(hold8, hold9);
         bsi.addEdge(hold9, hold10);
+        bsi.graphColoring();
 
         System.out.println("hold1 - hold2? (true): "
                 + bsi.isAdjacent(hold1, hold2));

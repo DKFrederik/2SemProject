@@ -27,6 +27,51 @@ public class LinkedGraph implements IFGraph  {
 	        for(int i = 0; i < noVer; i++)
 	           adjList.add(new LinkedList<Vertex>());    
 	    }
+	   
+	   public void graphColoring(){	   
+		   // Assign the first color to first vertex
+		   vertices.get(0).setColor(0);
+		   
+		   // Initialize remaining V-1 vertices as unassigned
+		   for(int i = 1; i < noVer; i++){
+			   vertices.get(i).setColor(-1);
+		   }
+
+		   ArrayList<Boolean> tempList = new ArrayList<Boolean>(noVer);
+		   System.out.println(tempList.size());
+		   tempList.add(0, true);
+		   for(int i = 1; i <= noVer; i++){
+			   tempList.add(i, false);
+		   }
+		   
+		   for(int i = 1; i < noVer; i++){
+			   
+			   for(int j = 0; j < adjList.get(i).size(); j++){
+				   if(adjList.get(i).get(j).getColor() != -1){
+					   tempList.set(adjList.get(i).get(j).getColor(), true);
+					   }
+				   }
+			   
+			   int u = 0;
+			   boolean found = false;
+			   while(u < noVer && !found){
+				   if(tempList.get(u) == false){
+					   vertices.get(i).setColor(u);
+					   found = true;
+				   }
+				   u++;
+			   }
+			   
+			   for(int k = 0; k < noVer; k++){
+				   tempList.set(k, false);
+			   }
+			   
+		   }
+		   for(int i = 0; i < noVer; i++){
+			   System.out.println("Vertex " + i + " ---> color " + vertices.get(i).getColor());
+		   }
+		   
+	   }
 
 		@Override
 		public void addVertex(Vertex vertex) {
