@@ -35,8 +35,4 @@ public class Vertex {
 	public int getHashCode() {
 		return name.hashCode();
 	}
-	
-	public int isColor(){
-		return color;
-	}
 }

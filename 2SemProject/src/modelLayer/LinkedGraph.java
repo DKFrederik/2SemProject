@@ -9,9 +9,9 @@ import java.util.TreeMap;
 public class LinkedGraph implements IFGraph  {
 
 	   private List<Vertex> vertices;
+	   private List<LinkedList<Vertex>> adjList;
 	   private int noVer;
 	   private int noOfEdges;
-	   private List<LinkedList<Vertex>> adjList;
 	
 	   public LinkedGraph(int noVer)
 	   {
