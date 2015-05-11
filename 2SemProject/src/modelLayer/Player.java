@@ -1,6 +1,8 @@
 package modelLayer;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Player extends Person{
@@ -8,9 +10,22 @@ public class Player extends Person{
 	private Date bDay;
 	private String position;
 	
-	public Player(String fname, String lname, String email, String phone, Date bDay, String position) {
+	public Player(String fname, String lname, String email, String phone, String sbDay, String position) {
 		super(fname, lname, email, phone);
-		this.bDay = bDay;
+		
+		if (sbDay != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			sdf.setLenient(false);
+			try {
+				bDay = sdf.parse(sbDay);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			throw new NullPointerException("Bday is Null");
+		}
+		
 		this.position = position;
 	}
 	
@@ -35,15 +50,14 @@ public class Player extends Person{
 	}
 	
 	public int getAge() {
-		Calendar bday = Calendar.getInstance();
-		bday.setTime(bDay);
+		Calendar dob = Calendar.getInstance();
+		dob.setTime(bDay);
 		
 		Calendar today = Calendar.getInstance();
-		int age = today.get(Calendar.YEAR) - bday.get(Calendar.YEAR);
-		
-		if (today.get(Calendar.DAY_OF_YEAR) < bday.get(Calendar.DAY_OF_YEAR));
+		int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+		if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR))
 			age--;
 		return age;
 	}
-
 }
