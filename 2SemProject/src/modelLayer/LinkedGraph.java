@@ -27,7 +27,7 @@ public class LinkedGraph implements IFGraph  {
 	        for(int i = 0; i < noVer; i++)
 	           adjList.add(new LinkedList<Vertex>());    
 	    }
-	   
+	   @Override
 	   public void graphColoring(){	   
 		   // Assign the first color to first vertex
 		   vertices.get(0).setColor(0);
