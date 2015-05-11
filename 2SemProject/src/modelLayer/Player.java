@@ -1,6 +1,6 @@
 package modelLayer;
 
-import java.util.Date;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,21 +17,32 @@ public class Player extends Person{
 		this.position = position;
 	}
 	
-	public Player(){
+	public Player(String fname, String lname, String email, String phone, Date bDay, String position) {
+		super(fname, lname, email, phone);
+		
+		this.bDay = bDay;
+		this.position = position;
+	}
+	
+	public Player() {
 		
 	}
 
 	public Date getBDay() {
 		return bDay;
 	}
+	
+	public void setBday(Date bDay) {
+		this.bDay = bDay;
+	}
 
-	public void setBDay(String sbDay) {
-		
+	public void stringSetBDay(String sbDay) {
 		if (sbDay != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			sdf.setLenient(false);
 			try {
-				bDay = sdf.parse(sbDay);
+		        java.util.Date parsed = sdf.parse(sbDay);
+		        bDay = new java.sql.Date(parsed.getTime());
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

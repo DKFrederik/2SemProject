@@ -33,7 +33,7 @@ public class PlayerTest {
 	@Test
 	public void getAgeTest() {
 		assertEquals(21, p.getAge());
-		p.setBDay("1990-01-01");
+		p.setBDay("1990-05-01");
 		assertEquals(25, p.getAge());
 	}
 }
