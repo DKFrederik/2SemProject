@@ -48,12 +48,10 @@ public class DBPlayer {
 	 * @return 
 	 * @throws Exception 
 	 */
-	public int insertProduct(Player player) throws Exception {
+	public int insertPlayer(Player player) throws Exception {
 
 		int rc = -1;
-		String query = "INSERT INTO Player(fname, lname, email, phone, age, position)  VALUES('"
-				//+ pro.getSupplier()
-				//+ "','"
+		String query = "INSERT INTO Player(fname, lname, email, phone, birthday, position)  VALUES('"
 				+ player.getFname()
 				+ "','"
 				+ player.getLname()
@@ -62,7 +60,7 @@ public class DBPlayer {
 				+ "','"
 				+ player.getPhone()
 				+ "','"
-				+ player.getAge()
+				+ player.getBDay()
 				+ "','"
 				+ player.getPosition() + "')";
 
@@ -94,7 +92,7 @@ public class DBPlayer {
 				+ "lname ='" + playerObj.getLname() + "', " 
 				+ "email ='" + playerObj.getEmail() + "', " 
 				+ "phone ='" + playerObj.getPhone() + "', " 
-				+ "age ='" + playerObj.getAge() + "', " 
+				+ "birthday ='" + playerObj.getBDay() + "', " 
 				+ "position ='" + playerObj.getPosition() + "'";
 		
 		query += "WHERE phone = '" + phone + "'";
@@ -197,7 +195,7 @@ public class DBPlayer {
 	 * @return the build SQL query.
 	 */
 	private String buildQuery(String wClause) {
-		String query = "SELECT fname, lname, email, phone, age, position FROM Player";
+		String query = "SELECT fname, lname, email, phone, birthday, position FROM Player";
 
 		if (wClause.length() > 0)
 			query = query + " WHERE " + wClause;
@@ -219,7 +217,7 @@ public class DBPlayer {
 			playerObj.setLname(results.getString("lname"));
 			playerObj.setEmail(results.getString("email"));
 			playerObj.setPhone(results.getString("phone"));
-			playerObj.setAge(Integer.parseInt(results.getString("age")));
+			playerObj.stringSetBDay(results.getString("birthday"));
 			playerObj.setPosition(results.getString("position"));
 		} 
 		catch (Exception e) {
