@@ -13,7 +13,7 @@ public class Player extends Person{
 	public Player(String fname, String lname, String email, String phone, String sbDay, String position) {
 		super(fname, lname, email, phone);
 		
-		setBDay(sbDay);
+		stringSetBDay(sbDay);
 		this.position = position;
 	}
 	
