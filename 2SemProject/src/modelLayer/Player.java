@@ -13,19 +13,7 @@ public class Player extends Person{
 	public Player(String fname, String lname, String email, String phone, String sbDay, String position) {
 		super(fname, lname, email, phone);
 		
-		if (sbDay != null) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-			sdf.setLenient(false);
-			try {
-				bDay = sdf.parse(sbDay);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
-		else {
-			throw new NullPointerException("Bday is Null");
-		}
-		
+		setBDay(sbDay);
 		this.position = position;
 	}
 	
@@ -37,8 +25,20 @@ public class Player extends Person{
 		return bDay;
 	}
 
-	public void setBDay(Date bDay) {
-		this.bDay = bDay;
+	public void setBDay(String sbDay) {
+		
+		if (sbDay != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			sdf.setLenient(false);
+			try {
+				bDay = sdf.parse(sbDay);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			throw new NullPointerException("Bday is Null");
+		}
 	}
 
 	public String getPosition() {

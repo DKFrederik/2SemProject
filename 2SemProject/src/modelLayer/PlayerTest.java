@@ -9,9 +9,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class PlayerTest {
+	private Player p;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+
 	}
 
 	@AfterClass
@@ -20,6 +22,8 @@ public class PlayerTest {
 
 	@Before
 	public void setUp() throws Exception {
+		p = new Player("Nichlas", "Pedersen", "Test@email.com", "11223344", "1993-12-30", "F");
+
 	}
 
 	@After
@@ -27,8 +31,9 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void getAgeTest() {
+		assertEquals(21, p.getAge());
+		p.setBDay("1990-01-01");
+		assertEquals(25, p.getAge());
 	}
-
 }
