@@ -3,7 +3,7 @@ package dbLayer;
 import java.sql.*;
 
 /**
- * @Author Claus Møller Jørgensen
+ * @Author Claus Mï¿½ller Jï¿½rgensen
  * This class is used to create the connection to the database
  * It is implemented as a singleton. The constructor is private to ensure that only
  * one object of the class is generated
@@ -62,6 +62,36 @@ public class DBConnection
             System.out.println(url);
         }//end catch
     }//end  constructor
+    
+//    private DBConnection()
+//    {
+//        try{
+//            //load af driver
+//            //SQL Server
+//    		Class.forName("com.mysql.jdbc.Driver");
+//    		System.out.println("Load af class ok");
+//          
+//        }
+//        catch(Exception e){
+//            System.out.println("Can not find the driver");
+//            System.out.println(e.getMessage());
+//        }//end catch
+//        try{
+//            //connection to the database
+//           
+//    		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/BSI","root", "password");
+//            con.setAutoCommit(true);
+//            dma = con.getMetaData(); // get meta data
+//            System.out.println("Connection to " + dma.getURL());
+//            System.out.println("Driver " + dma.getDriverName());
+//            System.out.println("Database product name " + dma.getDatabaseProductName());
+//        }//end try
+//        catch(Exception e){
+//
+//            System.out.println("Problems with the connection to the database");
+//            System.out.println(e.getMessage());
+//            }//end catch
+//    }//end  constructor
 	   
   //closeDb: closes the connection to the database
     public static void closeConnection()
