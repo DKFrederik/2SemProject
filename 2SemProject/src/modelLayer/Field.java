@@ -5,12 +5,12 @@ public class Field {
 	private String type;
 	//A field can contain n numbers of smaller fields. Example: field "1a", field "1b", field "1c"
 	private String number; 
-	private String length;
-	private String width;
+	private int length;
+	private int width;
 	
-	public Field(String type, String number, String length, String width){
-		this.type = type;
+	public Field(String number, String type, int length, int width){
 		this.number = number;
+		this.type = type;
 		this.length = length;
 		this.width = width;
 	}
@@ -18,28 +18,28 @@ public class Field {
 	/**
 	 * @return the length
 	 */
-	public String getLength() {
+	public int getLength() {
 		return length;
 	}
 
 	/**
 	 * @param length the length to set
 	 */
-	public void setLength(String length) {
+	public void setLength(int length) {
 		this.length = length;
 	}
 
 	/**
 	 * @return the width
 	 */
-	public String getWidth() {
+	public int getWidth() {
 		return width;
 	}
 
 	/**
 	 * @param width the width to set
 	 */
-	public void setWidth(String width) {
+	public void setWidth(int width) {
 		this.width = width;
 	}
 
@@ -55,11 +55,11 @@ public class Field {
 		this.type = type;
 	}
 	
-	public String getNumber(){
+	public String getFieldNumber(){
 		return number;
 	}
 	
-	public void setNumber(String number){
+	public void setFieldNumber(String number){
 		this.number = number;
 	}
 
