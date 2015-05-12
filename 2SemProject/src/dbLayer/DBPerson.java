@@ -47,23 +47,52 @@ public class DBPerson {
 	 * @param pro The person that is to be inserted
 	 * @return 
 	 * @throws Exception 
+	 * firstName
+	 * lastName
+	 * email
+	 * phone
+	 * zipCode 
+	 * city
+	 * Player: birthday, position
+	 * Manager: salary
+	 * staff: username, password
+	 * TYPES: Player, Staff --> TeamLeader, Manager
 	 */
-	public int insertPerson(Person person) throws Exception {
+	public int insertPerson(Person p) throws Exception {
 
 		int rc = -1;
-		String query = "INSERT INTO Person(fname, lname, email, phone, birthday, position)  VALUES('"
-				+ person.getFname()
+		String query = "INSERT INTO Person(firstname, lastname, email, phoneno, zipcode, birthday, position, username, password, salary, type)  VALUES('"
+				+ p.getFname()
 				+ "','"
-				+ person.getLname()
+				+ p.getLname()
 				+ "','"
-				+ person.getEmail()
+				+ p.getEmail()
 				+ "','"
-				+ person.getPhone()
+				+ p.getPhone()
 				+ "','"
-				+ person.getBDay()
-				+ "','"
-				+ person.getPosition() + "')";
-
+				+ p.getZipcode()
+				+ "','";
+		if(p instanceof Player) {
+			Player pl = (Player) p;
+			query += pl.getBDay()
+					+ "','"
+					+ pl.getPosition()
+					+ "','"
+					+ "null"
+					+ "','"
+					+ "null"
+					+ "','"
+					+ "-1"
+					+ ""
+					+ "','"
+					+ "P";
+		}
+		if(p instanceof Manager) {
+			Manager m = (Manager) p;
+			query += 
+		}
+		
+		query += "')";
 		System.out.println("insert : " + query);
 		try { // insert new Person
 			Statement stmt = con.createStatement();
@@ -73,6 +102,8 @@ public class DBPerson {
 		}// end try
 		catch (SQLException ex) {
 			System.out.println("Person not created");
+			System.out.println(ex.getErrorCode());
+			System.out.println(ex.getMessage());
 			throw new Exception("Person is not inserted correct");
 		}
 		return (rc);

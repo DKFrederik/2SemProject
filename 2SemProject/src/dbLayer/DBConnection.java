@@ -65,33 +65,24 @@ public class DBConnection
     
 //    private DBConnection()
 //    {
-//        try{
-//            //load af driver
-//            //SQL Server
-//    		Class.forName("com.mysql.jdbc.Driver");
-//    		System.out.println("Load af class ok");
-//          
+//        if(con == null) {
+//            String url = "jdbc:mysql://localhost:3306/";
+//            String dbName = "BSI";
+//            String driver = "com.mysql.jdbc.Driver";
+//            String userName = "root";
+//            String password = "RMED009";
+//            try {
+//                Class.forName(driver).newInstance();
+//                con = DriverManager.getConnection(url + dbName, userName, password);
+//                System.out.println("Connected to " + dbName + " with " + userName);
+//            } 
+//            catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+//                e.printStackTrace();
+//            }
 //        }
-//        catch(Exception e){
-//            System.out.println("Can not find the driver");
-//            System.out.println(e.getMessage());
-//        }//end catch
-//        try{
-//            //connection to the database
-//           
-//    		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/BSI","root", "password");
-//            con.setAutoCommit(true);
-//            dma = con.getMetaData(); // get meta data
-//            System.out.println("Connection to " + dma.getURL());
-//            System.out.println("Driver " + dma.getDriverName());
-//            System.out.println("Database product name " + dma.getDatabaseProductName());
-//        }//end try
-//        catch(Exception e){
-//
-//            System.out.println("Problems with the connection to the database");
-//            System.out.println(e.getMessage());
-//            }//end catch
-//    }//end  constructor
+//                
+//    }
+
 	   
   //closeDb: closes the connection to the database
     public static void closeConnection()
@@ -106,7 +97,7 @@ public class DBConnection
     }//end closeDB
 		
     //getDBcon: Get-method, returns the connection to the database
-    public  Connection getDBcon()
+    public Connection getDBcon()
     {
        return con;
     }
