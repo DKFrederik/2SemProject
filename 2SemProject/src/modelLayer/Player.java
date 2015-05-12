@@ -10,15 +10,15 @@ public class Player extends Person{
 	private Date bDay;
 	private String position;
 	
-	public Player(String fname, String lname, String email, String phone, String sbDay, String position) {
-		super(fname, lname, email, phone);
+	public Player(String fname, String lname, String email, String phone, String zipcode, String sbDay, String position) {
+		super(fname, lname, email, phone, zipcode);
 		
 		stringSetBDay(sbDay);
 		this.position = position;
 	}
 	
-	public Player(String fname, String lname, String email, String phone, Date bDay, String position) {
-		super(fname, lname, email, phone);
+	public Player(String fname, String lname, String email, String phone, String zipcode, Date bDay, String position) {
+		super(fname, lname, email, phone, zipcode);
 		
 		this.bDay = bDay;
 		this.position = position;

@@ -22,7 +22,7 @@ public class PlayerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		p = new Player("Nichlas", "Pedersen", "Test@email.com", "11223344", "1993-12-30", "F");
+		p = new Player("Nichlas", "Pedersen", "Test@email.com", "9800", "11223344", "1993-12-30", "F");
 
 	}
 

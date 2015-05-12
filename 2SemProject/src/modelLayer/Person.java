@@ -9,12 +9,14 @@ public class Person {
 	private String lname;
 	private String email;
 	private String phone;
+	private String zipcode;
+	private String city;
 	
-	public Person(String fname, String lname, String email, String phone){
+	public Person(String fname, String lname, String email, String phone, String zipcode){
 		if(email == null){
 			email = "";
 		}
-		
+		this.zipcode = zipcode;
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
@@ -54,6 +56,22 @@ public class Person {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	
+	public String getZipcode() {
+		return zipcode;
+	}
+	
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	
+	public String getCity() {
+		return city;
+	}
+	
+	public void setCity(String city) {
+		this.city = city;
 	}
 	
 	public void checkEmail() {
