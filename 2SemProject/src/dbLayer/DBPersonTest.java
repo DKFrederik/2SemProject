@@ -13,6 +13,10 @@ import modelLayer.*;
 
 public class DBPersonTest {
 	private Player pl;
+	private Referee r;
+	private TeamLeader tl;
+	private Manager m;
+	private Staff s;
 	private DBPerson dbP;
 
 	@BeforeClass
@@ -26,6 +30,10 @@ public class DBPersonTest {
 	@Before
 	public void setUp() throws Exception {
 		pl = new Player("Nichlas", "Pedersen", "Test@email.com", "11223344", "9800", "1993-12-30", "F");
+		r = new Referee("Ref", "Eree", "joe@email.com", "22334455", "9800");
+		tl = new TeamLeader("Team", "Leader", "Leading@email.com", "33445566", "9800", "Teamiie", "123456");
+		m = new Manager("Man", "Ager", "Man@email.com", "44556677", "9800", "Mana", "123456", 12000);
+		s = new Staff("Staff", "Orb", "Mailing@email.com", "55667788", "9800", "Staff", "123456");
 		dbP = new DBPerson();
 	}
 
@@ -34,15 +42,73 @@ public class DBPersonTest {
 	}
 	
 	@Test
-	public void insertTest() {
+	public void insertPlayerTest() {
 		try {
-			assertEquals(0, dbP.insertPerson(pl));
+			assertEquals(1, dbP.insertPerson(pl));
+			dbP.deletePerson(pl.getPhone());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			fail("");
-
 		}
+	}
+	@Test
+	public void insertRefTest() {
+		try {
+			assertEquals(1, dbP.insertPerson(r));
+			dbP.deletePerson(r.getPhone());
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	@Test
+	public void insertTeamLeaderTest() {
+		try {
+			assertEquals(1, dbP.insertPerson(tl));
+			dbP.deletePerson(tl.getPhone());
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	@Test
+	public void insertManagerTest() {
+		try {
+			assertEquals(1, dbP.insertPerson(m));
+			dbP.deletePerson(m.getPhone());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	@Test
+	public void insertStaffTest() {
+		try {
+			assertEquals(1, dbP.insertPerson(s));
+			dbP.deletePerson(s.getPhone());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void updatePlayer() {
+		try {
+			pl.setFname("Carlos");
+			dbP.insertPerson(pl);
+			assertEquals(0, dbP.updatePerson(pl, pl.getPhone()));
+			dbP.deletePerson(pl.getPhone());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dbP.updatePerson(pl, pl.getPhone());
 	}
 
 }

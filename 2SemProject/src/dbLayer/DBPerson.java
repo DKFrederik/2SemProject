@@ -33,12 +33,12 @@ public class DBPerson {
 
 	/**
 	 * 
-	 * @param name The name of the person that you wish to find.
-	 * @param retriveAssociation Determines if associations should be retrieved or not. 
+	 * @param phone The phone number of the person that you wish to find.
+	 * @param retriveAssoc.iation Determines if associations should be retrieved or not. 
 	 * @return A Person Object if found, null if not.
 	 */
 	public Person findPerson(String phone, boolean retriveAssociation) {
-		String wClause = "  name = '" + phone + "'";
+		String wClause = "  phoneno = '" + phone + "'";
 		return singleWhere(wClause, retriveAssociation);
 	}
 	
@@ -62,34 +62,39 @@ public class DBPerson {
 
 		int rc = -1;
 		String query = "INSERT INTO Person(firstname, lastname, email, phoneno, zipcode, birthday, position, username, password, salary, type)  VALUES('"
-				+ p.getFname()
-				+ "','"
-				+ p.getLname()
-				+ "','"
-				+ p.getEmail()
-				+ "','"
-				+ p.getPhone()
-				+ "','"
-				+ p.getZipcode()
-				+ "','";
+				+ p.getFname() + "','" + p.getLname() + "','"
+				+ p.getEmail() + "','" + p.getPhone() + "','"
+				+ p.getZipcode() + "','";
 		if(p instanceof Player) {
 			Player pl = (Player) p;
-			query += pl.getBDay()
-					+ "','"
-					+ pl.getPosition()
-					+ "','"
-					+ "null"
-					+ "','"
-					+ "null"
-					+ "','"
-					+ "-1"
-					+ ""
-					+ "','"
-					+ "P";
+			query += pl.getBDay() + "','" + pl.getPosition() + "','" 
+					+ "null" + "','" + "null" + "','"
+					+ "-1" + "','" + "P";
 		}
-		if(p instanceof Manager) {
+		
+		if(p instanceof TeamLeader) {
+			TeamLeader tl = (TeamLeader) p;
+			query += "null" + "','" + "null" + "','"
+					+ tl.getUsername() + "','" + tl.getPassword() + "','" 
+					+ "-1" + "','" + "T";
+		}
+		else if(p instanceof Manager) {
 			Manager m = (Manager) p;
-			query += 
+			query += "null" + "','" + "null" + "','" 
+					+ m.getUsername() + "','" + m.getPassword() + "','"
+					+ m.getSalary() + "','" + "M";
+		}
+		else if(p instanceof Staff) {
+			Staff s = (Staff) p;
+			query += "null" + "','" + "null" + "','" 
+					+ s.getUsername() + "','" + s.getPassword() + "','"
+					+ "-1" + "','" + "S";
+		}
+		if(p instanceof Referee) {
+			Referee r = (Referee) p;
+			query += "null" + "','" + "null" + "','"
+					+ "null" + "','" + "null" + "','" 
+					+ "-1" + "','" + "R";
 		}
 		
 		query += "')";
@@ -114,19 +119,48 @@ public class DBPerson {
 	 * @param cus The customer object that is to be updated in the database.
 	 * @return
 	 */
-	public int updatePerson(Person person, String phone) {
-		Person personObj = person;
+	public int updatePerson(Person p, String phone) {
+		Person personObj = p;
 		int rc = -1;
 
 		String query = "UPDATE Person SET " 
 				+ "fname ='" + personObj.getFname() + "', " 
 				+ "lname ='" + personObj.getLname() + "', " 
 				+ "email ='" + personObj.getEmail() + "', " 
-				+ "phone ='" + personObj.getPhone() + "', " 
-				+ "birthday ='" + personObj.getBDay() + "', " 
-				+ "position ='" + personObj.getPosition() + "'";
+				+ "phone ='" + personObj.getPhone() + "', ";
+		if(p instanceof Player) {
+			Player pl = (Player) personObj;
+			query += pl.getBDay() + "','" + pl.getPosition() + "','" 
+					+ "null" + "','" + "null" + "','"
+					+ "-1" + "','" + "P";
+		}
 		
-		query += "WHERE phone = '" + phone + "'";
+		if(p instanceof TeamLeader) {
+			TeamLeader tl = (TeamLeader) personObj;
+			query += "null" + "','" + "null" + "','"
+					+ tl.getUsername() + "','" + tl.getPassword() + "','" 
+					+ "-1" + "','" + "T";
+		}
+		else if(p instanceof Manager) {
+			Manager m = (Manager) personObj;
+			query += "null" + "','" + "null" + "','" 
+					+ m.getUsername() + "','" + m.getPassword() + "','"
+					+ m.getSalary() + "','" + "M";
+		}
+		else if(p instanceof Staff) {
+			Staff s = (Staff) personObj;
+			query += "null" + "','" + "null" + "','" 
+					+ s.getUsername() + "','" + s.getPassword() + "','"
+					+ "-1" + "','" + "S";
+		}
+		if(p instanceof Referee) {
+			Referee r = (Referee) personObj;
+			query += "null" + "','" + "null" + "','"
+					+ "null" + "','" + "null" + "','" 
+					+ "-1" + "','" + "R";
+		}
+
+		query += " WHERE phone = '" + phone + "'";
 		System.out.println("Update query:" + query);
 		
 		try {
@@ -145,7 +179,7 @@ public class DBPerson {
 	public int deletePerson(String phone) {
 		int rc = -1;
 
-		String query = "DELETE FROM Person WHERE phone = '" + phone + "'";
+		String query = "DELETE FROM Person WHERE phoneno = '" + phone + "'";
 		System.out.println(query);
 		try {
 			Statement stmt = con.createStatement();
@@ -242,12 +276,33 @@ public class DBPerson {
 	 */
 	private Person buildPerson(ResultSet results){
 		Person personObj = new Person();
+		
+		try {
+			if(results.getString("type").equals("P")) {
+				buildPlayer(results);
+			}
+			else if(results.getString("type").equals("T")) {
+				buildTeamLeader(results);
+			}
+			else if(results.getString("type").equals("M")) {
+				buildManager(results);
+			}
+			else if(results.getString("type").equals("S")) {
+				buildStaff(results);
+			}
+			else if(results.getString("type").equals("R")) {
+				buildReferee(results);
+			}
+
+		}
 		try 
 		{
 			personObj.setFname(results.getString("fname"));
 			personObj.setLname(results.getString("lname"));
 			personObj.setEmail(results.getString("email"));
 			personObj.setPhone(results.getString("phone"));
+			personObj.setZipcode(results.getString("zipcode"));
+			personObj.setCity(results.getString(""));
 			personObj.stringSetBDay(results.getString("birthday"));
 			personObj.setPosition(results.getString("position"));
 		} 
@@ -257,5 +312,26 @@ public class DBPerson {
 		return personObj;
 	}
 	
+	private Player buildPlayer(ResultSet results) {
+		Player p = new Player();
+		
+		return p;
+	}
+	private TeamLeader buildTeamLeader(ResultSet results) {
+		TeamLeader tl = new TeamLeader();
+	}
+	
+	private Manager buildManager(ResultSet results) {
+		
+	}
+	
+	private Staff buildStaff(ResultSet results) {
+		
+	}
+	
+	private Referee buildReferee(ResultSet results) {
+		
+	}
+
 }
 
