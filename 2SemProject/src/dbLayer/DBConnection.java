@@ -29,59 +29,59 @@ public class DBConnection
     private static DBConnection  instance = null;
 
     // the constructor is private to ensure that only one object of this class is created
-//    private DBConnection()
-//    {
-//    	String url = driver + databaseName + userName + password;
-//
-//        try{
-//            //load af driver
-//            //SQL Server
-//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//            System.out.println("Load af class ok");
-//          
-//        }
-//        catch(Exception e){
-//            System.out.println("Can not find the driver");
-//            System.out.println(e.getMessage());
-//        }//end catch
-//        try{
-//            //connection to the database
-//           
-//            con = DriverManager.getConnection(url);
-//            //set autocommit
-//            con.setAutoCommit(true);
-//            dma = con.getMetaData(); // get meta data
-//            System.out.println("Connection to " + dma.getURL());
-//            System.out.println("Driver " + dma.getDriverName());
-//            System.out.println("Database product name " + dma.getDatabaseProductName());
-//        }//end try
-//        catch(Exception e){
-//
-//            System.out.println("Problems with the connection to the database");
-//            System.out.println(e.getMessage());
-//            System.out.println(url);
-//        }//end catch
-//    }//end  constructor
-    
     private DBConnection()
     {
-        if(con == null) {
-            String url = "jdbc:mysql://localhost:3306/";
-            String dbName = "BSI";
-            String driver = "com.mysql.jdbc.Driver";
-            String userName = "root";
-            String password = "RMED009";
-            try {
-                Class.forName(driver).newInstance();
-                con = DriverManager.getConnection(url + dbName, userName, password);
-                System.out.println("Connected to " + dbName + " with " + userName);
-            } 
-            catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                e.printStackTrace();
-            }
+    	String url = driver + databaseName + userName + password;
+
+        try{
+            //load af driver
+            //SQL Server
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            System.out.println("Load af class ok");
+          
         }
-                
-    }
+        catch(Exception e){
+            System.out.println("Can not find the driver");
+            System.out.println(e.getMessage());
+        }//end catch
+        try{
+            //connection to the database
+           
+            con = DriverManager.getConnection(url);
+            //set autocommit
+            con.setAutoCommit(true);
+            dma = con.getMetaData(); // get meta data
+            System.out.println("Connection to " + dma.getURL());
+            System.out.println("Driver " + dma.getDriverName());
+            System.out.println("Database product name " + dma.getDatabaseProductName());
+        }//end try
+        catch(Exception e){
+
+            System.out.println("Problems with the connection to the database");
+            System.out.println(e.getMessage());
+            System.out.println(url);
+        }//end catch
+    }//end  constructor
+    
+//    private DBConnection()
+//    {
+//        if(con == null) {
+//            String url = "jdbc:mysql://localhost:3306/";
+//            String dbName = "BSI";
+//            String driver = "com.mysql.jdbc.Driver";
+//            String userName = "root";
+//            String password = "RMED009";
+//            try {
+//                Class.forName(driver).newInstance();
+//                con = DriverManager.getConnection(url + dbName, userName, password);
+//                System.out.println("Connected to " + dbName + " with " + userName);
+//            } 
+//            catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//                
+//    }
 
 	   
   //closeDb: closes the connection to the database
