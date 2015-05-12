@@ -3,6 +3,8 @@ package dbLayer;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -168,6 +170,23 @@ public class DBPersonTest {
 			Referee r2 = (Referee) dbP.findPerson(r.getPhone(), false);
 			assertTrue((r2.getFname() + r2.getLname()).equals(r.getFname() + r.getLname()));
 			dbP.deletePerson(r.getPhone());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getAllPersonsTest() {
+		try {
+			dbP.insertPerson(pl);
+			dbP.insertPerson(m);
+			ArrayList<Person> list = new ArrayList<Person>();
+			list = dbP.getAllPersons(false);
+			assertTrue(pl.getFname().equals(list.get(0).getFname()));
+			dbP.deletePerson(pl.getPhone());
+			dbP.deletePerson(m.getPhone());
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

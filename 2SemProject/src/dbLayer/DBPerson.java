@@ -44,19 +44,9 @@ public class DBPerson {
 	
 	/**
 	 * 
-	 * @param pro The person that is to be inserted
+	 * @param p The person that is to be inserted
 	 * @return 
 	 * @throws Exception 
-	 * firstName
-	 * lastName
-	 * email
-	 * phone
-	 * zipCode 
-	 * city
-	 * Player: birthday, position
-	 * Manager: salary
-	 * staff: username, password
-	 * TYPES: Player, Staff --> TeamLeader, Manager
 	 */
 	public int insertPerson(Person p) throws Exception {
 
@@ -115,7 +105,7 @@ public class DBPerson {
 
 	/**
 	 * 
-	 * @param cus The customer object that is to be updated in the database.
+	 * @param p The Person object that is to be updated in the database.
 	 * @return
 	 */
 	public int updatePerson(Person p, String phone) {
