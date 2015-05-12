@@ -62,6 +62,28 @@ public class DBConnection
             System.out.println(url);
         }//end catch
     }//end  constructor
+<<<<<<< HEAD
+    
+//    private DBConnection()
+//    {
+//        if(con == null) {
+//            String url = "jdbc:mysql://localhost:3306/";
+//            String dbName = "BSI";
+//            String driver = "com.mysql.jdbc.Driver";
+//            String userName = "root";
+//            String password = "RMED009";
+//            try {
+//                Class.forName(driver).newInstance();
+//                con = DriverManager.getConnection(url + dbName, userName, password);
+//                System.out.println("Connected to " + dbName + " with " + userName);
+//            } 
+//            catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//                
+//    }
+
 	   
   //closeDb: closes the connection to the database
     public static void closeConnection()
@@ -76,7 +98,7 @@ public class DBConnection
     }//end closeDB
 		
     //getDBcon: Get-method, returns the connection to the database
-    public  Connection getDBcon()
+    public Connection getDBcon()
     {
        return con;
     }
