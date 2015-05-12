@@ -9,8 +9,8 @@ import java.util.ArrayList;
  * DBPerson.java
  * 
  * @author Peter, Frederik, Claus og Nichlas.
- * @version 20.03.2015
- *
+ * @version 12.05.2015
+ * Database class for Person and childre of Person. Handles insertion, delete, update, find and find all.
  */
 public class DBPerson {
 	private Connection con;

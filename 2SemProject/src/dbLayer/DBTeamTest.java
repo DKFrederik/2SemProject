@@ -43,7 +43,6 @@ public class DBTeamTest {
 			dbt.deleteTeam(t.getNumber());
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -53,7 +52,6 @@ public class DBTeamTest {
 		try {
 			dbt.insertTeam(t);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Team t2 = dbt.findTeam(t.getNumber(), false);
@@ -63,6 +61,18 @@ public class DBTeamTest {
 	}
 	
 	@Test
+	public void updateTeamTest() {
+		try {
+			dbt.insertTeam(t);
+			t.setNumber("4321");
+			dbt.updateTeam(t, "1234");
+			assertNotNull(dbt.findTeam("4321", false));
+			dbt.deleteTeam("4321");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
 	public void findAllTeam() {
 		Team t2 = new Team("4321");
 		t2.setLeague(4);
@@ -70,7 +80,6 @@ public class DBTeamTest {
 			dbt.insertTeam(t2);
 			dbt.insertTeam(t);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ArrayList<Team> teams = dbt.getAllTeams(false);
