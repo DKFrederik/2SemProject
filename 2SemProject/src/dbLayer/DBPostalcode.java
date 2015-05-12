@@ -8,7 +8,7 @@ public class DBPostalcode {
 	private Connection con;
 
 	/**
-	 * Constructor for DBPerson() class. 
+	 * Constructor for DBPostalcode() class. 
 	 */
 	public DBPostalcode() {
 		con = DBConnection.getInstance().getDBcon();
