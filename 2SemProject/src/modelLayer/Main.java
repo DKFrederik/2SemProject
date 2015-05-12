@@ -66,14 +66,6 @@ public class Main {
 //        bsi.addEdge(hold0, hold5);
 //        bsi.graphColoring();
         
-    	List<Integer> numbers = Arrays.asList(1, 5, 5, 2, 1, 3,
-    			21, 23, 7, 5, 3, 2, 4);
-    	System.out.println("Filtering odds and getting them as a list: ");
-        List<Integer> l = numbers.stream()
-        	.filter((x) -> x % 2 != 0)
-        	.collect(toList());
-        for(int x : l) System.out.println(x);
-        
         //Double edged colored graph
         bsi.addEdge(hold0, hold1);
         bsi.addEdge(hold0, hold2);
