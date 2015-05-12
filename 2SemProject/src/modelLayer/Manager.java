@@ -7,9 +7,9 @@ import java.util.List;
 
 public class Manager extends Staff{
 	
-	private int salary;
+	private double salary;
 
-	public Manager(String fname, String lname, String email, String phone, String zipcode, String username, String password, int salary) {
+	public Manager(String fname, String lname, String email, String phone, String zipcode, String username, String password, double salary) {
 		super(fname, lname, email, phone, zipcode, username, password);
 		this.salary = salary;
 	}
@@ -18,12 +18,12 @@ public class Manager extends Staff{
 		super();
 	}
 	
-	public int getSalary(){
+	public double getSalary(){
 		return salary;
 	}
 	
-	public void setSalary(int salary){
-		this.salary = salary;
+	public void setSalary(double d){
+		this.salary = d;
 	}
 	
 
