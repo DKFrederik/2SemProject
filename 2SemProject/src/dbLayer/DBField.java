@@ -37,8 +37,8 @@ public class DBField {
 	 * @param retriveAssociation Determines if associations should be retrieved or not. 
 	 * @return A Field Object if found, null if not.
 	 */
-	public Field findField(String number, boolean retriveAssociation) {
-		String wClause = "  name = '" + number + "'";
+	public Field findField(String fieldNumber, boolean retriveAssociation) {
+		String wClause = "  name = '" + fieldNumber + "'";
 		return singleWhere(wClause, retriveAssociation);
 	}
 	
@@ -47,33 +47,21 @@ public class DBField {
 	 * @param pro The field that is to be inserted
 	 * @return 
 	 * @throws Exception 
-	 * number
+	 * fieldNumber
 	 * type
 	 */
 	public int insertField(Field f) throws Exception {
 
 		int rc = -1;
-		String query = "INSERT INTO Field(number, type)  VALUES('"
+		String query = "INSERT INTO Field(fieldNumber, type)  VALUES('"
 				+ f.getNumber()
 				+ "','"
 				+ f.getType()
+				+ "','"
+				+ f.getLength()
+				+ "','"
+				+ f.getWidth()
 				+ "','";
-//		if(f instanceof Field) {
-//			Player pl = (Field) f;
-//			query += pl.getBDay()
-//					+ "','"
-//					+ pl.getPosition()
-//					+ "','"
-//					+ "null"
-//					+ "','"
-//					+ "null"
-//					+ "','"
-//					+ "-1"
-//					+ ""
-//					+ "','"
-//					+ "P";
-//		}
-		
 		
 		query += "')";
 		System.out.println("insert : " + query);
@@ -97,14 +85,16 @@ public class DBField {
 	 * @param The field object that is to be updated in the database.
 	 * @return
 	 */
-	public int updateField(Field field, String number) {
+	public int updateField(Field field, String fieldNumber) {
 		Field fieldObj = field;
 		int rc = -1;
 
 		String query = "UPDATE Field SET " 
-				+ "fname ='" + fieldObj.getNumber() + "', " 
-				+ "lname ='" + fieldObj.getType() + "', ";
-		query += "WHERE number = '" + number + "'";
+				+ "fieldNumber ='" + fieldObj.getNumber() + "', " 
+				+ "type ='" + fieldObj.getType() + "', "
+				+ "length ='" + fieldObj.getLength() + "', "
+				+ "width ='" + fieldObj.getWidth() + "', ";
+		query += "WHERE fieldNumber = '" + fieldNumber + "'";
 		System.out.println("Update query:" + query);
 		
 		try {
@@ -120,10 +110,10 @@ public class DBField {
 		return (rc);
 	}
 
-	public int deleteField(String number) {
+	public int deleteField(String fieldNumber) {
 		int rc = -1;
 
-		String query = "DELETE FROM Field WHERE number = '" + number + "'";
+		String query = "DELETE FROM Field WHERE fieldNumber = '" + fieldNumber + "'";
 		System.out.println(query);
 		try {
 			Statement stmt = con.createStatement();
@@ -202,7 +192,7 @@ public class DBField {
 	 * @return the build SQL query.
 	 */
 	private String buildQuery(String wClause) {
-		String query = "SELECT number, type, position FROM Field";
+		String query = "SELECT fieldNumber, type, position FROM Field";
 
 		if (wClause.length() > 0)
 			query = query + " WHERE " + wClause;
@@ -220,7 +210,7 @@ public class DBField {
 		Field fieldObj = new Field();
 		try 
 		{
-			fieldObj.setNumber(results.getString("number"));
+			fieldObj.setNumber(results.getString("fieldNumber"));
 			fieldObj.setType(results.getString("type"));
 		} 
 		catch (Exception e) {
