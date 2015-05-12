@@ -6,5 +6,8 @@
 	<classpathentry kind="lib" path="C:/Users/Frederik/Dropbox/UCN/2Semester/programmering/ikkeZiped/session04/jarFiles/junit-4.10.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Frederik/Dropbox/UCN/2Semester/programmering/ikkeZiped/session04/jarFiles/sqljdbc4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Frederik/Dropbox/UCN/2Semester/programmering/ikkeZiped/session04/jarFiles/swing-layout-1.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/project_2/2SemProject/2SemProject/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="D:/project_2/2SemProject/2SemProject/sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="D:/project_2/2SemProject/2SemProject/swing-layout-1.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
