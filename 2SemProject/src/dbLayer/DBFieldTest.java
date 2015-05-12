@@ -12,8 +12,8 @@ import org.junit.Test;
 import modelLayer.*;
 
 public class DBFieldTest {
-	private Player pl;
-	private DBPerson dbP;
+	private Field f;
+	private DBField dbF;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -25,8 +25,8 @@ public class DBFieldTest {
 
 	@Before
 	public void setUp() throws Exception {
-		pl = new Field("1", "Pedersen", "Test@email.com", "11223344", "9800", "1993-12-30", "F");
-		dbP = new DBPerson();
+		f = new Field("1", "Kamp", "100", "64");
+		dbF = new DBField();
 	}
 
 	@After
@@ -36,7 +36,7 @@ public class DBFieldTest {
 	@Test
 	public void insertTest() {
 		try {
-			assertEquals(0, dbP.insertPerson(pl));
+			assertEquals(0, dbF.insertField(f));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

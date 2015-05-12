@@ -192,7 +192,7 @@ public class DBField {
 	 * @return the build SQL query.
 	 */
 	private String buildQuery(String wClause) {
-		String query = "SELECT fieldNumber, type, position FROM Field";
+		String query = "SELECT fieldNumber, type, length, width FROM Field";
 
 		if (wClause.length() > 0)
 			query = query + " WHERE " + wClause;
@@ -212,6 +212,8 @@ public class DBField {
 		{
 			fieldObj.setNumber(results.getString("fieldNumber"));
 			fieldObj.setType(results.getString("type"));
+			fieldObj.setLength(results.getString("length"));
+			fieldObj.setWidth(results.getString("width"));
 		} 
 		catch (Exception e) {
 			System.out.println("error in building the field object");
