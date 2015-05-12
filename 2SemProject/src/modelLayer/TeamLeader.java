@@ -6,6 +6,10 @@ public class TeamLeader extends Staff{
 		super(fname, lname, email, phone, zipcode, username, password);
 		
 	}
+	
+	public TeamLeader() {
+		super();
+	}
 
 
 }

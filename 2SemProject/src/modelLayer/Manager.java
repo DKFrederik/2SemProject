@@ -14,6 +14,10 @@ public class Manager extends Staff{
 		this.salary = salary;
 	}
 	
+	public Manager() {
+		super();
+	}
+	
 	public int getSalary(){
 		return salary;
 	}

@@ -11,6 +11,10 @@ public class Staff extends Person{
 		this.password = password;
 	}
 	
+	public Staff() {
+		
+	}
+
 	public String getUsername(){
 		return username;
 	}
