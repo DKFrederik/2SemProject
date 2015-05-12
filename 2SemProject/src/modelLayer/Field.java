@@ -11,6 +11,10 @@ public class Field {
 		this.number = number;
 	}
 	
+	public Field() {
+		
+	}
+	
 	public String getType(){
 		return type;
 	}

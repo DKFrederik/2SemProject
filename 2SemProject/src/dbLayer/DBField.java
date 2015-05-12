@@ -155,7 +155,7 @@ public class DBField {
 			results = stmt.executeQuery(query);
 
 			while (results.next()) {
-				Field fieldObj = new Field(query, query);
+				Field fieldObj = new Field();
 				fieldObj = buildField(results);
 				list.add(fieldObj);
 			}// end while
@@ -173,7 +173,7 @@ public class DBField {
 
 	private Field singleWhere(String wClause, boolean retrieveAssociation) {
 		ResultSet results;
-		Field fieldObj = new Field(null, null);
+		Field fieldObj = new Field();
 
 		String query = buildQuery(wClause);
 		System.out.println(query);
@@ -217,7 +217,7 @@ public class DBField {
 	 * @return a field
 	 */
 	private Field buildField(ResultSet results){
-		Field fieldObj = new Field(null, null);
+		Field fieldObj = new Field();
 		try 
 		{
 			fieldObj.setNumber(results.getString("number"));
