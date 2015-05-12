@@ -12,6 +12,10 @@ public class Team {
 		this.number = number;
 	}
 	
+	public Team() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void addPlayer(Player player){
 		players.add(player);
 	}
