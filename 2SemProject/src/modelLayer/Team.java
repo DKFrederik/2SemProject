@@ -6,9 +6,10 @@ public class Team {
 	
 	private List<Player> players;
 	private int league;
+	private String number;
 	
-	public Team(int league){
-		this.league = league;
+	public Team(String number){
+		this.number = number;
 	}
 	
 	public void addPlayer(Player player){
@@ -29,6 +30,21 @@ public class Team {
 	
 	public void setLeague(int league){
 		this.league = league;
+	}
+	
+	public String getNumber()
+	{
+		return this.number;
+	}
+	
+	public void setNumber(String number)
+	{
+		this.number = number;
+	}
+	
+	public List<Player> getPlayers()
+	{
+		return this.players;
 	}
 
 }

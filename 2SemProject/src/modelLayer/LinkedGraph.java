@@ -143,6 +143,11 @@ public class LinkedGraph implements IFGraph  {
 				vertices.get(i).setColor(-1);
 			}
 	    }
+		
+		public String getVertexName(int index)
+		{
+			return this.vertices.get(index).getName();
+		}
 
 //		@Override
 //		public void dfs(Vertex vertex){

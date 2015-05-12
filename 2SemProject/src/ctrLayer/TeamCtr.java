@@ -1,6 +1,7 @@
 package ctrLayer;
 
 import java.sql.Connection;
+import java.util.List;
 
 import modelLayer.*;
 import dbLayer.*;
@@ -31,7 +32,7 @@ public class TeamCtr {
 	
 	public Team findTeam(String teamNumber)
 	{
-		return
+		return null;
 	}
 	
 	public void deleteTeam(String teamNumber)
@@ -42,6 +43,11 @@ public class TeamCtr {
 	public void updateTeam(Team t, String oldTeamNumber)
 	{
 		
+	}
+	
+	public List<Team> getTeams(List<String> teamNumberList)
+	{
+		return null;
 	}
 	
 }
