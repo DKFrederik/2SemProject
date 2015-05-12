@@ -3,25 +3,37 @@ package modelLayer;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Player extends Person{
 	
 	private Date bDay;
 	private String position;
+	private ArrayList<Team> teams;
 	
 	public Player(String fname, String lname, String email, String phone, String zipcode, String sbDay, String position) {
 		super(fname, lname, email, phone, zipcode);
 		
+		teams = new ArrayList<Team>();
 		stringSetBDay(sbDay);
 		this.position = position;
 	}
 	
-	public Player(String fname, String lname, String email, String phone, String zipcode, Date bDay, String position) {
-		super(fname, lname, email, phone, zipcode);
-		
-		this.bDay = bDay;
-		this.position = position;
+	public ArrayList<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(ArrayList<Team> teams) {
+		this.teams = teams;
+	}
+	
+	public void addTeam(Team t) {
+		teams.add(t);
+	}
+
+	public void removeTeam(Team t) {
+		teams.remove(t);
 	}
 	
 	public Player() {
