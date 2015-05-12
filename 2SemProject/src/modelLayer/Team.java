@@ -1,5 +1,6 @@
 package modelLayer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Team {
@@ -10,6 +11,7 @@ public class Team {
 	
 	public Team(String number){
 		this.number = number;
+		this.players = new ArrayList<Player>();
 	}
 	
 	public Team() {
