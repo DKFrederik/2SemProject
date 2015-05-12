@@ -100,10 +100,12 @@ public class DBPersonTest {
 	@Test
 	public void updatePlayer() {
 		try {
-			pl.setFname("Carlos");
-			dbP.insertPerson(pl);
-			assertEquals(0, dbP.updatePerson(pl, pl.getPhone()));
-			dbP.deletePerson(pl.getPhone());
+			Player pl2 = new Player("Carlos", "Slim", "Test@email.com", "11112222", "9800", "1993-12-30", "F");
+			dbP.insertPerson(pl2);
+			pl2.setFname("John");
+			assertEquals(1, dbP.updatePerson(pl2, pl2.getPhone()));
+			System.out.println(pl2.getFname());
+			dbP.deletePerson(pl2.getPhone());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,4 +113,17 @@ public class DBPersonTest {
 		dbP.updatePerson(pl, pl.getPhone());
 	}
 
+	@Test
+	public void buildPlayerTest() {
+		try {
+			dbP.insertPerson(pl);
+			Player pl2 = (Player) dbP.findPerson(pl.getPhone(), false);
+			System.out.println(pl2.getFname());
+			System.out.println(pl2.getBDay());
+			dbP.deletePerson(pl.getPhone());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

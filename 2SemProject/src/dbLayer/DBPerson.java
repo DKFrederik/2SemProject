@@ -124,43 +124,54 @@ public class DBPerson {
 		int rc = -1;
 
 		String query = "UPDATE Person SET " 
-				+ "fname ='" + personObj.getFname() + "', " 
-				+ "lname ='" + personObj.getLname() + "', " 
-				+ "email ='" + personObj.getEmail() + "', " 
-				+ "phone ='" + personObj.getPhone() + "', ";
+				+ "firstName = '" + personObj.getFname() + "', " 
+				+ "lastName = '" + personObj.getLname() + "', " 
+				+ "email = '" + personObj.getEmail() + "', " 
+				+ "phoneno = '" + personObj.getPhone() + "', ";
 		if(p instanceof Player) {
 			Player pl = (Player) personObj;
-			query += pl.getBDay() + "','" + pl.getPosition() + "','" 
-					+ "null" + "','" + "null" + "','"
-					+ "-1" + "','" + "P";
+			query += "birthday = '" + pl.getBDay() + "', "
+					+ "position = '" + pl.getPosition() + "', " 
+					+ "username = '" + "null" + "', " 
+					+ "password = '" + "null" + "', "
+					+ "salary = '" + "-1" + "', " 
+					+ "type = '" + "P";
 		}
 		
 		if(p instanceof TeamLeader) {
 			TeamLeader tl = (TeamLeader) personObj;
-			query += "null" + "','" + "null" + "','"
-					+ tl.getUsername() + "','" + tl.getPassword() + "','" 
-					+ "-1" + "','" + "T";
-		}
+			query += "birthday = '" + "null" + "', "
+					+ "position = '" + "null" + "', " 
+					+ "username = '" + tl.getUsername() + "', " 
+					+ "password = '" + tl.getPassword() + "', "
+					+ "salary = '" + "-1" + "', " 
+					+ "type = '" + "T";		}
 		else if(p instanceof Manager) {
 			Manager m = (Manager) personObj;
-			query += "null" + "','" + "null" + "','" 
-					+ m.getUsername() + "','" + m.getPassword() + "','"
-					+ m.getSalary() + "','" + "M";
-		}
+			query += "birthday = '" + "null" + "', "
+					+ "position = '" + "null" + "', " 
+					+ "username = '" + m.getUsername() + "', " 
+					+ "password = '" + m.getPassword() + "', "
+					+ "salary = '" + "-1" + "', " 
+					+ "type = '" + "M";		}
 		else if(p instanceof Staff) {
 			Staff s = (Staff) personObj;
-			query += "null" + "','" + "null" + "','" 
-					+ s.getUsername() + "','" + s.getPassword() + "','"
-					+ "-1" + "','" + "S";
-		}
+			query += "birthday = '" + "null"+ "', "
+					+ "position = '" + "null" + "', " 
+					+ "username = '" + s.getUsername() + "', " 
+					+ "password = '" + s.getPassword() + "', "
+					+ "salary = '" + "-1" + "', " 
+					+ "type = '" + "S";		}
 		if(p instanceof Referee) {
 			Referee r = (Referee) personObj;
-			query += "null" + "','" + "null" + "','"
-					+ "null" + "','" + "null" + "','" 
-					+ "-1" + "','" + "R";
-		}
+			query += "birthday = '" + "null" + "', "
+					+ "position = '" + "null" + "', " 
+					+ "username = '" + "null" + "', " 
+					+ "password = '" + "null" + "', "
+					+ "salary = '" + "-1" + "', " 
+					+ "type = '" + "R";		}
 
-		query += " WHERE phone = '" + phone + "'";
+		query += "'" + " WHERE phoneno = '" + phone + "'";
 		System.out.println("Update query:" + query);
 		
 		try {
@@ -260,7 +271,8 @@ public class DBPerson {
 	 * @return the build SQL query.
 	 */
 	private String buildQuery(String wClause) {
-		String query = "SELECT fname, lname, email, phone, birthday, position FROM Person";
+		String query = "SELECT firstName, lastName, email, phoneno"
+				+ ", zipcode, birthday, position, username, password, salary, type FROM Person";
 
 		if (wClause.length() > 0)
 			query = query + " WHERE " + wClause;
@@ -279,7 +291,7 @@ public class DBPerson {
 		
 		try {
 			if(results.getString("type").equals("P")) {
-				buildPlayer(results);
+				personObj = buildPlayer(results);
 			}
 			else if(results.getString("type").equals("T")) {
 				buildTeamLeader(results);
@@ -294,17 +306,6 @@ public class DBPerson {
 				buildReferee(results);
 			}
 
-		}
-		try 
-		{
-			personObj.setFname(results.getString("fname"));
-			personObj.setLname(results.getString("lname"));
-			personObj.setEmail(results.getString("email"));
-			personObj.setPhone(results.getString("phone"));
-			personObj.setZipcode(results.getString("zipcode"));
-			personObj.setCity(results.getString(""));
-			personObj.stringSetBDay(results.getString("birthday"));
-			personObj.setPosition(results.getString("position"));
 		} 
 		catch (Exception e) {
 			System.out.println("error in building the customer object");
@@ -314,6 +315,18 @@ public class DBPerson {
 	
 	private Player buildPlayer(ResultSet results) {
 		Player p = new Player();
+		try {
+			p.setFname(results.getString("firstName"));
+			p.setLname(results.getString("lastName"));
+			p.setEmail(results.getString("email"));
+			p.setPhone(results.getString("phoneno"));
+			p.setZipcode(results.getString("zipcode"));
+			p.stringSetBDay(results.getString("birthday"));
+			p.setPosition(results.getString("position"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return p;
 	}
