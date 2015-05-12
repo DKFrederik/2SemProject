@@ -1,5 +1,10 @@
 package modelLayer;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.Arrays;
+import java.util.List;
+
 public class Manager extends Staff{
 	
 	private int salary;
@@ -16,6 +21,8 @@ public class Manager extends Staff{
 	public void setSalary(int salary){
 		this.salary = salary;
 	}
+	
+
 	
 
 }
