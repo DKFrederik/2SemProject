@@ -3,7 +3,7 @@ package dbLayer;
 import java.sql.*;
 
 /**
- * @Author Claus Møller Jørgensen
+ * @Author Claus Mï¿½ller Jï¿½rgensen
  * This class is used to create the connection to the database
  * It is implemented as a singleton. The constructor is private to ensure that only
  * one object of the class is generated
@@ -62,7 +62,6 @@ public class DBConnection
             System.out.println(url);
         }//end catch
     }//end  constructor
-<<<<<<< HEAD
     
 //    private DBConnection()
 //    {
