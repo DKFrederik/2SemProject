@@ -315,13 +315,14 @@ public class DBPerson {
 	
 	private Player buildPlayer(ResultSet results) {
 		Player p = new Player();
+		DBPostalcode post = new DBPostalcode();
 		try {
 			p.setFname(results.getString("firstName"));
 			p.setLname(results.getString("lastName"));
 			p.setEmail(results.getString("email"));
 			p.setPhone(results.getString("phoneno"));
 			p.setZipcode(results.getString("zipcode"));
-			//s.setCity();
+			p.setCity(post.findCity(results.getString("zipcode")));
 			p.stringSetBDay(results.getString("birthday"));
 			p.setPosition(results.getString("position"));
 		} catch (SQLException e) {
@@ -333,14 +334,15 @@ public class DBPerson {
 	}
 	private TeamLeader buildTeamLeader(ResultSet results) {
 		TeamLeader tl = new TeamLeader();
-		
+		DBPostalcode post = new DBPostalcode();
+
 		try {
 			tl.setFname(results.getString("firstName"));
 			tl.setLname(results.getString("lastName"));
 			tl.setEmail(results.getString("email"));
 			tl.setPhone(results.getString("phoneno"));
 			tl.setZipcode(results.getString("zipcode"));
-			//s.setCity();
+			tl.setCity(post.findCity(results.getString("zipcode")));
 			tl.setUsername(results.getString("username"));
 			tl.setPassword(results.getString("password"));
 		} catch (SQLException e) {
@@ -353,14 +355,15 @@ public class DBPerson {
 	
 	private Manager buildManager(ResultSet results) {
 		Manager m = new Manager();
-		
+		DBPostalcode post = new DBPostalcode();
+
 		try {
 			m.setFname(results.getString("firstName"));
 			m.setLname(results.getString("lastName"));
 			m.setEmail(results.getString("email"));
 			m.setPhone(results.getString("phoneno"));
 			m.setZipcode(results.getString("zipcode"));
-			//s.setCity();
+			m.setCity(post.findCity(results.getString("zipcode")));
 			m.setUsername(results.getString("username"));
 			m.setPassword(results.getString("password"));
 			m.setSalary(Double.parseDouble(results.getString("salary")));
@@ -374,14 +377,15 @@ public class DBPerson {
 	
 	private Staff buildStaff(ResultSet results) {
 		Staff s = new Staff();
-		
+		DBPostalcode post = new DBPostalcode();
+
 		try {
 			s.setFname(results.getString("firstName"));
 			s.setLname(results.getString("lastName"));
 			s.setEmail(results.getString("email"));
 			s.setPhone(results.getString("phoneno"));
 			s.setZipcode(results.getString("zipcode"));
-			//s.setCity();
+			s.setCity(post.findCity(results.getString("zipcode")));
 			s.setUsername(results.getString("username"));
 			s.setPassword(results.getString("password"));
 			
@@ -395,14 +399,15 @@ public class DBPerson {
 	
 	private Referee buildReferee(ResultSet results) {
 		Referee r = new Referee();
-		
+		DBPostalcode post = new DBPostalcode();
+
 		try {
 			r.setFname(results.getString("firstName"));
 			r.setLname(results.getString("lastName"));
 			r.setEmail(results.getString("email"));
 			r.setPhone(results.getString("phoneno"));
 			r.setZipcode(results.getString("zipcode"));
-			//s.setCity();
+			r.setCity(post.findCity(results.getString("zipcode")));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
