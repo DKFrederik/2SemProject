@@ -94,7 +94,7 @@ public class DBField {
 	
 	/**
 	 * 
-	 * @param cus The customer object that is to be updated in the database.
+	 * @param The field object that is to be updated in the database.
 	 * @return
 	 */
 	public int updateField(Field field, String number) {
