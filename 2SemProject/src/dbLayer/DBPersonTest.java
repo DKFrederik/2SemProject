@@ -114,13 +114,60 @@ public class DBPersonTest {
 	}
 
 	@Test
-	public void buildPlayerTest() {
+	public void buildPlayerTest() {		
 		try {
 			dbP.insertPerson(pl);
 			Player pl2 = (Player) dbP.findPerson(pl.getPhone(), false);
-			System.out.println(pl2.getFname());
-			System.out.println(pl2.getBDay());
+			assertTrue((pl2.getFname() + pl2.getLname()).equals(pl.getFname() + pl.getLname()));
 			dbP.deletePerson(pl.getPhone());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void buildManagerTest() {		
+		try {
+			dbP.insertPerson(m);
+			Manager m2 = (Manager) dbP.findPerson(m.getPhone(), false);
+			assertTrue((m2.getFname() + m2.getLname()).equals(m.getFname() + m.getLname()));
+			dbP.deletePerson(m.getPhone());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void buildStaffTest() {		
+		try {
+			dbP.insertPerson(s);
+			Staff s2 = (Staff) dbP.findPerson(s.getPhone(), false);
+			assertTrue((s2.getFname() + s2.getLname()).equals(s.getFname() + s.getLname()));
+			dbP.deletePerson(s.getPhone());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void buildTeamLeaderTest() {		
+		try {
+			dbP.insertPerson(tl);
+			TeamLeader tl2 = (TeamLeader) dbP.findPerson(tl.getPhone(), false);
+			assertTrue((tl2.getFname() + tl2.getLname()).equals(tl.getFname() + tl.getLname()));
+			dbP.deletePerson(tl.getPhone());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void buildRefereeTest() {		
+		try {
+			dbP.insertPerson(r);
+			Referee r2 = (Referee) dbP.findPerson(r.getPhone(), false);
+			assertTrue((r2.getFname() + r2.getLname()).equals(r.getFname() + r.getLname()));
+			dbP.deletePerson(r.getPhone());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
