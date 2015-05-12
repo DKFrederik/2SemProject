@@ -91,7 +91,6 @@ public class DBPerson {
 					+ "-1" + "','" + "S";
 		}
 		if(p instanceof Referee) {
-			Referee r = (Referee) p;
 			query += "null" + "','" + "null" + "','"
 					+ "null" + "','" + "null" + "','" 
 					+ "-1" + "','" + "R";
@@ -163,7 +162,6 @@ public class DBPerson {
 					+ "salary = '" + "-1" + "', " 
 					+ "type = '" + "S";		}
 		if(p instanceof Referee) {
-			Referee r = (Referee) personObj;
 			query += "birthday = '" + "null" + "', "
 					+ "position = '" + "null" + "', " 
 					+ "username = '" + "null" + "', " 
