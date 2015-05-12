@@ -45,7 +45,7 @@ public class DBTeam {
 	 * @return A Team Object if found, null if not.
 	 */
 	public Team findTeam(String teamNumber, boolean retriveAssociation) {
-		String wClause = "  name = '" + teamNumber + "'";
+		String wClause = "  teamNumber = '" + teamNumber + "'";
 		return singleWhere(wClause, retriveAssociation);
 	}
 
@@ -117,6 +117,15 @@ public class DBTeam {
 		return teamObj;
 	}
 	
+	private String buildQuery(String wClause) {
+		String query = "SELECT teamNumber, league FROM Team";
+
+		if (wClause.length() > 0)
+			query = query + " WHERE " + wClause;
+
+		return query;
+	}
+
 	public int insertTeam(Team t) throws Exception {
 
 		int rc = -1;
@@ -139,4 +148,36 @@ public class DBTeam {
 		return (rc);
 
 	}
+	
+	public int deleteTeam(String teamNumber) {
+		int rc = -1;
+
+		String query = "DELETE FROM Team WHERE teamNumber = '" + teamNumber + "'";
+		System.out.println(query);
+		try {
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			rc = stmt.executeUpdate(query);
+			stmt.close();
+		}
+		catch (Exception ex) {
+			System.out.println("Delete exception in Team db: " + ex);
+		}
+		return (rc);
+
+	}
+	
+	private Team buildTeam(ResultSet results) {
+		Team t = new Team();
+		
+		try {
+			t.setNumber(results.getString("teamNumber"));
+			t.setLeague(Integer.parseInt(results.getString("league")));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return t;
+	}
+
 }
