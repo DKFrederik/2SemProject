@@ -5,8 +5,8 @@ public class Staff extends Person{
 	private String username;
 	private String password;
 	
-	public Staff(String fname, String lname, String email, String phone, String username, String password) {
-		super(fname, lname, email, phone);
+	public Staff(String fname, String lname, String email, String phone, String zipcode, String username, String password) {
+		super(fname, lname, email, phone, zipcode);
 		this.username = username;
 		this.password = password;
 	}
