@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import modelLayer.Person;
-
 public class DBPostalcode {
 	private Connection con;
 
