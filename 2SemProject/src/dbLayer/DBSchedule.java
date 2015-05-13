@@ -7,14 +7,14 @@ import java.sql.*;
 /**
  * @Author 	Frederik, Nichlas, Claus og Peter
  * @date	13-05-2015
- * DBAppointedTime has the purpose of establishing a connection and execute several queries to the database, such
+ * Schedule has the purpose of establishing a connection and execute several queries to the database, such
  * as search, insert, delete and update.
  */
 
-public class DBAppointedTime {
+public class DBSchedule {
 	private Connection con;
 	
-	public DBAppointedTime() {
+	public DBSchedule() {
 		con = DBConnection.getInstance().getDBcon();
 	}
 
@@ -23,7 +23,7 @@ public class DBAppointedTime {
 	 * @param The date of the schedule to fetch
 	 * @return The schedule of the day.
 	 */
-	public AppointedTime findAppointedTime(Date date) {
+	public Schedule findSchedule(Date date) {
 		String wClause = "   = '" + date + "'";
 		return searchWhere(wClause);
 	}
@@ -33,10 +33,10 @@ public class DBAppointedTime {
 	 * @param
 	 * @return 
 	 */
-	public int insertAppointedTime(AppointedTime at) {
+	public int insertSchedule(Schedule s) {
 
 		int rc = -1;
-		String query = "INSERT INTO AppointedTime()  VALUES('"
+		String query = "INSERT INTO Schedule()  VALUES('"
 				+ "','"
 				+ "')";
 
@@ -49,7 +49,7 @@ public class DBAppointedTime {
 			stmt.close();
 		}
 		catch (Exception ex) {
-			System.out.println("AppointedTime is not inserted correct");
+			System.out.println("Schedule is not inserted correct");
 		}
 		return (rc);
 	}
@@ -59,11 +59,11 @@ public class DBAppointedTime {
 	 * @param
 	 * @return
 	 */
-	public int updateAppointedTime(AppointedTime at) {
-		AppointedTime atObj = at;
+	public int updateSchedule(Schedule s) {
+		Schedule sObj = s;
 		int rc = -1;
 
-		String query = "UPDATE AppointedTime SET ";
+		String query = "UPDATE Schedule SET ";
 		System.out.println("Update query:" + query);
 		try {
 			Statement stmt = con.createStatement();
@@ -73,7 +73,7 @@ public class DBAppointedTime {
 		}
 		
 		catch (Exception ex) {
-			System.out.println("Update exception in AppointedTime DB: " + ex);
+			System.out.println("Update exception in Schedule DB: " + ex);
 		}
 		return (rc);
 	}
@@ -106,9 +106,9 @@ public class DBAppointedTime {
 	 * @param 
 	 * @return 
 	 */
-	private AppointedTime searchWhere(String wClause) {
+	private Schedule searchWhere(String wClause) {
 		ResultSet results;
-		AppointedTime atObj = new AppointedTime();
+		Schedule atObj = new Schedule();
 
 		String query = buildQuery(wClause);
 		System.out.println(query);
@@ -119,7 +119,7 @@ public class DBAppointedTime {
 
 			if (results.next()) 
 			{
-				atObj = buildAppointedTime(results);
+				atObj = buildSchedule(results);
 				stmt.close();
 			} 
 			else 
@@ -149,16 +149,16 @@ public class DBAppointedTime {
 
 	/**
 	 * 
-	 * @param results ResultSet used for building the AppointedTime
+	 * @param results ResultSet used for building the Schedule
 	 * @return
 	 */
-	private AppointedTime buildAppointedTime(ResultSet results) {
-		AppointedTime atObj = new AppointedTime();
+	private Schedule buildSchedule(ResultSet results) {
+		Schedule atObj = new Schedule();
 		try 
 		{
 
 		} catch (Exception e) {
-			System.out.println("error in building the AppointedTimeObjet object");
+			System.out.println("error in building the Schedule object");
 		}
 		return atObj;
 	}

@@ -4,14 +4,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppointedTime {
+public class Schedule {
 	
 	private Field field;
 	private Match match;
 	private Date date;
 	private LinkedGraph teamGraph;
 	
-	public AppointedTime(){
+	public Schedule(){
 		teamGraph = new LinkedGraph(5);
 	}
 	
@@ -61,9 +61,9 @@ public class AppointedTime {
 		testTeamList.get(0).addPlayer(donJohn);
 		testTeamList.get(3).addPlayer(donJohn);
 		
-		AppointedTime appointedTime = new AppointedTime();
-		appointedTime.createGraph(testTeamList);
-		appointedTime.makeSchedule();
+		Schedule schedule = new Schedule();
+		schedule.createGraph(testTeamList);
+		schedule.makeSchedule();
 		
 	}
 	
@@ -133,4 +133,16 @@ public class AppointedTime {
 			}
 		return found;
 	}
+	
+	public void addTeam()
+	{
+		
+	}
+	
+	public void removeTeam()
+	{
+		
+	}
+	
+	
 }
