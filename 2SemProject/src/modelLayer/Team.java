@@ -52,5 +52,9 @@ public class Team {
 	{
 		return this.players;
 	}
+	
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
+	}
 
 }
