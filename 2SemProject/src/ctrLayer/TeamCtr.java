@@ -10,7 +10,7 @@ public class TeamCtr {
 	
 	private static TeamCtr instance = null;
 	
-	public TeamCtr()
+	private TeamCtr()
 	{
 		
 	}
