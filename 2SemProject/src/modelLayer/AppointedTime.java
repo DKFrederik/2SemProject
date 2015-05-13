@@ -11,8 +11,8 @@ public class AppointedTime {
 	private Date date;
 	private LinkedGraph teamGraph;
 	
-	public AppointedTime(int noVer){
-		teamGraph = new LinkedGraph(noVer);
+	public AppointedTime(){
+		teamGraph = new LinkedGraph(5);
 	}
 	
 	//Test
@@ -61,7 +61,7 @@ public class AppointedTime {
 		testTeamList.get(0).addPlayer(donJohn);
 		testTeamList.get(3).addPlayer(donJohn);
 		
-		AppointedTime appointedTime = new AppointedTime(noOfVer);
+		AppointedTime appointedTime = new AppointedTime();
 		appointedTime.createGraph(testTeamList);
 		appointedTime.makeSchedule();
 		
