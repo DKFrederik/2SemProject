@@ -59,6 +59,7 @@ public class AppointedTime {
 		testTeamList.get(1).addPlayer(dolan);
 		testTeamList.get(2).addPlayer(donJohn);
 		testTeamList.get(0).addPlayer(donJohn);
+		testTeamList.get(3).addPlayer(donJohn);
 		
 		AppointedTime appointedTime = new AppointedTime(noOfVer);
 		appointedTime.createGraph(testTeamList);
