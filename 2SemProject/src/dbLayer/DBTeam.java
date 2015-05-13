@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import modelLayer.Person;
+import modelLayer.Player;
 import modelLayer.Team;
 
 /**
@@ -195,10 +197,41 @@ public class DBTeam {
 		try {
 			t.setNumber(results.getString("teamNumber"));
 			t.setLeague(Integer.parseInt(results.getString("league")));
+			t.setPlayers(getPlayers(results.getString("teamNumber")));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return t;
 	}
 
+	private ArrayList<Player> getPlayers(String teamNumber) {
+		
+		ResultSet results;
+		ArrayList<Player> list = new ArrayList<Player>();
+		String query = "SELECT phoneno FROM Person WHERE id = (SELECT personId FROM Association WHERE teamNumber = '" 
+					+ teamNumber + "')";
+		
+		System.out.println(query);
+		
+		try {
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			results = stmt.executeQuery(query);
+			DBPerson dbp = new DBPerson();
+			Person p = new Person();
+			while (results.next()) {
+				p = dbp.findPerson(results.getString("phoneno"), true);
+				if(p instanceof Player)
+					list.add((Player) p);
+			}// end while
+			stmt.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Query exception - select: " + e);
+			e.printStackTrace();
+		}
+		return list;
+
+	}
 }
