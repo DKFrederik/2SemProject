@@ -8,6 +8,8 @@ public class Team {
 	private List<Player> players;
 	private int league;
 	private String number;
+	private Manager manager;
+	private TeamLeader teamLeader;
 	
 	public Team(String number){
 		this.number = number;
@@ -55,6 +57,22 @@ public class Team {
 	
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
+	}
+
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
+
+	public TeamLeader getTeamLeader() {
+		return teamLeader;
+	}
+
+	public void setTeamLeader(TeamLeader teamLeader) {
+		this.teamLeader = teamLeader;
 	}
 
 }
