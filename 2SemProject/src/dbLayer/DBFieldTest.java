@@ -1,4 +1,6 @@
 package dbLayer;
+import java.util.ArrayList;
+
 import modelLayer.*;
 import static org.junit.Assert.*;
 
@@ -57,19 +59,6 @@ public class DBFieldTest {
 			assertEquals(1, dbfield.insertField(field));
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	public void testSearchField() {
-		Field field= dbfield.findField("5");
-		if(field !=null){
-			System.out.println(field.getFieldNumber());
-			assertEquals("1",field.getType());
-			System.out.println(field.getType());
-		}
-		else {
-			fail("Field not found!");
 		}
 	}
 }

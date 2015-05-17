@@ -1,5 +1,8 @@
 package modelLayer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Field {
 	
 	private String type;
@@ -7,12 +10,14 @@ public class Field {
 	private String number; 
 	private int length;
 	private int width;
+	private List<Field> fields;
 	
 	public Field(String number, String type, int length, int width){
 		this.number = number;
 		this.type = type;
 		this.length = length;
 		this.width = width;
+		this.fields = new ArrayList<Field>();
 	}
 	
 	/**
@@ -47,20 +52,36 @@ public class Field {
 		
 	}
 	
-	public String getType(){
+	/**
+	 * @return the type
+	 */
+	public String getType() {
 		return type;
 	}
 	
-	public void setType(String type){
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
 		this.type = type;
 	}
 	
-	public String getFieldNumber(){
+	/**
+	 * @return the field number 
+	 */
+	public String getFieldNumber() {
 		return number;
 	}
 	
-	public void setFieldNumber(String number){
+	public void setFieldNumber(String number) {
 		this.number = number;
+	}
+	
+	/**
+	 * @return size of field
+	 */
+	public void getFieldSize() {
+		fields.size();
 	}
 
 }
