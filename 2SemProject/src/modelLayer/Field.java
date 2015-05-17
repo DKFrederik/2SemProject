@@ -84,4 +84,7 @@ public class Field {
 		fields.size();
 	}
 
+	public void deleteField() {
+		fields.remove(getFieldNumber());
+	}
 }
