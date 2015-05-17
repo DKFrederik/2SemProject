@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import modelLayer.Manager;
 import modelLayer.Person;
 import modelLayer.Player;
 import modelLayer.Team;
+import modelLayer.TeamLeader;
 
 /**
  * 
@@ -55,7 +57,7 @@ public class DBTeam {
 	 */
 	private ArrayList<Team> miscWhere(String wClause, boolean retrieveAssociation) {
 		ResultSet results;
-		ArrayList<Team> list = new ArrayList<Team>();
+		ArrayList<Team> teams = new ArrayList<Team>();
 
 		String query = buildQuery(wClause);
 
@@ -67,21 +69,20 @@ public class DBTeam {
 			while (results.next()) {
 				Team teamObj = new Team();
 				teamObj = buildTeam(results);
-				list.add(teamObj);
+				if(retrieveAssociation)
+                {
+					teamObj.setPlayers(getPlayers(results.getString("teamNumber")));
+                }
+				teams.add(teamObj);
 			}// end while
 			stmt.close();
-			
-			//
-			// ASSOCIATIONS!! 
-			//
-
 
 		}
 		catch (Exception e) {
 			System.out.println("Query exception - select: " + e);
 			e.printStackTrace();
 		}
-		return list;
+		return teams;
 	}
 	/**
 	 * 
@@ -103,11 +104,11 @@ public class DBTeam {
 
 			if (results.next()) {
 				teamObj = buildTeam(results);
-				stmt.close();
 				if(retrieveAssociation)
                 {
 					teamObj.setPlayers(getPlayers(results.getString("teamNumber")));
                 }
+				stmt.close();
 			} else {
 				teamObj = null;
 			}
@@ -197,7 +198,9 @@ public class DBTeam {
 		try {
 			t.setNumber(results.getString("teamNumber"));
 			t.setLeague(Integer.parseInt(results.getString("league")));
-		} catch (SQLException e) {
+			t.setManager(getManager(results.getString("teamNumber")));
+			t.setTeamLeader(getTeamLeader(results.getString("teamNumber")));
+			} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return t;
@@ -207,8 +210,8 @@ public class DBTeam {
 		
 		ResultSet results;
 		ArrayList<Player> list = new ArrayList<Player>();
-		String query = "SELECT phoneno FROM Person WHERE id = (SELECT personId FROM Association WHERE teamNumber = '" 
-					+ teamNumber + "')";
+		String query = "SELECT personId FROM Association WHERE teamNumber = '" 
+					+ teamNumber + "'";
 		
 		System.out.println(query);
 		
@@ -218,10 +221,18 @@ public class DBTeam {
 			results = stmt.executeQuery(query);
 			DBPerson dbp = new DBPerson();
 			Person p = new Person();
-			while (results.next()) {
-				p = dbp.findPerson(results.getString("phoneno"), false);
-				if(p instanceof Player)
-					list.add((Player) p);
+			ResultSet resPer;
+			while (results.next()) {//Get phoneno of players
+				query = "SELECT phoneno FROM Person WHERE id = " 
+						+ results.getString("personId");
+				Statement stmt2 = con.createStatement();
+				resPer = stmt2.executeQuery(query);
+				while(resPer.next()) {//Use phoneno's as parameter for findPerson to get players.
+					p = dbp.findPerson(resPer.getString("phoneno"), false);
+					if(p instanceof Player)
+						list.add((Player) p);
+				}
+				stmt2.close();
 			}// end while
 			stmt.close();
 			
@@ -267,6 +278,53 @@ public class DBTeam {
 			System.out.println("Delete exception in Association db: " + ex);
 		}
 		return (rc);
-
+	}
+	
+	private Manager getManager(String teamNumber) {
+		Manager m = null;
+		ResultSet results;
+		String query = "SELECT phoneno FROM Person WHERE id = (SELECT managerId FROM ManagerAssociation WHERE teamNumber = '" 
+					+ teamNumber + "')";
+		
+		System.out.println(query);
+		
+		try {
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			results = stmt.executeQuery(query);
+			DBPerson dbp = new DBPerson();
+			while(results.next())
+				m = (Manager) dbp.findPerson(results.getString("phoneno"), false);
+		}
+		catch (Exception e) {
+			System.out.println("Query exception - select: " + e);
+			e.printStackTrace();
+		}
+		
+		return m;
+	}
+	
+	private TeamLeader getTeamLeader(String teamNumber) {
+		TeamLeader tl = null;
+		ResultSet results;
+		String query = "SELECT phoneno FROM Person WHERE id = (SELECT leaderId FROM TeamLeaderAssociation WHERE teamNumber = '" 
+					+ teamNumber + "')";
+		
+		System.out.println(query);
+		
+		try {
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			results = stmt.executeQuery(query);
+			DBPerson dbp = new DBPerson();
+			if(results.next())
+				tl = (TeamLeader) dbp.findPerson(results.getString("phoneno"), false);
+		}
+		catch (Exception e) {
+			System.out.println("Query exception - select: " + e);
+			e.printStackTrace();
+		}
+		
+		return tl;
 	}
 }

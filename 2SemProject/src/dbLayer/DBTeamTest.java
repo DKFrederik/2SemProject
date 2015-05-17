@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import modelLayer.Player;
 import modelLayer.Team;
 
 public class DBTeamTest {
