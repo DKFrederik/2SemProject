@@ -44,6 +44,7 @@ public class DBTeamTest {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -53,6 +54,7 @@ public class DBTeamTest {
 			dbt.insertTeam(t);
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 		Team t2 = dbt.findTeam(t.getNumber(), false);
 		assertTrue(t2.getNumber().equals(t.getNumber()));
@@ -70,6 +72,7 @@ public class DBTeamTest {
 			dbt.deleteTeam("4321");
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	@Test
@@ -81,6 +84,7 @@ public class DBTeamTest {
 			dbt.insertTeam(t);
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 		ArrayList<Team> teams = dbt.getAllTeams(false);
 		assertEquals(2, teams.size());

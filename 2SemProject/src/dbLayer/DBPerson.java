@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * 
  * @author Peter, Frederik, Claus og Nichlas.
  * @version 12.05.2015
- * Database class for Person and childre of Person. Handles insertion, delete, update, find and find all.
+ * Database class for Person and childre of Person. Handles insertion, delete, update and find and find all.
  */
 public class DBPerson {
 	private Connection con;
@@ -49,7 +49,6 @@ public class DBPerson {
 	 * @throws Exception 
 	 */
 	public int insertPerson(Person p) throws Exception {
-
 		int rc = -1;
 		String query = "INSERT INTO Person(firstname, lastname, email, phoneno, zipcode, birthday, position, username, password, salary, type)  VALUES('"
 				+ p.getFname() + "','" + p.getLname() + "','"
@@ -85,7 +84,7 @@ public class DBPerson {
 					+ "null" + "','" + "null" + "','" 
 					+ "-1" + "','" + "R";
 		}
-		
+				
 		query += "')";
 		System.out.println("insert : " + query);
 		try { // insert new Person
@@ -93,7 +92,7 @@ public class DBPerson {
 			stmt.setQueryTimeout(5);
 			rc = stmt.executeUpdate(query);
 			stmt.close();
-		}// end try
+				}// end try
 		catch (SQLException ex) {
 			System.out.println("Person not created");
 			System.out.println(ex.getErrorCode());
@@ -126,7 +125,6 @@ public class DBPerson {
 					+ "salary = '" + "-1" + "', " 
 					+ "type = '" + "P";
 		}
-		
 		if(p instanceof TeamLeader) {
 			TeamLeader tl = (TeamLeader) personObj;
 			query += "birthday = '" + "null" + "', "
@@ -168,7 +166,6 @@ public class DBPerson {
 			rc = stmt.executeUpdate(query);
 			stmt.close();
 		}
-		
 		catch (Exception ex) {
 			System.out.println("Update exception in person db: " + ex);
 		}
@@ -212,12 +209,17 @@ public class DBPerson {
 			while (results.next()) {
 				Person personObj = new Person();
 				personObj = buildPerson(results);
+				if(retrieveAssociation)
+                {
+					if(personObj instanceof Player) {
+						((Player) personObj).setTeams(getTeam(results.getString("id"), false));	
+					}
+                }
 				list.add(personObj);
 			}// end while
+			
 			stmt.close();
 			
-			// Get suppliers around here
-
 		}
 		catch (Exception e) {
 			System.out.println("Query exception - select: " + e);
@@ -238,10 +240,15 @@ public class DBPerson {
 			results = stmt.executeQuery(query);
 
 			if (results.next()) {
-				personObj = buildPerson(results);
-				stmt.close();
+				personObj = buildPerson(results);				
+				if(retrieveAssociation)
+                {
+					if(personObj instanceof Player) {
+						((Player) personObj).setTeams(getTeam(results.getString("id"), false));	
+					}
+                }
 				
-				// get supplier should be implemented around here.
+				stmt.close();
 				
 			} else {
 				personObj = null;
@@ -259,7 +266,7 @@ public class DBPerson {
 	 * @return the build SQL query.
 	 */
 	private String buildQuery(String wClause) {
-		String query = "SELECT firstName, lastName, email, phoneno"
+		String query = "SELECT id, firstName, lastName, email, phoneno"
 				+ ", zipcode, birthday, position, username, password, salary, type FROM Person";
 
 		if (wClause.length() > 0)
@@ -276,8 +283,9 @@ public class DBPerson {
 	 */
 	private Person buildPerson(ResultSet results){
 		Person personObj = new Person();
+		DBPostalcode post = new DBPostalcode();
 		
-		try {
+		try {						
 			if(results.getString("type").equals("P")) {
 				personObj = buildPlayer(results);
 			}
@@ -293,44 +301,38 @@ public class DBPerson {
 			else if(results.getString("type").equals("R")) {
 				personObj = buildReferee(results);
 			}
+			
+			personObj.setFname(results.getString("firstName"));
+			personObj.setLname(results.getString("lastName"));
+			personObj.setEmail(results.getString("email"));
+			personObj.setPhone(results.getString("phoneno"));
+			personObj.setZipcode(results.getString("zipcode"));
+			personObj.setCity(post.findCity(results.getString("zipcode")));
+			personObj.setId(Integer.parseInt(results.getString("id")));
 
 		} 
 		catch (Exception e) {
-			System.out.println("error in building the customer object");
+			System.out.println("error in building the Person object");
+			e.printStackTrace();
 		}
 		return personObj;
 	}
 	
 	private Player buildPlayer(ResultSet results) {
-		Player p = new Player();
-		DBPostalcode post = new DBPostalcode();
+		Player pl = new Player();
 		try {
-			p.setFname(results.getString("firstName"));
-			p.setLname(results.getString("lastName"));
-			p.setEmail(results.getString("email"));
-			p.setPhone(results.getString("phoneno"));
-			p.setZipcode(results.getString("zipcode"));
-			p.setCity(post.findCity(results.getString("zipcode")));
-			p.stringSetBDay(results.getString("birthday"));
-			p.setPosition(results.getString("position"));
+			pl.stringSetBDay(results.getString("birthday"));
+			pl.setPosition(results.getString("position"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return p;
+		return pl;
 	}
 	private TeamLeader buildTeamLeader(ResultSet results) {
 		TeamLeader tl = new TeamLeader();
-		DBPostalcode post = new DBPostalcode();
-
 		try {
-			tl.setFname(results.getString("firstName"));
-			tl.setLname(results.getString("lastName"));
-			tl.setEmail(results.getString("email"));
-			tl.setPhone(results.getString("phoneno"));
-			tl.setZipcode(results.getString("zipcode"));
-			tl.setCity(post.findCity(results.getString("zipcode")));
 			tl.setUsername(results.getString("username"));
 			tl.setPassword(results.getString("password"));
 		} catch (SQLException e) {
@@ -343,15 +345,8 @@ public class DBPerson {
 	
 	private Manager buildManager(ResultSet results) {
 		Manager m = new Manager();
-		DBPostalcode post = new DBPostalcode();
-
+		
 		try {
-			m.setFname(results.getString("firstName"));
-			m.setLname(results.getString("lastName"));
-			m.setEmail(results.getString("email"));
-			m.setPhone(results.getString("phoneno"));
-			m.setZipcode(results.getString("zipcode"));
-			m.setCity(post.findCity(results.getString("zipcode")));
 			m.setUsername(results.getString("username"));
 			m.setPassword(results.getString("password"));
 			m.setSalary(Double.parseDouble(results.getString("salary")));
@@ -365,15 +360,8 @@ public class DBPerson {
 	
 	private Staff buildStaff(ResultSet results) {
 		Staff s = new Staff();
-		DBPostalcode post = new DBPostalcode();
 
 		try {
-			s.setFname(results.getString("firstName"));
-			s.setLname(results.getString("lastName"));
-			s.setEmail(results.getString("email"));
-			s.setPhone(results.getString("phoneno"));
-			s.setZipcode(results.getString("zipcode"));
-			s.setCity(post.findCity(results.getString("zipcode")));
 			s.setUsername(results.getString("username"));
 			s.setPassword(results.getString("password"));
 			
@@ -387,22 +375,38 @@ public class DBPerson {
 	
 	private Referee buildReferee(ResultSet results) {
 		Referee r = new Referee();
-		DBPostalcode post = new DBPostalcode();
-
-		try {
-			r.setFname(results.getString("firstName"));
-			r.setLname(results.getString("lastName"));
-			r.setEmail(results.getString("email"));
-			r.setPhone(results.getString("phoneno"));
-			r.setZipcode(results.getString("zipcode"));
-			r.setCity(post.findCity(results.getString("zipcode")));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		return r;
 	}
+	
+private ArrayList<Team> getTeam(String personId, Boolean retrieveAssociation) {
+		
+		ResultSet results;
+		ArrayList<Team> list = new ArrayList<Team>();
+		String query = "SELECT teamNumber FROM Association WHERE personId = " 
+					+ personId;
+		
+		System.out.println(query);
+		
+		try {
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			results = stmt.executeQuery(query);
+			DBTeam dbt = new DBTeam();
+			Team t = new Team();
+			while (results.next()) {
+				t = dbt.findTeam(results.getString("teamNumber"), retrieveAssociation);
+				list.add(t);
+			}// end while
+			stmt.close();
+			
+		}
+		catch (Exception e) {
+			System.out.println("Query exception - select: " + e);
+			e.printStackTrace();
+		}
+		return list;
+
+	}
 
 }
-

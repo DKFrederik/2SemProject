@@ -104,10 +104,10 @@ public class DBTeam {
 			if (results.next()) {
 				teamObj = buildTeam(results);
 				stmt.close();
-				
-				//
-				// ASSOCIATIONS!! 
-				//
+				if(retrieveAssociation)
+                {
+					teamObj.setPlayers(getPlayers(results.getString("teamNumber")));
+                }
 			} else {
 				teamObj = null;
 			}
@@ -197,7 +197,6 @@ public class DBTeam {
 		try {
 			t.setNumber(results.getString("teamNumber"));
 			t.setLeague(Integer.parseInt(results.getString("league")));
-			t.setPlayers(getPlayers(results.getString("teamNumber")));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -220,7 +219,7 @@ public class DBTeam {
 			DBPerson dbp = new DBPerson();
 			Person p = new Person();
 			while (results.next()) {
-				p = dbp.findPerson(results.getString("phoneno"), true);
+				p = dbp.findPerson(results.getString("phoneno"), false);
 				if(p instanceof Player)
 					list.add((Player) p);
 			}// end while
@@ -232,6 +231,42 @@ public class DBTeam {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public int addPersonTeam(Person p, String teamNumber) throws Exception {
+		int rc = -1;
+		String query = "INSERT INTO Association(personId, teamNumber) VALUES('"
+						+ p.getId() + "','" + teamNumber + "')";
+		
+		System.out.println("insert : " + query);
+		try { // insert new Association
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			rc = stmt.executeUpdate(query);
+			stmt.close();
+		}// end try
+		catch (SQLException ex) {
+			System.out.println("Association not created");
+			throw new Exception("Association is not inserted correct");
+		}
+		return (rc);
+	}
+	
+	public int deletePersonTeam(Person p, String teamNumber) {
+		int rc = -1;
+
+		String query = "DELETE FROM Association WHERE teamNumber = '" + teamNumber + "' and personId = " + p.getId() + "";
+		System.out.println(query);
+		try {
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			rc = stmt.executeUpdate(query);
+			stmt.close();
+		}
+		catch (Exception ex) {
+			System.out.println("Delete exception in Association db: " + ex);
+		}
+		return (rc);
 
 	}
 }
