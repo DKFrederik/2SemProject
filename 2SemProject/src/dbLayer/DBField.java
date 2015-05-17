@@ -1,9 +1,9 @@
 package dbLayer;
-import modelLayer.Field;
 
 import modelLayer.*;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * 
@@ -20,14 +20,52 @@ public class DBField {
 		con = DBConnection.getInstance().getDBcon();
 	}
 
+	public ArrayList<Field> getAllFields(boolean retriveAssociation) {
+		return miscWhere("", retriveAssociation);
+	}
+	
 	/**
 	 * 
-	 * @param phoneno the Field objects phone no.
-	 * @return the Field matching the phone no.
+	 * @param fieldNumber the Field objects phone no.
+	 * @return the Field matching the fieldnumber.
 	 */
 	public Field findField(String fieldNumber) {
 		String wClause = "  fieldNumber = '" + fieldNumber + "'";
 		return searchWhere(wClause);
+	}
+	
+	/**
+	 * 
+	 * @param wClause where clause for the query.
+	 * @param retrieveAssociation whether or not to retrieve associations.
+	 * @return An ArrayList of Fields.
+	 */
+	private ArrayList<Field> miscWhere(String wClause, boolean retrieveAssociation) {
+		ResultSet results;
+		ArrayList<Field> list = new ArrayList<Field>();
+
+		String query = buildQuery(wClause);
+
+		try {
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			results = stmt.executeQuery(query);
+
+			while (results.next()) {
+				Field fieldObj = new Field();
+				fieldObj = buildField(results);
+				list.add(fieldObj);
+			}// end while
+			stmt.close();		
+			//
+			// ASSOCIATIONS!! 
+			//
+		}
+		catch (Exception e) {
+			System.out.println("Query exception - select: " + e);
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	/**
