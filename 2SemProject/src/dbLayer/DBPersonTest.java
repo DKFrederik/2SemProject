@@ -51,6 +51,8 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
+
 		}
 	}
 	@Test
@@ -62,6 +64,7 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 
 	}
@@ -74,6 +77,7 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 
 	}
@@ -85,6 +89,7 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 
 	}
@@ -96,6 +101,7 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -111,6 +117,7 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 		dbP.updatePerson(pl, pl.getPhone());
 	}
@@ -125,6 +132,7 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 	}
 	@Test
@@ -137,6 +145,7 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 	}
 	@Test
@@ -149,6 +158,7 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 	}
 	@Test
@@ -161,6 +171,7 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -173,6 +184,7 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -190,6 +202,7 @@ public class DBPersonTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 	}
 }
