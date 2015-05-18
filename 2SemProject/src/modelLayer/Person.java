@@ -11,7 +11,6 @@ public class Person {
 	private String phone;
 	private String zipcode;
 	private String city;
-	private int id;
 	
 	public Person(String fname, String lname, String email, String phone, String zipcode){
 		if(email == null){
@@ -87,14 +86,4 @@ public class Person {
 	        else
 	            System.out.println(email + " is not ok");
 	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public int getId() {
-		return id;
-	}
-
-
 }
