@@ -435,7 +435,6 @@ public class DBTeam {
 		}
 		return (rc);
 	}
-}
 	
 	public int insertManager(Manager m, String teamNumber) throws Exception {
 		int rc = -1;
