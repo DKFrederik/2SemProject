@@ -125,9 +125,12 @@ public class DBTeam {
 		}
 		return teamObj;
 	}
+
 	/**
 	 * Builds a query with the where clause.
-	 * @param wClause Where Clause
+	 * 
+	 * @param wClause
+	 *            Where Clause
 	 * @return a query
 	 */
 	private String buildQuery(String wClause) {
@@ -138,9 +141,12 @@ public class DBTeam {
 
 		return query;
 	}
+
 	/**
 	 * Inserts teamNumber and league into the Team table in the DB.
-	 * @param t the Team to be inserted
+	 * 
+	 * @param t
+	 *            the Team to be inserted
 	 * @return the number of rows affected.
 	 */
 	public int insertTeam(Team t) throws Exception {
@@ -163,11 +169,15 @@ public class DBTeam {
 		return (rc);
 
 	}
+
 	/**
 	 * Updates the teamNumber and league for a Team in the Team table in the DB.
-	 * @param t the Team which information is to be updated. 
-	 *            The number of the team that you wish to find.
-	 * @param oldTeamNo the old teamNumber, used for Where part of query
+	 * 
+	 * @param t
+	 *            the Team which information is to be updated. The number of the
+	 *            team that you wish to find.
+	 * @param oldTeamNo
+	 *            the old teamNumber, used for Where part of query
 	 * @return the number of rows affected or -1 if error.
 	 */
 	public int updateTeam(Team t, String oldTeamNo) throws Exception {
@@ -192,9 +202,13 @@ public class DBTeam {
 		return (rc);
 
 	}
+
 	/**
-	 * Deletes a Team from the Team table. DBMS deletes handles deletion of foreign key using it.
-	 * @param teamNumber The number of the team that you wish to delete.
+	 * Deletes a Team from the Team table. DBMS deletes handles deletion of
+	 * foreign key using it.
+	 * 
+	 * @param teamNumber
+	 *            The number of the team that you wish to delete.
 	 * @return the number of rows affected or -1 if error.
 	 */
 	public int deleteTeam(String teamNumber) {
@@ -214,9 +228,13 @@ public class DBTeam {
 		return (rc);
 
 	}
+
 	/**
 	 * Builds a Team using a ResultSet.
-	 * @param results the ResultsSet from which the information used to build is retrieved.
+	 * 
+	 * @param results
+	 *            the ResultsSet from which the information used to build is
+	 *            retrieved.
 	 * @return a Team.
 	 */
 	private Team buildTeam(ResultSet results) {
@@ -232,10 +250,12 @@ public class DBTeam {
 		}
 		return t;
 	}
-	
+
 	/**
 	 * Get allt the players belonging to a Team
-	 * @param teamNumber The number of the team that you wish to find Players for.
+	 * 
+	 * @param teamNumber
+	 *            The number of the team that you wish to find Players for.
 	 * @return An ArrayList of Players.
 	 */
 	private ArrayList<Player> getPlayers(String teamNumber) {
@@ -275,11 +295,15 @@ public class DBTeam {
 		}
 		return list;
 	}
-	
+
 	/**
-	 * Adds a Player to the Team by inserting a playerId and teamNumber in the Association table.
-	 * @param p The player you wish to add to a team.
-	 * @param teamNumber The number of the team that you wish to add a Player to.
+	 * Adds a Player to the Team by inserting a playerId and teamNumber in the
+	 * Association table.
+	 * 
+	 * @param p
+	 *            The player you wish to add to a team.
+	 * @param teamNumber
+	 *            The number of the team that you wish to add a Player to.
 	 * @return the number of rows affected or -1 if error.
 	 */
 	public int addPlayerTeam(Player p, String teamNumber) throws Exception {
@@ -300,11 +324,15 @@ public class DBTeam {
 		}
 		return (rc);
 	}
-	
+
 	/**
-	 * Removes a Player from the Team by deleting playerId and teamNumber in the Association table.
-	 * @param p The player you wish to remove from the team.
-	 * @param teamNumber The number of the team that you wish to remove a Player from.
+	 * Removes a Player from the Team by deleting playerId and teamNumber in the
+	 * Association table.
+	 * 
+	 * @param p
+	 *            The player you wish to remove from the team.
+	 * @param teamNumber
+	 *            The number of the team that you wish to remove a Player from.
 	 * @return the number of rows affected or -1 if error.
 	 */
 	public int deletePlayerTeam(Player p, String teamNumber) {
@@ -326,7 +354,9 @@ public class DBTeam {
 
 	/**
 	 * Finds the manager for the Team.
-	 * @param teamNumber The number of the team that you wish to find the manager for.
+	 * 
+	 * @param teamNumber
+	 *            The number of the team that you wish to find the manager for.
 	 * @return A Manager object or null.
 	 */
 	private Manager getManager(String teamNumber) {
@@ -352,10 +382,13 @@ public class DBTeam {
 
 		return m;
 	}
-	
+
 	/**
 	 * Finds the TeamLeader for the Team.
-	 * @param teamNumber The number of the team that you wish to find the TeamLeader for.
+	 * 
+	 * @param teamNumber
+	 *            The number of the team that you wish to find  the TeamLeader
+	 *            for.
 	 * @return A TeamLeader object or null.
 	 */
 	private TeamLeader getTeamLeader(String teamNumber) {
