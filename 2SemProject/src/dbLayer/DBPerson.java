@@ -112,7 +112,7 @@ public class DBPerson {
 	 *            The Person object that is to be updated in the database.
 	 * @return the number of rows change in the database
 	 */
-	public int updatePerson(Person p, String phone) {
+	public int updatePerson(Person p, String oldPhone) {
 		Person personObj = p;
 		int rc = -1;
 
@@ -154,7 +154,7 @@ public class DBPerson {
 					+ "R";
 		}
 
-		query += "'" + " WHERE phoneno = '" + phone + "'";
+		query += "'" + " WHERE phoneno = '" + oldPhone + "'";
 		System.out.println("Update query:" + query);
 
 		try {

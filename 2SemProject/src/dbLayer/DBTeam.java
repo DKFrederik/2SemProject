@@ -455,5 +455,59 @@ public class DBTeam {
 		}
 		return (rc);
 	}
+	
+	/**
+	 * Removes a Manager from the Team by deleting managerId and teamNumber in the
+	 * ManagerAssociation table.
+	 * 
+	 * @param p
+	 *            The manager you wish to remove from the team.
+	 * @param teamNumber
+	 *            The number of the team that you wish to remove a Manager from.
+	 * @return the number of rows affected or -1 if error.
+	 */
+	public int deleteManagerTeam(Manager m, String teamNumber) {
+		int rc = -1;
+
+		String query = "DELETE FROM ManagerAssociation WHERE teamNumber = '"
+				+ teamNumber + "' and managerId = (SELECT id FROM Person WHERE phoneno = '" + m.getPhone() + "')";
+		System.out.println(query);
+		try {
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			rc = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (Exception ex) {
+			System.out.println("Delete exception in ManagerAssociation db: " + ex);
+		}
+		return (rc);
+	}
+	
+	/**
+	 * Removes a TeamLeader from the Team by deleting leaderId and teamNumber in the
+	 * Association table.
+	 * 
+	 * @param p
+	 *            The teamleader you wish to remove from the team.
+	 * @param teamNumber
+	 *            The number of the team that you wish to remove a Player from.
+	 * @return the number of rows affected or -1 if error.
+	 */
+	public int deleteTeamerLeaderTeam(TeamLeader tl, String teamNumber) {
+		int rc = -1;
+
+		String query = "DELETE FROM TeamLeaderAssociation WHERE teamNumber = '"
+				+ teamNumber + "' and leaderId = (SELECT id FROM Person WHERE phoneno = '" + tl.getPhone() + "')";
+		System.out.println(query);
+		try {
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			rc = stmt.executeUpdate(query);
+			stmt.close();
+		} catch (Exception ex) {
+			System.out.println("Delete exception in TeamLeaderAssociation db: " + ex);
+		}
+		return (rc);
+	}
 }
 
