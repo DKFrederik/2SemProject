@@ -415,4 +415,46 @@ public class DBTeam {
 
 		return tl;
 	}
+	
+	public int insertTeamLeader(TeamLeader tl, String teamNumber) throws Exception {
+		int rc = -1;
+		String query = "INSERT INTO TeamLeaderAssociation(leaderId, teamNumber) VALUES("
+				+ "(SELECT id FROM Person WHERE phoneno = '" + tl.getPhone() + "'),'"
+				+ teamNumber + "')";
+
+		System.out.println("insert : " + query);
+		try { // insert new Association
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			rc = stmt.executeUpdate(query);
+			stmt.close();
+		}// end try
+		catch (SQLException ex) {
+			System.out.println("TeamLeader not created");
+			throw new Exception("TeamLeader is not inserted correct");
+		}
+		return (rc);
+	}
 }
+	
+	public int insertManager(Manager m, String teamNumber) throws Exception {
+		int rc = -1;
+		String query = "INSERT INTO ManagerAssociation(leaderId, teamNumber) VALUES("
+				+ "(SELECT id FROM Person WHERE phoneno = '" + m.getPhone() + "'),'"
+				+ teamNumber + "')";
+	
+		System.out.println("insert : " + query);
+		try { // insert new Association
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			rc = stmt.executeUpdate(query);
+			stmt.close();
+		}// end try
+		catch (SQLException ex) {
+			System.out.println("Manager not created");
+			throw new Exception("Manager is not inserted correct");
+		}
+		return (rc);
+	}
+}
+
