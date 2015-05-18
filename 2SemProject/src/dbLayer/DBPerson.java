@@ -43,9 +43,9 @@ public class DBPerson {
 	}
 	
 	/**
-	 * 
+	 * Inserts firstname, lastname and so on into the Person table in the database.
 	 * @param p The person that is to be inserted
-	 * @return 
+	 * @return the number of rows changed in the database.
 	 * @throws Exception 
 	 */
 	public int insertPerson(Person p) throws Exception {
@@ -103,9 +103,9 @@ public class DBPerson {
 	}
 
 	/**
-	 * 
+	 * Updates the basic information of a Person in the Person table in the database.
 	 * @param p The Person object that is to be updated in the database.
-	 * @return
+	 * @return the number of rows change in the database
 	 */
 	public int updatePerson(Person p, String phone) {
 		Person personObj = p;
@@ -171,7 +171,13 @@ public class DBPerson {
 		}
 		return (rc);
 	}
-
+	
+	/**
+	 * Deletes a Person from the Person table in the database. 
+	 * The delete process also remove foreign keys using that Person tuple
+	 * @param phone The phone number of the person that you wish to delete.
+	 * @return the number of rows change in the database.
+	 */
 	public int deletePerson(String phone) {
 		int rc = -1;
 
@@ -190,7 +196,7 @@ public class DBPerson {
 	}
 
 	/**
-	 * 
+	 * Returns all Persons in the database
 	 * @param wClause where clause for the query.
 	 * @param retrieveAssociation whether or not to retrieve associations.
 	 * @return An ArrayList of persons.
@@ -227,7 +233,13 @@ public class DBPerson {
 		}
 		return list;
 	}
-
+	
+	/**
+	 * Finds a single Person in the database using the wClause.
+	 * @param wClause where clause.
+	 * @param retriveAssoc.iation Determines if associations should be retrieved or not. 
+	 * @return A Person Object if found, null if not.
+	 */
 	private Person singleWhere(String wClause, boolean retrieveAssociation) {
 		ResultSet results;
 		Person personObj = new Person();
@@ -279,7 +291,7 @@ public class DBPerson {
 	 * Builds a person from a ResultSet.
 	 * 
 	 * @param results the results returned by the DMBS
-	 * @return a person
+	 * @return a Person object.
 	 */
 	private Person buildPerson(ResultSet results){
 		Person personObj = new Person();
@@ -318,6 +330,11 @@ public class DBPerson {
 		return personObj;
 	}
 	
+	/**
+	 * Builds a Player object using the ResultSet
+	 * @param results a ResultSet used to build the object.
+	 * @return A Player object.
+	 */
 	private Player buildPlayer(ResultSet results) {
 		Player pl = new Player();
 		try {
@@ -330,6 +347,12 @@ public class DBPerson {
 		
 		return pl;
 	}
+	
+	/**
+	 * Builds a TeamLeader object using the ResultSet
+	 * @param results a ResultSet used to build the object.
+	 * @return A TeamLeader object.
+	 */
 	private TeamLeader buildTeamLeader(ResultSet results) {
 		TeamLeader tl = new TeamLeader();
 		try {
@@ -342,7 +365,12 @@ public class DBPerson {
 		
 		return tl;
 	}
-	
+	/**
+	 * Builds a Manager object using the ResultSet
+	 * @param results a ResultSet used to build the object.
+	 * @return A Manager object.
+	 */
+
 	private Manager buildManager(ResultSet results) {
 		Manager m = new Manager();
 		
@@ -357,7 +385,12 @@ public class DBPerson {
 		
 		return m;
 	}
-	
+	/**
+	 * Builds a Staff object using the ResultSet
+	 * @param results a ResultSet used to build the object.
+	 * @return A Staff object.
+	 */
+
 	private Staff buildStaff(ResultSet results) {
 		Staff s = new Staff();
 
@@ -372,13 +405,27 @@ public class DBPerson {
 		
 		return s;
 	}
-	
+	/**
+	 * Builds a Referee object using the ResultSet
+	 * @param results a ResultSet used to build the object.
+	 * @return A Referee object.
+	 */
+
 	private Referee buildReferee(ResultSet results) {
 		Referee r = new Referee();
 		
 		return r;
 	}
 	
+	/**
+	 * Gets all the Teams that a Player plays on. The method uses the id field from a Player.
+	 * This method requires that the Player p is build from an object in the database, otherwise
+	 * there wouldn't be an id.
+	 * @param personId the id of the Player.
+	 * @param retrieveAssociation determines if associations should be build.
+	 * @return ArrayList<Team> the Player plays on.
+	 */
+
 private ArrayList<Team> getTeam(String personId, Boolean retrieveAssociation) {
 		
 		ResultSet results;
