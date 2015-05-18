@@ -259,7 +259,7 @@ public class DBPerson {
 				if (retrieveAssociation) {
 					if (personObj instanceof Player) {
 						((Player) personObj).setTeams(getTeam(
-								results.getString("id"), false));
+								results.getString("phoneno"), false));
 					}
 				}
 
@@ -321,8 +321,7 @@ public class DBPerson {
 			personObj.setPhone(results.getString("phoneno"));
 			personObj.setZipcode(results.getString("zipcode"));
 			personObj.setCity(post.findCity(results.getString("zipcode")));
-			personObj.setId(Integer.parseInt(results.getString("id")));
-
+			
 		} catch (Exception e) {
 			System.out.println("error in building the Person object");
 			e.printStackTrace();
@@ -442,12 +441,12 @@ public class DBPerson {
 	 * @return ArrayList<Team> the Player plays on.
 	 */
 
-	private ArrayList<Team> getTeam(String personId, Boolean retrieveAssociation) {
+	private ArrayList<Team> getTeam(String phoneno, Boolean retrieveAssociation) {
 
 		ResultSet results;
 		ArrayList<Team> list = new ArrayList<Team>();
 		String query = "SELECT teamNumber FROM Association WHERE personId = "
-				+ personId;
+				+ "(SELECT id FROM Person WHERE phoneno = '"+ phoneno + "')";
 
 		System.out.println(query);
 

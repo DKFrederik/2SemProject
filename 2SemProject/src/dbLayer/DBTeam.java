@@ -308,8 +308,9 @@ public class DBTeam {
 	 */
 	public int addPlayerTeam(Player p, String teamNumber) throws Exception {
 		int rc = -1;
-		String query = "INSERT INTO Association(personId, teamNumber) VALUES('"
-				+ p.getId() + "','" + teamNumber + "')";
+		String query = "INSERT INTO Association(personId, teamNumber) VALUES("
+				+ "(SELECT id FROM Person WHERE phoneno = '" + p.getPhone() + "'),'"
+				+ teamNumber + "')";
 
 		System.out.println("insert : " + query);
 		try { // insert new Association
@@ -339,7 +340,7 @@ public class DBTeam {
 		int rc = -1;
 
 		String query = "DELETE FROM Association WHERE teamNumber = '"
-				+ teamNumber + "' and personId = " + p.getId() + "";
+				+ teamNumber + "' and personId = (SELECT id FROM Person WHERE phoneno = '" + p.getPhone() + "')";
 		System.out.println(query);
 		try {
 			Statement stmt = con.createStatement();
