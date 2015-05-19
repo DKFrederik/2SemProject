@@ -9,10 +9,11 @@ import dbLayer.*;
 public class FieldCtr {
 	
 	private static FieldCtr instance = null;
+	private DBField fDB; 
 	
 	public FieldCtr()
 	{
-		
+		fDB = new DBField();
 	}
 	
 	public static FieldCtr getInstance()
@@ -45,8 +46,8 @@ public class FieldCtr {
 		
 	}
 	
-	public List<Field> getFields(List<String> fieldNumberList)
+	public List<Field> getFields()
 	{
-		return null;
+		return fDB.getAllFields(true);
 	}
 }

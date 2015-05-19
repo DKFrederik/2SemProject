@@ -154,7 +154,7 @@ public class LinkedGraph implements IFGraph  {
 					num = vertices.get(i).getColor();
 				}
 			}
-			return num;
+			return num + 1;
 		}
 		
 		public Vertex getVertex(int index)

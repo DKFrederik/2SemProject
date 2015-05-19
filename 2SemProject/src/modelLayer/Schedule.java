@@ -114,9 +114,7 @@ public class Schedule {
 	private void makeSchedule()
 	{
 		teamGraph.graphColoring();
-		int color1 = 0;
-		int color2 = 0;
-		int color3 = 0;
+		int[] colors = new int[teamGraph.getNoOfColors()];
 		
 		for(int i = 0;i < teamGraph.getNoOfVertices();i++)
 		{
@@ -124,24 +122,24 @@ public class Schedule {
 			if(teamGraph.getVertex(i).getColor() == 0)
 			{
 				appointments.get(i).setTime(0);
-				appointments.get(i).setField(fields.get(color1));
-				color1++;
+				appointments.get(i).setField(fields.get(colors[0]));
+				colors[0]++;
 				//System.out.println("Hold " + i + " skal spille 18-19");
 			}
 			
 			else if(teamGraph.getVertex(i).getColor() == 1)
 			{
 				appointments.get(i).setTime(1);
-				appointments.get(i).setField(fields.get(color2));
-				color2++;
+				appointments.get(i).setField(fields.get(colors[1]));
+				colors[1]++;
 				//System.out.println("Hold " + i + " skal spille 19-20");
 			}
 			
 			else if(teamGraph.getVertex(i).getColor() == 2)
 			{
 				appointments.get(i).setTime(2);
-				appointments.get(i).setField(fields.get(color3));
-				color3++;
+				appointments.get(i).setField(fields.get(colors[2]));
+				colors[2]++;
 				//System.out.println("Hold " + i + " skal spille 20-21");
 			}
 			
