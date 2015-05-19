@@ -23,7 +23,7 @@ public class DBPerson {
 	}
 
 	/**
-	 * 
+	 * Retrieves all Persons from the Person table in the db. 
 	 * @param retriveAssociation
 	 *            Determines if associations should be retrieved or not.
 	 * @return An ArrayList of Person objects.
