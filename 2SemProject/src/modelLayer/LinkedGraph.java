@@ -144,6 +144,19 @@ public class LinkedGraph implements IFGraph  {
 			}
 	    }
 		
+		public int getNoOfColors()
+		{
+			int num = 0;
+			for(int i = 0; i < vertices.size();i++)
+			{
+				if(vertices.get(i).getColor() > num)
+				{
+					num = vertices.get(i).getColor();
+				}
+			}
+			return num;
+		}
+		
 		public Vertex getVertex(int index)
 		{
 			return this.vertices.get(index);
