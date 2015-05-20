@@ -42,6 +42,7 @@ public class MainGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);		
 		
+		
 		JPanel panelTeam = new JPanel();
 		panelTeam.setBounds(0, 0, 434, 261);
 		contentPane.add(panelTeam);
@@ -60,28 +61,14 @@ public class MainGUI extends JFrame {
 		contentPane.add(panelTraining);
 		panelTraining.setLayout(null);
 		panelTraining.setVisible(false);
-		
-		JPanel panelMain = new JPanel();
-		panelMain.setVisible(true);
 		panelPlayer.setVisible(false);
 		panelTeam.setVisible(false);
 		panelField.setVisible(false);
+		
+		JPanel panelMain = new JPanel();
+		panelMain.setVisible(true);
 		panelMain.setBounds(0, 0, 434, 261);
 		contentPane.add(panelMain);
-		
-		JButton btnCreate_1 = new JButton("Show training schedule");
-		btnCreate_1.setBounds(69, 114, 198, 23);
-		panelTraining.add(btnCreate_1);
-				
-		JButton btnBack_1 = new JButton("Back");
-		btnBack_1.addActionListener(e -> {
-			panelTraining.setVisible(false);
-			panelMain.setVisible(true);
-		});
-		btnBack_1.setBounds(302, 227, 89, 23);
-		panelTraining.add(btnBack_1);
-		panelPlayer.setBounds(0, 0, 434, 261);
-		contentPane.add(panelPlayer);
 		
 		JButton playerBtnM = new JButton("Player");
 		playerBtnM.setBounds(163, 25, 89, 23);
@@ -122,6 +109,21 @@ public class MainGUI extends JFrame {
 			System.exit(1);
 		});
 		panelMain.add(exitBtnM);
+
+		
+		JButton btnCreate_1 = new JButton("Show training schedule");
+		btnCreate_1.setBounds(69, 114, 198, 23);
+		panelTraining.add(btnCreate_1);
+				
+		JButton btnBack_1 = new JButton("Back");
+		btnBack_1.addActionListener(e -> {
+			panelTraining.setVisible(false);
+			panelMain.setVisible(true);
+		});
+		btnBack_1.setBounds(302, 227, 89, 23);
+		panelTraining.add(btnBack_1);
+		panelPlayer.setBounds(0, 0, 434, 261);
+		contentPane.add(panelPlayer);
 
 		
 		JButton btnClearFields = new JButton("Clear textfields");
