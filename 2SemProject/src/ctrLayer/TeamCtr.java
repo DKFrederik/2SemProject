@@ -61,4 +61,15 @@ public class TeamCtr {
 		return dbT.getAllTeams(true);
 	}
 	
+	public boolean createTeam(String teamNumber, int league) throws Exception
+	{
+		Team t = new Team(teamNumber, league);
+		if(0 < dbT.insertTeam(t)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 }
