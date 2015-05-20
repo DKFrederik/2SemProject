@@ -36,7 +36,7 @@ public class Schedule {
 		
 		for(int i=0; i<noOfVer;i++)
 		{	
-			testTeamList.add(new Team(""+i));
+			testTeamList.add(new Team(""+i,1));
 			for(int j = 0; j < 11; j++)
 			{
 				testTeamList.get(i).addPlayer(new Player());
@@ -90,7 +90,7 @@ public class Schedule {
 		
 		for(int i=0; i<numberOfTeams; i++)
 		{
-			teamGraph.addVertex(new Vertex("Hold" + appointments.get(i).getTeam().getNumber()));
+			teamGraph.addVertex(new Vertex("Hold" + appointments.get(i).getTeam().getTeamNumber()));
 			
 			System.out.println(teamGraph.getNoOfVertices() + " " + teamGraph.getVertex(i).getName());
 		}
@@ -161,7 +161,7 @@ public class Schedule {
 	{
 		for(int i = 0; i < appointments.size(); i++)
 		{
-			System.out.println("Team: " + appointments.get(i).getTeam().getNumber() + 
+			System.out.println("Team: " + appointments.get(i).getTeam().getTeamNumber() + 
 					" Field: " + appointments.get(i).getField().getFieldNumber() + 
 					" Time: " + appointments.get(i).getTime());
 		}
