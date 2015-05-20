@@ -28,17 +28,22 @@ public class LinkedGraph implements IFGraph  {
 	           adjList.add(new LinkedList<Vertex>());    
 	    }
 	   
-	   public void graphColoring(){	   
-		   // Assign the first color to first vertex
+	   public void graphColoring(){	
+		   /*creates an array of int to keep track of the number of each colors is assigned
+		     to the vertices.*/
+		   int[] colorAssigned = new int[noVer+1];
+		   // Assign the first color of first vertex
 		   vertices.get(0).setColor(0);
-		   
+		   //increment the 0th color by one
+		   colorAssigned[0]++;
 		   // Initialize remaining V-1 vertices as unassigned
-		   for(int i = 1; i < noVer; i++){
+		   for(int i = 1; i <= noVer; i++){
 			   vertices.get(i).setColor(-1);
 		   }
 
 		   ArrayList<Boolean> tempList = new ArrayList<Boolean>(noVer);
-		   System.out.println(tempList.size());
+		   
+		   //System.out.println(tempList.size());
 		   //tempList.add(0, true);
 		   
 		   for(int i = 0; i <= noVer; i++){
@@ -57,16 +62,19 @@ public class LinkedGraph implements IFGraph  {
 					   }
 				   }
 			   
-			   //Loops through the temporary list and finds the first available color and assigns it to the vertex 
+			   //Loops through the temporary list and finds the first available color and assigns it to the vertex
+			   // increments the color-count of the index by 1 if assigned.
 			   int u = 0;
 			   boolean found = false;
 			   while(u <= noVer && !found){
-				   if(tempList.get(u) == false){
+				   if(tempList.get(u) == false && colorAssigned[u] < 3){
 					   vertices.get(i).setColor(u);
+					   colorAssigned[u]++;
 					   found = true;
 				   }
 				   u++;
 			   }
+			   
 			   //Resets the temporary list for the next iteration
 			   for(int k = 0; k <= noVer; k++){
 				   tempList.set(k, false);
@@ -75,6 +83,7 @@ public class LinkedGraph implements IFGraph  {
 		   //Prints the color of each vertex
 		   for(int i = 0; i <= noVer; i++){
 			   System.out.println("Vertex " + i + " ---> color " + vertices.get(i).getColor());
+			   System.out.println("colors assigned for " + i + ": " + colorAssigned[i]);
 		   } 
 	   }
 
@@ -143,6 +152,19 @@ public class LinkedGraph implements IFGraph  {
 				vertices.get(i).setColor(-1);
 			}
 	    }
+		
+		public int getNoOfColors()
+		{
+			int num = 0;
+			for(int i = 0; i < vertices.size();i++)
+			{
+				if(vertices.get(i).getColor() > num)
+				{
+					num = vertices.get(i).getColor();
+				}
+			}
+			return num + 1;
+		}
 		
 		public Vertex getVertex(int index)
 		{

@@ -41,7 +41,7 @@ public class DBTeamTest {
 	public void insertionTest() {
 		try {
 			assertEquals(1, dbt.insertTeam(t));
-			dbt.deleteTeam(t.getNumber());
+			dbt.deleteTeam(t.getTeamNumber());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,9 +57,9 @@ public class DBTeamTest {
 			e.printStackTrace();
 			fail();
 		}
-		Team t2 = dbt.findTeam(t.getNumber(), false);
-		assertTrue(t2.getNumber().equals(t.getNumber()));
-		assertEquals(1, dbt.deleteTeam(t2.getNumber()));
+		Team t2 = dbt.findTeam(t.getTeamNumber(), false);
+		assertTrue(t2.getTeamNumber().equals(t.getTeamNumber()));
+		assertEquals(1, dbt.deleteTeam(t2.getTeamNumber()));
 		
 	}
 	
@@ -67,7 +67,7 @@ public class DBTeamTest {
 	public void updateTeamTest() {
 		try {
 			dbt.insertTeam(t);
-			t.setNumber("4321");
+			t.setTeamNumber("4321");
 			dbt.updateTeam(t, "1234");
 			assertNotNull(dbt.findTeam("4321", false));
 			dbt.deleteTeam("4321");
@@ -90,8 +90,8 @@ public class DBTeamTest {
 		ArrayList<Team> teams = dbt.getAllTeams(false);
 		assertEquals(2, teams.size());
 		
-		dbt.deleteTeam(t.getNumber());
-		dbt.deleteTeam(t2.getNumber());
+		dbt.deleteTeam(t.getTeamNumber());
+		dbt.deleteTeam(t2.getTeamNumber());
 	}
 
 }

@@ -23,6 +23,7 @@ public class DBPerson {
 	}
 
 	/**
+	 * Retrieves all Persons from the Person table in the db.
 	 * 
 	 * @param retriveAssociation
 	 *            Determines if associations should be retrieved or not.
@@ -112,7 +113,7 @@ public class DBPerson {
 	 *            The Person object that is to be updated in the database.
 	 * @return the number of rows change in the database
 	 */
-	public int updatePerson(Person p, String phone) {
+	public int updatePerson(Person p, String oldPhone) {
 		Person personObj = p;
 		int rc = -1;
 
@@ -154,7 +155,7 @@ public class DBPerson {
 					+ "R";
 		}
 
-		query += "'" + " WHERE phoneno = '" + phone + "'";
+		query += "'" + " WHERE phoneno = '" + oldPhone + "'";
 		System.out.println("Update query:" + query);
 
 		try {
@@ -321,7 +322,7 @@ public class DBPerson {
 			personObj.setPhone(results.getString("phoneno"));
 			personObj.setZipcode(results.getString("zipcode"));
 			personObj.setCity(post.findCity(results.getString("zipcode")));
-			
+
 		} catch (Exception e) {
 			System.out.println("error in building the Person object");
 			e.printStackTrace();
@@ -446,7 +447,7 @@ public class DBPerson {
 		ResultSet results;
 		ArrayList<Team> list = new ArrayList<Team>();
 		String query = "SELECT teamNumber FROM Association WHERE personId = "
-				+ "(SELECT id FROM Person WHERE phoneno = '"+ phoneno + "')";
+				+ "(SELECT id FROM Person WHERE phoneno = '" + phoneno + "')";
 
 		System.out.println(query);
 

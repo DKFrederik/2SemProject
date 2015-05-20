@@ -5,20 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Schedule {
-	
-	private Field field;
-	private Match match;
+	private List<Appointment> appointments;
 	private Date date;
 	private LinkedGraph teamGraph;
+	private List<Field> fields;
 	
-	public Schedule(){
-		teamGraph = new LinkedGraph(5);
+	public Schedule(List<Field> fields){
+		appointments = new ArrayList<>();
+		this.fields = fields;
 	}
 	
 	//Test
 	public static void main(String[] args)
 	{
-		int noOfVer = 5;
+		int noOfVer = 10;
 		
 		Player claus = new Player();
 		Player peter = new Player();
@@ -61,20 +61,36 @@ public class Schedule {
 		testTeamList.get(0).addPlayer(donJohn);
 		testTeamList.get(3).addPlayer(donJohn);
 		
-		Schedule schedule = new Schedule();
-		schedule.createGraph(testTeamList);
-		schedule.makeSchedule();
+		ArrayList<Field> testFields= new ArrayList<>();
 		
+		for(int i= 0; i < 3; i++)
+		{
+			testFields.add(new Field(""+i,"Training", 100, 70));
+		}
+		
+		Schedule schedule = new Schedule(testFields);
+		
+		
+		for(int i = 0; i < testTeamList.size(); i++)
+		{
+			schedule.addAppointment(testTeamList.get(i));
+		}
+		
+		schedule.createGraph();
+		schedule.makeSchedule();
+		schedule.print();
 	}
 	
 	
-	public void createGraph(List<Team> teams)
+	public void createGraph()
 	{
-		int numberOfTeams = teams.size();
+		int numberOfTeams = appointments.size();
+		
+		teamGraph = new LinkedGraph(numberOfTeams);
 		
 		for(int i=0; i<numberOfTeams; i++)
 		{
-			teamGraph.addVertex(new Vertex("Hold" + teams.get(i).getNumber()));
+			teamGraph.addVertex(new Vertex("Hold" + appointments.get(i).getTeam().getNumber()));
 			
 			System.out.println(teamGraph.getNoOfVertices() + " " + teamGraph.getVertex(i).getName());
 		}
@@ -86,7 +102,7 @@ public class Schedule {
 		{
 			for(int j = i+1; j < numberOfTeams; j++)
 			{
-				if(compareLists(teams.get(i).getPlayers(),teams.get(j).getPlayers()))
+				if(compareLists(appointments.get(i).getTeam().getPlayers(),appointments.get(j).getTeam().getPlayers()))
 				{
 					teamGraph.addEdge(teamGraph.getVertex(i), teamGraph.getVertex(j));
 				}
@@ -97,27 +113,60 @@ public class Schedule {
 	
 	private void makeSchedule()
 	{
-		teamGraph.graphColoring();	
+		teamGraph.graphColoring();
+		
+		int numberOfColors = teamGraph.getNoOfColors();
+		
+		int[] colors = new int[numberOfColors];
+		
 		for(int i = 0;i < teamGraph.getNoOfVertices();i++)
 		{
+			
 			if(teamGraph.getVertex(i).getColor() == 0)
 			{
-				System.out.println("Hold " + i + " skal spille 18-19");
+				appointments.get(i).setTime(0);
+				appointments.get(i).setField(fields.get(colors[0]));
+				colors[0]++;
+				//System.out.println("Hold " + i + " skal spille 18-19");
 			}
 			
 			else if(teamGraph.getVertex(i).getColor() == 1)
 			{
-				System.out.println("Hold " + i + " skal spille 19-20");
+				appointments.get(i).setTime(1);
+				appointments.get(i).setField(fields.get(colors[1]));
+				colors[1]++;
+				//System.out.println("Hold " + i + " skal spille 19-20");
 			}
 			
 			else if(teamGraph.getVertex(i).getColor() == 2)
 			{
-				System.out.println("Hold " + i + " skal spille 20-21");
+				appointments.get(i).setTime(2);
+				appointments.get(i).setField(fields.get(colors[2]));
+				colors[2]++;
+				//System.out.println("Hold " + i + " skal spille 20-21");
+			}
+			
+			else if(teamGraph.getVertex(i).getColor() == 3)
+			{
+				appointments.get(i).setTime(3);
+				appointments.get(i).setField(fields.get(colors[3]));
+				colors[3]++;
+				//System.out.println("Hold " + i + " skal spille 20-21");
 			}
 			
 		}
 	}
-
+	
+	public void print()
+	{
+		for(int i = 0; i < appointments.size(); i++)
+		{
+			System.out.println("Team: " + appointments.get(i).getTeam().getNumber() + 
+					" Field: " + appointments.get(i).getField().getFieldNumber() + 
+					" Time: " + appointments.get(i).getTime());
+		}
+	}
+	
 	private boolean compareLists(List<Player> list1, List<Player> list2)
 	{
 		int sizeOne = list1.size();
@@ -134,14 +183,22 @@ public class Schedule {
 		return found;
 	}
 	
-	public void addTeam()
+	public void addAppointment(Team t)
 	{
-		
+		appointments.add(new Appointment(t));
 	}
 	
-	public void removeTeam()
+	public void removeAppointment(Team t)
 	{
-		
+		boolean found = false;
+		for(int i = 0; i < appointments.size() && found == false; i++)
+		{
+			if(appointments.get(i).getTeam().equals(t))
+			{
+				appointments.get(i);
+				found = true;
+			}
+		}
 	}
 	
 	
