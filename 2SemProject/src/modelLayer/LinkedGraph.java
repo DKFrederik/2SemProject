@@ -29,10 +29,12 @@ public class LinkedGraph implements IFGraph  {
 	    }
 	   
 	   public void graphColoring(){	
-		   
+		   /*creates an array of int to keep track of the number of each colors is assigned
+		     to the vertices.*/
 		   int[] colorAssigned = new int[noVer+1];
-		   // Assign the first color to first vertex
+		   // Assign the first color of first vertex
 		   vertices.get(0).setColor(0);
+		   //increment the 0th color by one
 		   colorAssigned[0]++;
 		   // Initialize remaining V-1 vertices as unassigned
 		   for(int i = 1; i <= noVer; i++){
@@ -60,7 +62,8 @@ public class LinkedGraph implements IFGraph  {
 					   }
 				   }
 			   
-			   //Loops through the temporary list and finds the first available color and assigns it to the vertex 
+			   //Loops through the temporary list and finds the first available color and assigns it to the vertex
+			   // increments the color-count of the index by 1 if assigned.
 			   int u = 0;
 			   boolean found = false;
 			   while(u <= noVer && !found){
