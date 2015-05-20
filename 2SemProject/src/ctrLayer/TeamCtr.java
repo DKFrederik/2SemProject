@@ -9,10 +9,11 @@ import dbLayer.*;
 public class TeamCtr {
 	
 	private static TeamCtr instance = null;
+	private DBTeam dbT;
 	
 	private TeamCtr()
 	{
-		
+		dbT = new DBTeam();
 	}
 	
 	public static TeamCtr getInstance()
@@ -32,22 +33,32 @@ public class TeamCtr {
 	
 	public Team findTeam(String teamNumber)
 	{
-		return null;
+		return dbT.findTeam(teamNumber, true);
 	}
 	
-	public void deleteTeam(String teamNumber)
+	public boolean deleteTeam(String teamNumber)
 	{
-		
+		if(0 < dbT.deleteTeam(teamNumber)) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
-	public void updateTeam(Team t, String oldTeamNumber)
+	public boolean updateTeam(Team t, String oldTeamNumber) throws Exception
 	{
-		
+		if(0 < dbT.updateTeam(t, oldTeamNumber)) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public List<Team> getTeams(List<String> teamNumberList)
 	{
-		return null;
+		return dbT.getAllTeams(true);
 	}
 	
 }
