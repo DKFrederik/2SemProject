@@ -11,8 +11,9 @@ public class Team {
 	private Manager manager;
 	private TeamLeader teamLeader;
 	
-	public Team(String number){
+	public Team(String number, int league){
 		this.teamNumber = number;
+		this.league = league;
 		this.players = new ArrayList<Player>();
 	}
 	
