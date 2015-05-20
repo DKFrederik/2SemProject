@@ -18,7 +18,7 @@ public class Schedule {
 	//Test
 	public static void main(String[] args)
 	{
-		int noOfVer = 5;
+		int noOfVer = 10;
 		
 		Player claus = new Player();
 		Player peter = new Player();
@@ -114,7 +114,10 @@ public class Schedule {
 	private void makeSchedule()
 	{
 		teamGraph.graphColoring();
-		int[] colors = new int[teamGraph.getNoOfColors()];
+		
+		int numberOfColors = teamGraph.getNoOfColors();
+		
+		int[] colors = new int[numberOfColors];
 		
 		for(int i = 0;i < teamGraph.getNoOfVertices();i++)
 		{
@@ -140,6 +143,14 @@ public class Schedule {
 				appointments.get(i).setTime(2);
 				appointments.get(i).setField(fields.get(colors[2]));
 				colors[2]++;
+				//System.out.println("Hold " + i + " skal spille 20-21");
+			}
+			
+			else if(teamGraph.getVertex(i).getColor() == 3)
+			{
+				appointments.get(i).setTime(3);
+				appointments.get(i).setField(fields.get(colors[3]));
+				colors[3]++;
 				//System.out.println("Hold " + i + " skal spille 20-21");
 			}
 			
