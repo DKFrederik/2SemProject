@@ -23,7 +23,8 @@ public class DBPerson {
 	}
 
 	/**
-	 * Retrieves all Persons from the Person table in the db. 
+	 * Retrieves all Persons from the Person table in the db.
+	 * 
 	 * @param retriveAssociation
 	 *            Determines if associations should be retrieved or not.
 	 * @return An ArrayList of Person objects.
@@ -321,7 +322,7 @@ public class DBPerson {
 			personObj.setPhone(results.getString("phoneno"));
 			personObj.setZipcode(results.getString("zipcode"));
 			personObj.setCity(post.findCity(results.getString("zipcode")));
-			
+
 		} catch (Exception e) {
 			System.out.println("error in building the Person object");
 			e.printStackTrace();
@@ -446,7 +447,7 @@ public class DBPerson {
 		ResultSet results;
 		ArrayList<Team> list = new ArrayList<Team>();
 		String query = "SELECT teamNumber FROM Association WHERE personId = "
-				+ "(SELECT id FROM Person WHERE phoneno = '"+ phoneno + "')";
+				+ "(SELECT id FROM Person WHERE phoneno = '" + phoneno + "')";
 
 		System.out.println(query);
 

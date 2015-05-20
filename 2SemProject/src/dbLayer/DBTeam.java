@@ -183,8 +183,8 @@ public class DBTeam {
 	public int updateTeam(Team t, String oldTeamNo) throws Exception {
 
 		int rc = -1;
-		String query = "UPDATE Team SET " + "teamNumber = '" + t.getTeamNumber()
-				+ "'," + "league = '" + t.getLeague();
+		String query = "UPDATE Team SET " + "teamNumber = '"
+				+ t.getTeamNumber() + "'," + "league = '" + t.getLeague();
 
 		query += "'" + " WHERE teamNumber = '" + oldTeamNo + "'";
 
@@ -309,8 +309,8 @@ public class DBTeam {
 	public int addPlayerTeam(Player p, String teamNumber) throws Exception {
 		int rc = -1;
 		String query = "INSERT INTO Association(personId, teamNumber) VALUES("
-				+ "(SELECT id FROM Person WHERE phoneno = '" + p.getPhone() + "'),'"
-				+ teamNumber + "')";
+				+ "(SELECT id FROM Person WHERE phoneno = '" + p.getPhone()
+				+ "'),'" + teamNumber + "')";
 
 		System.out.println("insert : " + query);
 		try { // insert new Association
@@ -340,7 +340,9 @@ public class DBTeam {
 		int rc = -1;
 
 		String query = "DELETE FROM Association WHERE teamNumber = '"
-				+ teamNumber + "' and personId = (SELECT id FROM Person WHERE phoneno = '" + p.getPhone() + "')";
+				+ teamNumber
+				+ "' and personId = (SELECT id FROM Person WHERE phoneno = '"
+				+ p.getPhone() + "')";
 		System.out.println(query);
 		try {
 			Statement stmt = con.createStatement();
@@ -388,7 +390,7 @@ public class DBTeam {
 	 * Finds the TeamLeader for the Team.
 	 * 
 	 * @param teamNumber
-	 *            The number of the team that you wish to find  the TeamLeader
+	 *            The number of the team that you wish to find the TeamLeader
 	 *            for.
 	 * @return A TeamLeader object or null.
 	 */
@@ -415,12 +417,14 @@ public class DBTeam {
 
 		return tl;
 	}
-	
-	public int insertTeamLeader(TeamLeader tl, String teamNumber) throws Exception {
+
+	public int insertTeamLeader(TeamLeader tl, String teamNumber)
+			throws Exception {
 		int rc = -1;
 		String query = "INSERT INTO TeamLeaderAssociation(leaderId, teamNumber) VALUES("
-				+ "(SELECT id FROM Person WHERE phoneno = '" + tl.getPhone() + "'),'"
-				+ teamNumber + "')";
+				+ "(SELECT id FROM Person WHERE phoneno = '"
+				+ tl.getPhone()
+				+ "'),'" + teamNumber + "')";
 
 		System.out.println("insert : " + query);
 		try { // insert new Association
@@ -435,13 +439,14 @@ public class DBTeam {
 		}
 		return (rc);
 	}
-	
+
 	public int insertManager(Manager m, String teamNumber) throws Exception {
 		int rc = -1;
 		String query = "INSERT INTO ManagerAssociation(leaderId, teamNumber) VALUES("
-				+ "(SELECT id FROM Person WHERE phoneno = '" + m.getPhone() + "'),'"
-				+ teamNumber + "')";
-	
+				+ "(SELECT id FROM Person WHERE phoneno = '"
+				+ m.getPhone()
+				+ "'),'" + teamNumber + "')";
+
 		System.out.println("insert : " + query);
 		try { // insert new Association
 			Statement stmt = con.createStatement();
@@ -455,10 +460,10 @@ public class DBTeam {
 		}
 		return (rc);
 	}
-	
+
 	/**
-	 * Removes a Manager from the Team by deleting managerId and teamNumber in the
-	 * ManagerAssociation table.
+	 * Removes a Manager from the Team by deleting managerId and teamNumber in
+	 * the ManagerAssociation table.
 	 * 
 	 * @param p
 	 *            The manager you wish to remove from the team.
@@ -470,7 +475,9 @@ public class DBTeam {
 		int rc = -1;
 
 		String query = "DELETE FROM ManagerAssociation WHERE teamNumber = '"
-				+ teamNumber + "' and managerId = (SELECT id FROM Person WHERE phoneno = '" + m.getPhone() + "')";
+				+ teamNumber
+				+ "' and managerId = (SELECT id FROM Person WHERE phoneno = '"
+				+ m.getPhone() + "')";
 		System.out.println(query);
 		try {
 			Statement stmt = con.createStatement();
@@ -478,14 +485,15 @@ public class DBTeam {
 			rc = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (Exception ex) {
-			System.out.println("Delete exception in ManagerAssociation db: " + ex);
+			System.out.println("Delete exception in ManagerAssociation db: "
+					+ ex);
 		}
 		return (rc);
 	}
-	
+
 	/**
-	 * Removes a TeamLeader from the Team by deleting leaderId and teamNumber in the
-	 * Association table.
+	 * Removes a TeamLeader from the Team by deleting leaderId and teamNumber in
+	 * the Association table.
 	 * 
 	 * @param p
 	 *            The teamleader you wish to remove from the team.
@@ -497,7 +505,9 @@ public class DBTeam {
 		int rc = -1;
 
 		String query = "DELETE FROM TeamLeaderAssociation WHERE teamNumber = '"
-				+ teamNumber + "' and leaderId = (SELECT id FROM Person WHERE phoneno = '" + tl.getPhone() + "')";
+				+ teamNumber
+				+ "' and leaderId = (SELECT id FROM Person WHERE phoneno = '"
+				+ tl.getPhone() + "')";
 		System.out.println(query);
 		try {
 			Statement stmt = con.createStatement();
@@ -505,9 +515,9 @@ public class DBTeam {
 			rc = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (Exception ex) {
-			System.out.println("Delete exception in TeamLeaderAssociation db: " + ex);
+			System.out.println("Delete exception in TeamLeaderAssociation db: "
+					+ ex);
 		}
 		return (rc);
 	}
 }
-
