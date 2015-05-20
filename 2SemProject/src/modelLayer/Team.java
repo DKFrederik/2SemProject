@@ -7,12 +7,12 @@ public class Team {
 	
 	private List<Player> players;
 	private int league;
-	private String number;
+	private String teamNumber;
 	private Manager manager;
 	private TeamLeader teamLeader;
 	
 	public Team(String number){
-		this.number = number;
+		this.teamNumber = number;
 		this.players = new ArrayList<Player>();
 	}
 	
@@ -40,14 +40,14 @@ public class Team {
 		this.league = league;
 	}
 	
-	public String getNumber()
+	public String getTeamNumber()
 	{
-		return this.number;
+		return this.teamNumber;
 	}
 	
-	public void setNumber(String number)
+	public void setTeamNumber(String number)
 	{
-		this.number = number;
+		this.teamNumber = number;
 	}
 	
 	public List<Player> getPlayers()

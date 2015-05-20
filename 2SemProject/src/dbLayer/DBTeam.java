@@ -153,7 +153,7 @@ public class DBTeam {
 
 		int rc = -1;
 		String query = "INSERT INTO Team(teamNumber, league) VALUES('"
-				+ t.getNumber() + "','" + t.getLeague() + "')";
+				+ t.getTeamNumber() + "','" + t.getLeague() + "')";
 
 		System.out.println("insert : " + query);
 		try { // insert new Team
@@ -183,7 +183,7 @@ public class DBTeam {
 	public int updateTeam(Team t, String oldTeamNo) throws Exception {
 
 		int rc = -1;
-		String query = "UPDATE Team SET " + "teamNumber = '" + t.getNumber()
+		String query = "UPDATE Team SET " + "teamNumber = '" + t.getTeamNumber()
 				+ "'," + "league = '" + t.getLeague();
 
 		query += "'" + " WHERE teamNumber = '" + oldTeamNo + "'";
@@ -241,7 +241,7 @@ public class DBTeam {
 		Team t = new Team();
 
 		try {
-			t.setNumber(results.getString("teamNumber"));
+			t.setTeamNumber(results.getString("teamNumber"));
 			t.setLeague(Integer.parseInt(results.getString("league")));
 			t.setManager(getManager(results.getString("teamNumber")));
 			t.setTeamLeader(getTeamLeader(results.getString("teamNumber")));
