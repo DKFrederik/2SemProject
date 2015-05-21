@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Schedule {
 	private List<Appointment> appointments;
-	private Date date;
+	private Date date; 
 	private LinkedGraph teamGraph;
 	private List<Field> fields;
 	
@@ -14,73 +14,6 @@ public class Schedule {
 		appointments = new ArrayList<>();
 		this.fields = fields;
 	}
-	
-	//Test
-	public static void main(String[] args)
-	{
-		int noOfVer = 10;
-		
-		Player claus = new Player();
-		Player peter = new Player();
-		Player frederik = new Player();
-		Player nichlas = new Player();
-		Player finn = new Player();
-		Player henrik = new Player();
-		Player bendtner = new Player();
-		Player john = new Player();
-		Player dolan = new Player();
-		Player donJohn = new Player();
-		
-		
-		ArrayList<Team> testTeamList = new ArrayList<>();
-		
-		for(int i=0; i<noOfVer;i++)
-		{	
-			testTeamList.add(new Team(""+i,1));
-			for(int j = 0; j < 11; j++)
-			{
-				testTeamList.get(i).addPlayer(new Player());
-			}
-							
-		}
-		
-		testTeamList.get(0).addPlayer(peter);
-		testTeamList.get(4).addPlayer(peter);
-		testTeamList.get(3).addPlayer(peter);
-		testTeamList.get(1).addPlayer(nichlas);
-		testTeamList.get(3).addPlayer(nichlas);
-		testTeamList.get(0).addPlayer(frederik);
-		testTeamList.get(4).addPlayer(frederik);
-		testTeamList.get(2).addPlayer(henrik);
-		testTeamList.get(1).addPlayer(henrik);
-		testTeamList.get(3).addPlayer(finn);
-		testTeamList.get(1).addPlayer(bendtner);
-		testTeamList.get(4).addPlayer(john);
-		testTeamList.get(1).addPlayer(dolan);
-		testTeamList.get(2).addPlayer(donJohn);
-		testTeamList.get(0).addPlayer(donJohn);
-		testTeamList.get(3).addPlayer(donJohn);
-		
-		ArrayList<Field> testFields= new ArrayList<>();
-		
-		for(int i= 0; i < 3; i++)
-		{
-			testFields.add(new Field(""+i,"Training", 100, 70));
-		}
-		
-		Schedule schedule = new Schedule(testFields);
-		
-		
-		for(int i = 0; i < testTeamList.size(); i++)
-		{
-			schedule.addAppointment(testTeamList.get(i));
-		}
-		
-		schedule.createGraph();
-		schedule.makeSchedule();
-		schedule.print();
-	}
-	
 	
 	public void createGraph()
 	{
@@ -90,11 +23,10 @@ public class Schedule {
 		
 		for(int i=0; i<numberOfTeams; i++)
 		{
-			teamGraph.addVertex(new Vertex("Hold" + appointments.get(i).getTeam().getTeamNumber()));
+			teamGraph.addVertex(new Vertex("Hold " + appointments.get(i).getTeam().getTeamNumber()));
 			
-			System.out.println(teamGraph.getNoOfVertices() + " " + teamGraph.getVertex(i).getName());
+			//System.out.println(teamGraph.getNoOfVertices() + " " + teamGraph.getVertex(i).getName());
 		}
-		
 		
 		System.out.println(numberOfTeams);
 		
@@ -111,7 +43,7 @@ public class Schedule {
 
 	}
 	
-	private void makeSchedule()
+	public void makeSchedule()
 	{
 		teamGraph.graphColoring();
 		
@@ -151,7 +83,6 @@ public class Schedule {
 				appointments.get(i).setTime(3);
 				appointments.get(i).setField(fields.get(colors[3]));
 				colors[3]++;
-				//System.out.println("Hold " + i + " skal spille 20-21");
 			}
 			
 		}
@@ -184,8 +115,13 @@ public class Schedule {
 	}
 	
 	public void addAppointment(Team t)
-	{
+	{ 
 		appointments.add(new Appointment(t));
+	}
+	
+	public List<Appointment> getAppointments()
+	{
+		return this.appointments;
 	}
 	
 	public void removeAppointment(Team t)
@@ -199,6 +135,14 @@ public class Schedule {
 				found = true;
 			}
 		}
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 	

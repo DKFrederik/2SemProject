@@ -83,7 +83,7 @@ public class LinkedGraph implements IFGraph  {
 		   //Prints the color of each vertex
 		   for(int i = 0; i <= noVer; i++){
 			   System.out.println("Vertex " + i + " ---> color " + vertices.get(i).getColor());
-			   System.out.println("colors assigned for " + i + ": " + colorAssigned[i]);
+			  // System.out.println("colors assigned for " + i + ": " + colorAssigned[i]);
 		   } 
 	   }
 

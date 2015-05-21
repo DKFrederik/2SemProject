@@ -45,18 +45,13 @@ private DBSchedule schDB;
 		schedule.addAppointment(tCtr.findTeam(teamNumber));
 	}
 	
+	public void makeSchedule()
+	{
+		schedule.makeSchedule();
+	}
 	
 	public void completeSchedule()
 	{
-	}
-	
-	public void updateSchedule()
-	{
-			
-	}
-	
-	public Schedule findSchedule(Date date)
-	{
-		return schDB.findSchedule(date);
+		schDB.insertSchedule(this.schedule);
 	}
 }

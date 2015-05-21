@@ -36,7 +36,8 @@ public class DBSchedule {
 	public int insertSchedule(Schedule s) {
 
 		int rc = -1;
-		String query = "INSERT INTO Schedule()  VALUES('"
+		String query = "INSERT INTO Schedule(date, fieldNumber, timeSlotNumber, teamNumber)  VALUES('"
+				+ s.
 				+ "','"
 				+ "')";
 
