@@ -59,6 +59,7 @@ public class FieldCtr {
 		}
 	}
 
+//  skal dette overhovedet bruges?
 //	/**
 //	 * Updates the field.
 //	 * 
