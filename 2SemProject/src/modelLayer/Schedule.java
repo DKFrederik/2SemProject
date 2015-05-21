@@ -9,7 +9,16 @@ public class Schedule {
 	private Date date; 
 	private LinkedGraph teamGraph;
 	private List<Field> fields;
+	private Person creator;
 	
+	public Person getCreator() {
+		return creator;
+	}
+
+	public void setCreator(Person creator) {
+		this.creator = creator;
+	}
+
 	public Schedule(List<Field> fields){
 		appointments = new ArrayList<>();
 		this.fields = fields;
@@ -56,7 +65,7 @@ public class Schedule {
 			
 			if(teamGraph.getVertex(i).getColor() == 0)
 			{
-				appointments.get(i).setTime(0);
+				appointments.get(i).setTimeSlot(0);
 				appointments.get(i).setField(fields.get(colors[0]));
 				colors[0]++;
 				//System.out.println("Hold " + i + " skal spille 18-19");
@@ -64,7 +73,7 @@ public class Schedule {
 			
 			else if(teamGraph.getVertex(i).getColor() == 1)
 			{
-				appointments.get(i).setTime(1);
+				appointments.get(i).setTimeSlot(1);
 				appointments.get(i).setField(fields.get(colors[1]));
 				colors[1]++;
 				//System.out.println("Hold " + i + " skal spille 19-20");
@@ -72,7 +81,7 @@ public class Schedule {
 			
 			else if(teamGraph.getVertex(i).getColor() == 2)
 			{
-				appointments.get(i).setTime(2);
+				appointments.get(i).setTimeSlot(2);
 				appointments.get(i).setField(fields.get(colors[2]));
 				colors[2]++;
 				//System.out.println("Hold " + i + " skal spille 20-21");
@@ -80,7 +89,7 @@ public class Schedule {
 			
 			else if(teamGraph.getVertex(i).getColor() == 3)
 			{
-				appointments.get(i).setTime(3);
+				appointments.get(i).setTimeSlot(3);
 				appointments.get(i).setField(fields.get(colors[3]));
 				colors[3]++;
 			}
@@ -94,7 +103,7 @@ public class Schedule {
 		{
 			System.out.println("Team: " + appointments.get(i).getTeam().getTeamNumber() + 
 					" Field: " + appointments.get(i).getField().getFieldNumber() + 
-					" Time: " + appointments.get(i).getTime());
+					" Time: " + appointments.get(i).getTimeSlot());
 		}
 	}
 	

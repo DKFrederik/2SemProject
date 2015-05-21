@@ -262,7 +262,7 @@ public class DBTeam {
 
 		ResultSet results;
 		ArrayList<Player> list = new ArrayList<Player>();
-		String query = "SELECT personId FROM Association WHERE teamNumber = '"
+		String query = "SELECT personId FROM PlayerAssociation WHERE teamNumber = '"
 				+ teamNumber + "'";
 
 		System.out.println(query);
@@ -308,7 +308,7 @@ public class DBTeam {
 	 */
 	public int addPlayerTeam(Player p, String teamNumber) throws Exception {
 		int rc = -1;
-		String query = "INSERT INTO Association(personId, teamNumber) VALUES("
+		String query = "INSERT INTO PlayerAssociation(personId, teamNumber) VALUES("
 				+ "(SELECT id FROM Person WHERE phoneno = '" + p.getPhone()
 				+ "'),'" + teamNumber + "')";
 
@@ -320,8 +320,8 @@ public class DBTeam {
 			stmt.close();
 		}// end try
 		catch (SQLException ex) {
-			System.out.println("Association not created");
-			throw new Exception("Association is not inserted correct");
+			System.out.println("PlayerAssociation not created");
+			throw new Exception("PlayerAssociation is not inserted correct");
 		}
 		return (rc);
 	}
@@ -339,7 +339,7 @@ public class DBTeam {
 	public int deletePlayerTeam(Player p, String teamNumber) {
 		int rc = -1;
 
-		String query = "DELETE FROM Association WHERE teamNumber = '"
+		String query = "DELETE FROM PlayerAssociation WHERE teamNumber = '"
 				+ teamNumber
 				+ "' and personId = (SELECT id FROM Person WHERE phoneno = '"
 				+ p.getPhone() + "')";
@@ -350,7 +350,7 @@ public class DBTeam {
 			rc = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (Exception ex) {
-			System.out.println("Delete exception in Association db: " + ex);
+			System.out.println("Delete exception in PlayerAssociation db: " + ex);
 		}
 		return (rc);
 	}
