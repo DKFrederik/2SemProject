@@ -6,6 +6,12 @@ import java.util.List;
 import modelLayer.*;
 import dbLayer.*;
 
+/**
+ * Controller for Field. Controls creation, update, delete, find of Field.
+ * @author nichlas, frederik, peter, claus.
+ * @version 20.05.2015
+ * 
+ */
 public class FieldCtr {
 
 	private static FieldCtr instance = null;
@@ -38,6 +44,13 @@ public class FieldCtr {
 		return fDB.findField(fieldNumber);
 	}
 
+	/**
+	 * Deletes a Field from the DB with the fieldNumber.
+	 * 
+	 * @param fieldNumber
+	 *            of the field that is to be deleted.
+	 * @return true or false to indicate success.
+	 */
 	public boolean deleteField(String fieldNumber) {
 		if (0 < fDB.deleteField(fieldNumber)) {
 			return true;
@@ -46,14 +59,36 @@ public class FieldCtr {
 		}
 	}
 
-	public boolean updateField(Field f, String oldFieldNumber) throws Exception {
-		if (0 < fDB.updateField(f)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+//	/**
+//	 * Updates the field.
+//	 * 
+//	 * @param f
+//	 *            the Field to be update.
+//	 * @param oldFieldNumber
+//	 *            the fieldNumber before the update.
+//	 * @return true or false to indicate success
+//	 */
+//	public boolean updateField(Field f, String oldFieldNumber) throws Exception {
+//		if (0 < fDB.updateField(f)) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
 	
+	/**
+	 * Inserts a field into the DB
+	 * 
+	 * @param fieldNumber
+	 *            the fieldNumber of the field.
+	 * @param type
+	 *            the type of the field.
+	 * @param length
+	 *            the length of the field.
+	 * @param width
+	 *            the width of the field.
+	 * @return true or false depending on success.
+	 */
 	public boolean createField(String fieldNumber, String type, int length, int width) throws Exception {
 		Field f = new Field(fieldNumber, type, length, width);
 		if (0 < fDB.insertField(f)) {
@@ -63,6 +98,11 @@ public class FieldCtr {
 		}
 	}
 
+	/**
+	 * Gets all the Fields in the DB.
+	 * 
+	 * @return A list of all Fields.
+	 */
 	public List<Field> getFields() {
 		return fDB.getAllFields(true);
 	}
