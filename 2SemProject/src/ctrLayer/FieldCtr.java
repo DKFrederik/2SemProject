@@ -46,8 +46,21 @@ public class FieldCtr {
 		}
 	}
 
-	public void updateField(Field f, String oldFieldNumber) {
-
+	public boolean updateField(Field f, String oldFieldNumber) throws Exception {
+		if (0 < fDB.updateField(f)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean createField(String fieldNumber, String type, int length, int width) throws Exception {
+		Field f = new Field(fieldNumber, type, length, width);
+		if (0 < fDB.insertField(f)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public List<Field> getFields() {
