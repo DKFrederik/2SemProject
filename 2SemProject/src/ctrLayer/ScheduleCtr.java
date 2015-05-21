@@ -15,7 +15,7 @@ Schedule schedule;
 private DBSchedule schDB;
 private DBAppointment appDB;
 	
-	private ScheduleCtr()
+	ScheduleCtr()
 	{
 		this.tCtr = TeamCtr.getInstance();
 		this.fCtr = FieldCtr.getInstance();
@@ -30,13 +30,14 @@ private DBAppointment appDB;
 		return instance;
 	}
 	
-	public int createSchedule(Date date)
+	public int createSchedule(java.sql.Date date)
 	{
 		int returnInt = 0;
-		if(schDB.findSchedule(date) == null)
+		//if(schDB.findSchedule(date) == null)
 		{
 			schedule = new Schedule(fCtr.getFields());
 			returnInt = 1;
+			schedule.setDate(date);
 		}
 		return returnInt;
 	}
@@ -48,6 +49,7 @@ private DBAppointment appDB;
 	
 	public void makeSchedule()
 	{
+		schedule.createGraph();
 		schedule.makeSchedule();
 	}
 	
@@ -57,10 +59,11 @@ private DBAppointment appDB;
 		schDB.insertSchedule(schedule);
 		
 		int scheduleId = schDB.findMaxId();
-		
+		System.out.println(scheduleId);
 		for(int i = 0; i < size; i++)
 		{
-			appDB.insertAppointment(schedule.getAppointments().get(i),scheduleId);
+			//appDB.insertAppointment(schedule.getAppointments().get(i), scheduleId);
+			System.out.println(schedule.getAppointments().get(i).getTeam());
 		}
 	}
 }

@@ -34,11 +34,14 @@ public class DBSchedule {
 	 * @return 
 	 */
 	public int insertSchedule(Schedule s) {
+		
+		DBPerson pDB = new DBPerson();
 
 		int rc = -1;
-		String query = "INSERT INTO Schedule(date, fieldNumber, timeSlotNumber, teamNumber)  VALUES('"
-				+ s.
+		String query = "INSERT INTO Schedule(date, creator)  VALUES('"
+				+ s.getDate()
 				+ "','"
+				+ pDB.findPerson(s.getCreator().getPhone(), false)
 				+ "')";
 
 		System.out.println("insert : " + query);
@@ -64,7 +67,9 @@ public class DBSchedule {
 		Schedule sObj = s;
 		int rc = -1;
 
-		String query = "UPDATE Schedule SET ";
+		String query = "UPDATE Schedule SET "
+				+ 
+				;
 		System.out.println("Update query:" + query);
 		try {
 			Statement stmt = con.createStatement();

@@ -19,8 +19,15 @@ public class DBAppointment {
 		con = DBConnection.getInstance().getDBcon();
 	}
 	
-	public ArrayList<Appointment> getAllAppointments(boolean retriveAssociation) {
-		return miscWhere("", retriveAssociation);
+	/**
+	 * Retrieves all Persons from the Person table in the db.
+	 * 
+	 * @param retriveAssociation
+	 *            Determines if associations should be retrieved or not.
+	 * @return An ArrayList of Person objects.
+	 */
+	public ArrayList<Appointment> getAllAppointments(int id, boolean retriveAssociation) {
+		return miscWhere(" scheduleId = '" + id + "'", retriveAssociation);
 	}
 
 	/**
