@@ -41,7 +41,7 @@ public class DBSchedule {
 		String query = "INSERT INTO Schedule(date, creator)  VALUES('"
 				+ s.getDate()
 				+ "','"
-				+ pDB.findPerson(s.getCreator().getPhone(), false)
+				+ 76 //pDB.findPerson(s.getCreator().getPhone(), false)
 				+ "')";
 
 		System.out.println("insert : " + query);
