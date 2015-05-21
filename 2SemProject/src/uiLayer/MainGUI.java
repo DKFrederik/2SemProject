@@ -42,12 +42,6 @@ public class MainGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);		
 		
-		
-		JPanel panelTeam = new JPanel();
-		panelTeam.setBounds(0, 0, 434, 261);
-		contentPane.add(panelTeam);
-		panelTeam.setLayout(null);
-		
 		JPanel panelField = new JPanel();
 		panelField.setBounds(0, 0, 434, 261);
 		contentPane.add(panelField);
@@ -62,7 +56,6 @@ public class MainGUI extends JFrame {
 		panelTraining.setLayout(null);
 		panelTraining.setVisible(false);
 		panelPlayer.setVisible(false);
-		panelTeam.setVisible(false);
 		panelField.setVisible(false);
 		
 		JPanel panelMain = new JPanel();
@@ -99,7 +92,7 @@ public class MainGUI extends JFrame {
 		teamBtnM.setBounds(163, 127, 89, 23);
 		teamBtnM.addActionListener(e -> {
 			panelMain.setVisible(false);
-			panelTeam.setVisible(true);
+//			panelTeam.setVisible(true);
 		});
 		panelMain.add(teamBtnM);
 		
@@ -149,6 +142,13 @@ public class MainGUI extends JFrame {
 		JButton btnDeleteField = new JButton("Delete field");
 		btnDeleteField.setBounds(215, 227, 105, 23);
 		panelField.add(btnDeleteField);
+		
+		
+		JPanel panelTeam = new JPanel();
+		panelTeam.setBounds(0, 0, 434, 261);
+		panelField.add(panelTeam);
+		panelTeam.setLayout(null);
+		panelTeam.setVisible(false);
 
 		
 		JButton btnCreateT = new JButton("Create");
