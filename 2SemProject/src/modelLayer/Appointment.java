@@ -3,7 +3,7 @@ package modelLayer;
 public class Appointment {
 
 	private Team team;
-	private int time;
+	private int timeSlot;
 	private Field field;
 	
 	public Appointment(Team t){
@@ -18,12 +18,12 @@ public class Appointment {
 		this.team = team;
 	}
 
-	public int getTime() {
-		return time;
+	public int getTimeSlot() {
+		return timeSlot;
 	}
 
-	public void setTime(int time) {
-		this.time = time;
+	public void setTimeSlot(int timeSlot) {
+		this.timeSlot = timeSlot;
 	}
 
 	public Field getField() {

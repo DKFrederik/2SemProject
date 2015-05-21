@@ -163,5 +163,27 @@ public class DBSchedule {
 		}
 		return atObj;
 	}
+	
+	/**
+	 * Finds the max id of the Schedule table.
+	 * @return the max id used in the Schedule table. 
+	 */
+	public int findMaxId() {
+		int id = 0;
+		ResultSet rs;
+		String query = "SELECT MAX(id) FROM Schedule";
+		try { 
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			rs = stmt.executeQuery(query);
+			stmt.close();
+			
+			id = rs.getInt("id");
+		}
+		catch (Exception ex) {
+			System.out.println("search failed");
+		}
+		return id;
+	}
 }
 

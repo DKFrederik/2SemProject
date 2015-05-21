@@ -13,6 +13,7 @@ private TeamCtr tCtr;
 private FieldCtr fCtr;
 Schedule schedule;
 private DBSchedule schDB;
+private DBAppointment appDB;
 	
 	private ScheduleCtr()
 	{
@@ -52,6 +53,14 @@ private DBSchedule schDB;
 	
 	public void completeSchedule()
 	{
-		schDB.insertSchedule(this.schedule);
+		int size = schedule.getAppointments().size();
+		schDB.insertSchedule(schedule);
+		
+		int scheduleId = schDB.findMaxId();
+		
+		for(int i = 0; i < size; i++)
+		{
+			appDB.insertAppointment(schedule.getAppointments().get(i),scheduleId);
+		}
 	}
 }
