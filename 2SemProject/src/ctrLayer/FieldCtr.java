@@ -58,24 +58,6 @@ public class FieldCtr {
 			return false;
 		}
 	}
-
-//  skal dette overhovedet bruges?
-//	/**
-//	 * Updates the field.
-//	 * 
-//	 * @param f
-//	 *            the Field to be update.
-//	 * @param oldFieldNumber
-//	 *            the fieldNumber before the update.
-//	 * @return true or false to indicate success
-//	 */
-//	public boolean updateField(Field f, String oldFieldNumber) throws Exception {
-//		if (0 < fDB.updateField(f)) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
 	
 	/**
 	 * Inserts a field into the DB
