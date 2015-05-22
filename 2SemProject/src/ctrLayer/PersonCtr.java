@@ -52,8 +52,6 @@ public class PersonCtr {
 
 	}
 	
-	public void 
-
 	public Person findPerson(String phoneno) {
 		return dbP.findPerson(phoneno, true);
 	}
