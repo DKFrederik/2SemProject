@@ -30,6 +30,8 @@ public class MainGUI extends JFrame {
 	private JTextField textPosition;
 	private JTextField textCityName;
 
+	private Person p;
+
 	/**
 	 * Launch the application.
 	 */
@@ -74,14 +76,14 @@ public class MainGUI extends JFrame {
 
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(e -> {
-				try {
-					pCtr.createPlayer(textFname.getText(), textLname.getText(),
-							textEmail.getText(), textPhoneNo.getText(),
-							textZipcode.getText(), textSbDay.getText(),
-							textPosition.getText());
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+			try {
+				pCtr.createPlayer(textFname.getText(), textLname.getText(),
+						textEmail.getText(), textPhoneNo.getText(),
+						textZipcode.getText(), textSbDay.getText(),
+						textPosition.getText());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		});
 
 		JLabel lblFnameLabel = new JLabel("First Name");
@@ -142,27 +144,35 @@ public class MainGUI extends JFrame {
 
 		JButton btnFind = new JButton("Find");
 		btnFind.addActionListener(e -> {
-				Person p = pCtr.findPerson(textPhoneNo.getText());
-				if (p instanceof Player) {
-					Player pl = (Player) p;
-					textFname.setText(pl.getFname());
-					textLname.setText(pl.getLname());
-					textPhoneNo.setText(pl.getPhone());
-					textPosition.setText(pl.getPosition());
-					textSbDay.setText(pl.getBDay().toString());
-					textCityName.setText(pl.getCity());
-					textEmail.setText(pl.getEmail());
-					textZipcode.setText(pl.getZipcode());
-				}
-				else {
-					//fejlmdl. her 
-				}
+			p = pCtr.findPerson(textPhoneNo.getText());
+			if (p instanceof Player) {
+				Player pl = (Player) p;
+				textFname.setText(pl.getFname());
+				textLname.setText(pl.getLname());
+				textPhoneNo.setText(pl.getPhone());
+				textPosition.setText(pl.getPosition());
+				textSbDay.setText(pl.getBDay().toString());
+				textCityName.setText(pl.getCity());
+				textEmail.setText(pl.getEmail());
+				textZipcode.setText(pl.getZipcode());
+			} else {
+				// fejlmdl. her
 			}
-		);
+		});
 		btnFind.setBounds(10, 79, 89, 23);
 		panelPlayer.add(btnFind);
 
 		JButton btnResetAll = new JButton("Clear fields");
+		btnResetAll.addActionListener(e -> {
+			textCityName.setText("");
+			textEmail.setText("");
+			textFname.setText("");
+			textLname.setText("");
+			textPhoneNo.setText("");
+			textPosition.setText("");
+			textSbDay.setText("");
+			textZipcode.setText("");
+		});
 		btnResetAll.setBounds(10, 113, 89, 23);
 		panelPlayer.add(btnResetAll);
 
@@ -176,7 +186,14 @@ public class MainGUI extends JFrame {
 
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(e -> {
-				
+			if (pCtr.updatePerson(textFname.getText(), textLname.getText(),
+					textEmail.getText(), textPhoneNo.getText(),
+					textZipcode.getText(), textSbDay.getText(),
+					textPosition.getText(), 'P', p.getPhone())) {
+				// succes
+			} else {
+				// error
+			}
 		});
 		btnUpdate.setBounds(10, 147, 89, 23);
 		panelPlayer.add(btnUpdate);
