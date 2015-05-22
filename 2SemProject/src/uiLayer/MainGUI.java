@@ -65,6 +65,48 @@ public class MainGUI extends JFrame {
 		JPanel panelPlayer = new JPanel();
 		panelPlayer.setVisible(true);
 		panelPlayer.setVisible(false);
+
+		JPanel panelTeam = new JPanel();
+		panelTeam.setBounds(0, 0, 434, 261);
+		contentPane.add(panelTeam);
+		panelTeam.setLayout(null);
+		panelTeam.setVisible(false);
+
+		JButton btnCreateT = new JButton("Create");
+		btnCreateT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCreateT.setBounds(10, 11, 89, 23);
+		panelTeam.add(btnCreateT);
+
+		JButton btnAddPlayerT = new JButton("Add player");
+		btnAddPlayerT.setBounds(10, 43, 89, 23);
+		panelTeam.add(btnAddPlayerT);
+
+		JButton btnAddManagerT = new JButton("Add manager");
+		btnAddManagerT.setBounds(10, 77, 89, 23);
+		panelTeam.add(btnAddManagerT);
+
+		JButton btnAddTeamleaderT = new JButton("Add teamleader");
+		btnAddTeamleaderT.setBounds(10, 111, 89, 23);
+		panelTeam.add(btnAddTeamleaderT);
+
+		JButton btnBackT = new JButton("Back");
+		btnBackT.addActionListener(e -> {
+			panelTeam.setVisible(false);
+			panelMain.setVisible(true);
+		});
+		btnBackT.setBounds(10, 227, 89, 23);
+		panelTeam.add(btnBackT);
+
+		JButton btnRemovePersonT = new JButton("Remove person");
+		btnRemovePersonT.setBounds(10, 145, 89, 23);
+		panelTeam.add(btnRemovePersonT);
+
+		JButton btnFindT = new JButton("Find");
+		btnFindT.setBounds(10, 179, 89, 23);
+		panelTeam.add(btnFindT);
 		panelPlayer.setBounds(0, 0, 434, 261);
 		contentPane.add(panelPlayer);
 		panelPlayer.setLayout(null);
@@ -270,12 +312,6 @@ public class MainGUI extends JFrame {
 		btnDeleteField.setBounds(10, 78, 105, 23);
 		panelField.add(btnDeleteField);
 
-		JPanel panelTeam = new JPanel();
-		panelTeam.setBounds(0, 0, 434, 261);
-		contentPane.add(panelTeam);
-		panelTeam.setLayout(null);
-		panelTeam.setVisible(false);
-
 		JButton playerBtnM = new JButton("Player");
 		playerBtnM.setBounds(163, 25, 89, 23);
 		playerBtnM.addActionListener(e -> {
@@ -315,42 +351,6 @@ public class MainGUI extends JFrame {
 			System.exit(1);
 		});
 		panelMain.add(exitBtnM);
-
-		JButton btnCreateT = new JButton("Create");
-		btnCreateT.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnCreateT.setBounds(10, 11, 89, 23);
-		panelTeam.add(btnCreateT);
-
-		JButton btnAddPlayerT = new JButton("Add player");
-		btnAddPlayerT.setBounds(10, 43, 89, 23);
-		panelTeam.add(btnAddPlayerT);
-
-		JButton btnAddManagerT = new JButton("Add manager");
-		btnAddManagerT.setBounds(10, 77, 89, 23);
-		panelTeam.add(btnAddManagerT);
-
-		JButton btnAddTeamleaderT = new JButton("Add teamleader");
-		btnAddTeamleaderT.setBounds(10, 111, 89, 23);
-		panelTeam.add(btnAddTeamleaderT);
-
-		JButton btnBackT = new JButton("Back");
-		btnBackT.addActionListener(e -> {
-			panelTeam.setVisible(false);
-			panelMain.setVisible(true);
-		});
-		btnBackT.setBounds(10, 227, 89, 23);
-		panelTeam.add(btnBackT);
-
-		JButton btnRemovePersonT = new JButton("Remove person");
-		btnRemovePersonT.setBounds(10, 145, 89, 23);
-		panelTeam.add(btnRemovePersonT);
-
-		JButton btnFindT = new JButton("Find");
-		btnFindT.setBounds(10, 179, 89, 23);
-		panelTeam.add(btnFindT);
 
 		/**
 		 * MAIN MENU
