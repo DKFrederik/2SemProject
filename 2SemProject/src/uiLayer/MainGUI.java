@@ -73,8 +73,7 @@ public class MainGUI extends JFrame {
 		contentPane.add(panelMain);
 
 		JButton btnCreate = new JButton("Create");
-		btnCreate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnCreate.addActionListener(e -> {
 				try {
 					pCtr.createPlayer(textFname.getText(), textLname.getText(),
 							textEmail.getText(), textPhoneNo.getText(),
@@ -83,7 +82,6 @@ public class MainGUI extends JFrame {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-			}
 		});
 
 		JLabel lblFnameLabel = new JLabel("First Name");
@@ -177,10 +175,8 @@ public class MainGUI extends JFrame {
 		panelPlayer.add(btnBack);
 
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnUpdate.addActionListener(e -> {
 				
-			}
 		});
 		btnUpdate.setBounds(10, 147, 89, 23);
 		panelPlayer.add(btnUpdate);
