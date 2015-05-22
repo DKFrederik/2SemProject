@@ -176,18 +176,17 @@ public class DBSchedule {
 	 */
 	public int findMaxId() {
 		int id = 0;
-		ResultSet rs;
-		String query = "SELECT MAX(id) FROM Schedule";
+		ResultSet results;
+		String query = "SELECT MAX(id) as id FROM Schedule";
 		try { 
 			Statement stmt = con.createStatement();
 			stmt.setQueryTimeout(5);
-			rs = stmt.executeQuery(query);
+			results = stmt.executeQuery(query);
+			id = results.getInt("id");
 			stmt.close();
-			
-			id = rs.getInt("id");
 		}
 		catch (Exception ex) {
-			System.out.println("search failed");
+			System.out.println("search failed" + ex.getMessage());
 		}
 		return id;
 	}

@@ -60,6 +60,7 @@ private DBAppointment appDB;
 		
 		int scheduleId = schDB.findMaxId();
 		System.out.println(scheduleId);
+		System.out.println(scheduleId);
 		for(int i = 0; i < size; i++)
 		{
 			appDB.insertAppointment(schedule.getAppointments().get(i), scheduleId);
