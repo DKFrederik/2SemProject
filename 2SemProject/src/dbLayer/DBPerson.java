@@ -446,7 +446,7 @@ public class DBPerson {
 
 		ResultSet results;
 		ArrayList<Team> list = new ArrayList<Team>();
-		String query = "SELECT teamNumber FROM Association WHERE personId = "
+		String query = "SELECT teamNumber FROM PlayerAssociation WHERE personId = "
 				+ "(SELECT id FROM Person WHERE phoneno = '" + phoneno + "')";
 
 		System.out.println(query);

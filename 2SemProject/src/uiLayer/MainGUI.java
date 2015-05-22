@@ -10,6 +10,7 @@ import javax.swing.JButton;
 
 import ctrLayer.PersonCtr;
 import modelLayer.Person;
+import modelLayer.Player;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -49,9 +50,9 @@ public class MainGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MainGUI() {
-		
+
 		PersonCtr pCtr = PersonCtr.getInstance();
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -64,7 +65,7 @@ public class MainGUI extends JFrame {
 		panelPlayer.setVisible(false);
 		panelPlayer.setBounds(0, 0, 434, 261);
 		contentPane.add(panelPlayer);
-		panelPlayer.setLayout(null);		
+		panelPlayer.setLayout(null);
 
 		JPanel panelMain = new JPanel();
 		panelMain.setVisible(true);
@@ -75,52 +76,55 @@ public class MainGUI extends JFrame {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					pCtr.createPlayer(textFname.getText(), textLname.getText(), textEmail.getText(), textPhoneNo.getText(), textZipcode.getText(), textSbDay.getText(), textPosition.getText());
+					pCtr.createPlayer(textFname.getText(), textLname.getText(),
+							textEmail.getText(), textPhoneNo.getText(),
+							textZipcode.getText(), textSbDay.getText(),
+							textPosition.getText());
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
-		
+
 		JLabel lblFnameLabel = new JLabel("First Name");
 		lblFnameLabel.setBounds(111, 14, 72, 16);
 		panelPlayer.add(lblFnameLabel);
-		
+
 		textFname = new JTextField();
 		textFname.setBounds(233, 11, 116, 22);
 		panelPlayer.add(textFname);
 		textFname.setColumns(10);
-		
+
 		textLname = new JTextField();
 		textLname.setBounds(236, 45, 116, 22);
 		panelPlayer.add(textLname);
 		textLname.setColumns(10);
-		
+
 		textEmail = new JTextField();
 		textEmail.setBounds(241, 79, 116, 22);
 		panelPlayer.add(textEmail);
 		textEmail.setColumns(10);
-		
+
 		textPhoneNo = new JTextField();
 		textPhoneNo.setBounds(241, 113, 116, 22);
 		panelPlayer.add(textPhoneNo);
 		textPhoneNo.setColumns(10);
-		
+
 		textZipcode = new JTextField();
 		textZipcode.setBounds(214, 147, 89, 22);
 		panelPlayer.add(textZipcode);
 		textZipcode.setColumns(10);
-		
+
 		textSbDay = new JTextField();
 		textSbDay.setBounds(211, 176, 116, 22);
 		panelPlayer.add(textSbDay);
 		textSbDay.setColumns(10);
-		
+
 		textPosition = new JTextField();
 		textPosition.setBounds(207, 205, 116, 22);
 		panelPlayer.add(textPosition);
 		textPosition.setColumns(10);
-		
+
 		textCityName = new JTextField();
 		textCityName.setEditable(false);
 		textCityName.setBounds(306, 147, 116, 22);
@@ -130,10 +134,33 @@ public class MainGUI extends JFrame {
 		panelPlayer.add(btnCreate);
 
 		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pCtr.deletePerson(textPhoneNo.getText());
+			}
+		});
 		btnDelete.setBounds(10, 45, 89, 23);
 		panelPlayer.add(btnDelete);
 
 		JButton btnFind = new JButton("Find");
+		btnFind.addActionListener(e -> {
+				Person p = pCtr.findPerson(textPhoneNo.getText());
+				if (p instanceof Player) {
+					Player pl = (Player) p;
+					textFname.setText(pl.getFname());
+					textLname.setText(pl.getLname());
+					textPhoneNo.setText(pl.getPhone());
+					textPosition.setText(pl.getPosition());
+					textSbDay.setText(pl.getBDay().toString());
+					textCityName.setText(pl.getCity());
+					textEmail.setText(pl.getEmail());
+					textZipcode.setText(pl.getZipcode());
+				}
+				else {
+					//fejlmdl. her 
+				}
+			}
+		);
 		btnFind.setBounds(10, 79, 89, 23);
 		panelPlayer.add(btnFind);
 
@@ -150,29 +177,34 @@ public class MainGUI extends JFrame {
 		panelPlayer.add(btnBack);
 
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnUpdate.setBounds(10, 147, 89, 23);
 		panelPlayer.add(btnUpdate);
-		
+
 		JLabel lblLnameLabel = new JLabel("Last Name");
 		lblLnameLabel.setBounds(111, 48, 72, 16);
 		panelPlayer.add(lblLnameLabel);
-		
+
 		JLabel lblEmailLabel = new JLabel("Email");
 		lblEmailLabel.setBounds(111, 82, 72, 16);
 		panelPlayer.add(lblEmailLabel);
-		
+
 		JLabel lblPhoneNoLabel = new JLabel("Phone Number");
 		lblPhoneNoLabel.setBounds(111, 116, 89, 16);
 		panelPlayer.add(lblPhoneNoLabel);
-		
+
 		JLabel lblPostalCodeLabel = new JLabel("Postal Code");
 		lblPostalCodeLabel.setBounds(111, 150, 72, 16);
 		panelPlayer.add(lblPostalCodeLabel);
-		
+
 		JLabel lblSbDayLabel = new JLabel("Birthday");
 		lblSbDayLabel.setBounds(111, 179, 72, 16);
 		panelPlayer.add(lblSbDayLabel);
-		
+
 		JLabel lblPosiotionLabel = new JLabel("Position");
 		lblPosiotionLabel.setBounds(111, 208, 72, 16);
 		panelPlayer.add(lblPosiotionLabel);
@@ -230,7 +262,6 @@ public class MainGUI extends JFrame {
 		contentPane.add(panelTeam);
 		panelTeam.setLayout(null);
 		panelTeam.setVisible(false);
-
 
 		JButton playerBtnM = new JButton("Player");
 		playerBtnM.setBounds(163, 25, 89, 23);
