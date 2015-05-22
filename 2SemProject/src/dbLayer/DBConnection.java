@@ -102,6 +102,7 @@ public class DBConnection
     {
        return con;
     }
+    
     //this method is used to get the instance of the connection
     public static DBConnection getInstance()
     {
@@ -111,6 +112,7 @@ public class DBConnection
         }
         return instance;
     }
+    
     public static void startTransaction()
     { try{
         con.setAutoCommit(false);
@@ -120,6 +122,7 @@ public class DBConnection
         System.out.println(e.getMessage());
       }
     }
+    
     public static void commitTransaction()
     { try{
         con.setAutoCommit(true);
@@ -129,6 +132,7 @@ public class DBConnection
         System.out.println(e.getMessage());
       }
     }
+    
     public static void rollbackTransaction()
     { try{
         con.rollback();
