@@ -228,10 +228,10 @@ public class MainGUI extends JFrame {
 
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(e -> {
-			if (pCtr.updatePerson(textFname.getText(), textLname.getText(),
+			if (pCtr.updatePlayer(textFname.getText(), textLname.getText(),
 					textEmail.getText(), textPhoneNo.getText(),
 					textZipcode.getText(), textSbDay.getText(),
-					textPosition.getText(), 'P', p.getPhone())) {
+					textPosition.getText(), p.getPhone())) {
 				// succes
 			} else {
 				// error
