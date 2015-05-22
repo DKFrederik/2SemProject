@@ -20,7 +20,7 @@ public class PersonCtr {
 		return instance;
 	}
 	
-	public void createPerson(String fname, String lname, String email, String phoneno, String zipcode, 
+	public void createPlayer(String fname, String lname, String email, String phoneno, String zipcode, 
 			String sbDay, String position) throws Exception {
 
 		dbP.insertPerson(new Player(fname, lname, email, phoneno, zipcode, sbDay, position));
