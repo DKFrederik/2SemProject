@@ -24,14 +24,28 @@ public class PersonCtr {
 			String sbDay, String position) throws Exception {
 
 		dbP.insertPerson(new Player(fname, lname, email, phoneno, zipcode, sbDay, position));
-		
+
 	}
 	
 	public Person findPerson(String phoneno) {
 		return dbP.findPerson(phoneno, true);
 	}
 	
-	public boolean updatePerson(Person p, String oldPhone) {
+	public boolean updatePerson(String fname, String lname, String email, String phoneno, String zipcode, 
+			String sbDay, String position, char type, String oldPhone) {
+		Person p = null;
+		if(type == 'T') {
+			//Teamleader
+		}
+		else if(type == 'M') {
+			//Manager
+		}
+		else if(type == 'S') {
+			//STAFF
+		}
+		else if(type == 'P') {
+			p = new Player(fname, lname, email, phoneno, zipcode, sbDay, position);
+		}
 		if(0 < dbP.updatePerson(p, oldPhone)) {
 			return true;
 		}
