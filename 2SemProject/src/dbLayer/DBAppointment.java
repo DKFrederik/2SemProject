@@ -106,10 +106,10 @@ public class DBAppointment {
 	 * @param
 	 * @return
 	 */
-/*	public int delete(String Number) {
+	public int deleteAppointments(int scheduleId) {
 		int rc = -1;
 
-		String query = "DELETE FROM  WHERE Number = '" + Number + "'";
+		String query = "DELETE FROM Appointment WHERE scheduleId = '" + scheduleId + "'";
 		System.out.println(query);
 		try {
 			Statement stmt = con.createStatement();
@@ -120,7 +120,7 @@ public class DBAppointment {
 			System.out.println("Delete exception in db: " + ex);
 		}
 		return (rc);
-	}*/
+	}
 
 	/**
 	 * 

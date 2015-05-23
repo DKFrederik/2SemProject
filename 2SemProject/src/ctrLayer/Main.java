@@ -30,7 +30,7 @@ public class Main {
 		sCtr.addTeam("d");
 		sCtr.addTeam("e");
 		sCtr.addTeam("f");
-		sCtr.schedule.setCreator(pDB.findPerson("00000076", true));
+		sCtr.getCurrentSchedule().setCreator(pDB.findPerson("00000076", true));
 		
 		sCtr.makeSchedule();
 		

@@ -91,10 +91,10 @@ public class DBSchedule {
 	 * @param 
 	 * @return
 	 */
-	public int delete(String Number) {
+	public int deleteSchedule(Date date) {
 		int rc = -1;
 
-		String query = "DELETE FROM  WHERE Number = '" + Number + "'";
+		String query = "DELETE FROM Schedule WHERE date = '" + date + "'";
 		System.out.println(query);
 		try {
 			Statement stmt = con.createStatement();
