@@ -182,6 +182,7 @@ public class DBSchedule {
 			Statement stmt = con.createStatement();
 			stmt.setQueryTimeout(5);
 			results = stmt.executeQuery(query);
+			results.next();
 			id = results.getInt("id");
 			stmt.close();
 		}

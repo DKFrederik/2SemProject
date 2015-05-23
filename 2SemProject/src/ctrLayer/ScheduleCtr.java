@@ -19,6 +19,7 @@ private DBAppointment appDB;
 	{
 		this.tCtr = TeamCtr.getInstance();
 		this.fCtr = FieldCtr.getInstance();
+		this.appDB = new DBAppointment();
 		schDB = new DBSchedule();
 	}
 
@@ -59,12 +60,13 @@ private DBAppointment appDB;
 		schDB.insertSchedule(schedule);
 		
 		int scheduleId = schDB.findMaxId();
-		System.out.println(scheduleId);
+		Appointment app = schedule.getAppointments().get(1);
+		System.out.println(size);
 		System.out.println(scheduleId);
 		for(int i = 0; i < size; i++)
 		{
 			appDB.insertAppointment(schedule.getAppointments().get(i), scheduleId);
-			System.out.println(schedule.getAppointments().get(i).getTeam());
+			System.out.println(schedule.getAppointments().get(i).getTeam().getTeamNumber());
 		}
 	}
 }

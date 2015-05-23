@@ -66,7 +66,7 @@ public class DBAppointment {
 			rc = stmt.executeUpdate(query);
 			stmt.close();
 		} catch (Exception ex) {
-			System.out.println("Appointment is not inserted correct");
+			System.out.println("Appointment is not inserted correct" + ex.getMessage());
 		}
 		return (rc);
 	}
