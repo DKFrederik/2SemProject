@@ -77,19 +77,19 @@ public class MainGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnCreateT.setBounds(10, 11, 89, 23);
+		btnCreateT.setBounds(10, 11, 131, 23);
 		panelTeam.add(btnCreateT);
 
 		JButton btnAddPlayerT = new JButton("Add player");
-		btnAddPlayerT.setBounds(10, 43, 89, 23);
+		btnAddPlayerT.setBounds(10, 43, 131, 23);
 		panelTeam.add(btnAddPlayerT);
 
 		JButton btnAddManagerT = new JButton("Add manager");
-		btnAddManagerT.setBounds(10, 77, 89, 23);
+		btnAddManagerT.setBounds(10, 77, 131, 23);
 		panelTeam.add(btnAddManagerT);
 
 		JButton btnAddTeamleaderT = new JButton("Add teamleader");
-		btnAddTeamleaderT.setBounds(10, 111, 89, 23);
+		btnAddTeamleaderT.setBounds(10, 111, 131, 23);
 		panelTeam.add(btnAddTeamleaderT);
 
 		JButton btnBackT = new JButton("Back");
@@ -101,11 +101,11 @@ public class MainGUI extends JFrame {
 		panelTeam.add(btnBackT);
 
 		JButton btnRemovePersonT = new JButton("Remove person");
-		btnRemovePersonT.setBounds(10, 145, 89, 23);
+		btnRemovePersonT.setBounds(10, 145, 131, 23);
 		panelTeam.add(btnRemovePersonT);
 
 		JButton btnFindT = new JButton("Find");
-		btnFindT.setBounds(10, 179, 89, 23);
+		btnFindT.setBounds(10, 179, 131, 23);
 		panelTeam.add(btnFindT);
 		panelPlayer.setBounds(0, 0, 434, 261);
 		contentPane.add(panelPlayer);
