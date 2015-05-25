@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
+import ctrLayer.FieldCtr;
 import ctrLayer.PersonCtr;
+import modelLayer.Field;
 import modelLayer.Person;
 import modelLayer.Player;
 
@@ -31,6 +33,11 @@ public class MainGUI extends JFrame {
 	private JTextField textCityName;
 
 	private Person p;
+	private Field f;
+	private JTextField textFieldNumber;
+	private JTextField textFieldtype;
+	private JTextField textFieldLength;
+	private JTextField textFieldWidth;
 
 	/**
 	 * Launch the application.
@@ -54,6 +61,7 @@ public class MainGUI extends JFrame {
 	public MainGUI() {
 
 		PersonCtr pCtr = PersonCtr.getInstance();
+		FieldCtr fCtr = FieldCtr.getInstance();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -65,6 +73,93 @@ public class MainGUI extends JFrame {
 		JPanel panelPlayer = new JPanel();
 		panelPlayer.setVisible(true);
 		panelPlayer.setVisible(false);
+
+		JPanel panelField = new JPanel();
+		panelField.setBounds(0, 0, 434, 261);
+		contentPane.add(panelField);
+		panelField.setLayout(null);
+		panelField.setVisible(false);
+
+		JButton btnClearFields = new JButton("Clear textfields");
+		btnClearFields.addActionListener(e -> {
+			textFieldNumber.setText("");
+			textFieldtype.setText("");
+			textFieldLength.setText("");
+			textFieldWidth.setText("");
+		});
+		btnClearFields.setBounds(10, 191, 119, 23);
+		panelField.add(btnClearFields);
+
+		JButton btnCreateField = new JButton("Create field");
+		btnCreateField.addActionListener(e -> {
+			try {
+				String number = textFieldNumber.getText();
+				String type = textFieldtype.getText();
+				Integer length = Integer.getInteger(textFieldLength.getText());
+				Integer width = Integer.getInteger(textFieldWidth.getText());
+				Field f = new Field(number, type, length, width);
+				if (fCtr.insertField(f) > 0) {
+					System.out.println("Field created ");
+				} else {
+					System.out.println("Field not created");
+				}
+			} catch (Exception ex) {
+				System.out.println(ex.getMessage());
+			}
+		});
+		btnCreateField.setBounds(303, 191, 119, 23);
+		panelField.add(btnCreateField);
+
+		JButton btnBackF = new JButton("Back");
+		btnBackF.addActionListener(e -> {
+		panelField.setVisible(false);
+		panelMain.setVisible(true);
+		});
+		btnBackF.setBounds(10, 227, 105, 23);
+		panelField.add(btnBackF);
+
+		JButton btnDeleteField = new JButton("Delete field");
+		btnDeleteField.addActionListener(e -> {
+			fCtr.deleteField(textFieldNumber.getText());
+		});
+		btnDeleteField.setBounds(303, 227, 119, 23);
+		panelField.add(btnDeleteField);
+
+		textFieldNumber = new JTextField();
+		textFieldNumber.setBounds(215, 26, 116, 22);
+		panelField.add(textFieldNumber);
+		textFieldNumber.setColumns(10);
+
+		textFieldtype = new JTextField();
+		textFieldtype.setBounds(225, 71, 116, 22);
+		panelField.add(textFieldtype);
+		textFieldtype.setColumns(10);
+
+		textFieldLength = new JTextField();
+		textFieldLength.setBounds(235, 116, 116, 22);
+		panelField.add(textFieldLength);
+		textFieldLength.setColumns(10);
+
+		textFieldWidth = new JTextField();
+		textFieldWidth.setBounds(245, 151, 116, 22);
+		panelField.add(textFieldWidth);
+		textFieldWidth.setColumns(10);
+
+		JLabel lblFieldNumber = new JLabel("Field Number in even numbers ");
+		lblFieldNumber.setBounds(10, 29, 56, 16);
+		panelField.add(lblFieldNumber);
+
+		JLabel labelFieldType = new JLabel("Field Type Match or Training");
+		labelFieldType.setBounds(10, 74, 56, 16);
+		panelField.add(labelFieldType);
+
+		JLabel lblFieldLength = new JLabel("Field Length");
+		lblFieldLength.setBounds(10, 119, 56, 16);
+		panelField.add(lblFieldLength);
+
+		JLabel lblFieldWidth = new JLabel("Field Width");
+		lblFieldWidth.setBounds(10, 154, 56, 16);
+		panelField.add(lblFieldWidth);
 
 		JPanel panelTeam = new JPanel();
 		panelTeam.setBounds(0, 0, 434, 261);
@@ -281,36 +376,6 @@ public class MainGUI extends JFrame {
 		});
 		btnBack_1.setBounds(10, 227, 89, 23);
 		panelTraining.add(btnBack_1);
-
-		JPanel panelField = new JPanel();
-		panelField.setBounds(0, 0, 434, 261);
-		contentPane.add(panelField);
-		panelField.setLayout(null);
-		panelField.setVisible(false);
-
-		JButton btnClearFields = new JButton("Clear textfields");
-		btnClearFields.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnClearFields.setBounds(10, 44, 105, 23);
-		panelField.add(btnClearFields);
-
-		JButton btnCreateField = new JButton("Create field");
-		btnCreateField.setBounds(10, 11, 89, 23);
-		panelField.add(btnCreateField);
-
-		JButton btnBackF = new JButton("Back");
-		btnBackF.addActionListener(e -> {
-			panelField.setVisible(false);
-			panelMain.setVisible(true);
-		});
-		btnBackF.setBounds(10, 227, 105, 23);
-		panelField.add(btnBackF);
-
-		JButton btnDeleteField = new JButton("Delete field");
-		btnDeleteField.setBounds(10, 78, 105, 23);
-		panelField.add(btnDeleteField);
 
 		JButton playerBtnM = new JButton("Player");
 		playerBtnM.setBounds(163, 25, 89, 23);
