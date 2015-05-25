@@ -9,8 +9,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
 import ctrLayer.PersonCtr;
-import ctrLayer.FieldCtr;
-import modelLayer.Field;
 import modelLayer.Person;
 import modelLayer.Player;
 
@@ -33,10 +31,6 @@ public class MainGUI extends JFrame {
 	private JTextField textCityName;
 
 	private Person p;
-	private JTextField textFieldNumber;
-	private JTextField textFieldLength;
-	private JTextField textFieldWidth;
-	private JTextField textFieldType;
 
 	/**
 	 * Launch the application.
@@ -60,7 +54,6 @@ public class MainGUI extends JFrame {
 	public MainGUI() {
 
 		PersonCtr pCtr = PersonCtr.getInstance();
-		FieldCtr fCtr = FieldCtr.getInstance();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -69,147 +62,59 @@ public class MainGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JPanel panelMain = new JPanel();
-		panelMain.setVisible(true);
-
-		JPanel panelField = new JPanel();
-		panelField.setBounds(0, 0, 434, 261);
-		contentPane.add(panelField);
-		panelField.setLayout(null);
-		panelField.setVisible(false);
-
-		JButton btnClearFields = new JButton("Clear textfields");
-		btnClearFields.addActionListener(e -> {
-			textFieldNumber.setText("");
-			textFieldLength.setText("");
-			textFieldWidth.setText("");
-			textFieldType.setText("");
-		});
-		btnClearFields.setBounds(10, 191, 117, 23);
-		panelField.add(btnClearFields);
-
-		JButton btnCreateField = new JButton("Create field");
-		btnCreateField.addActionListener(e -> {
-			try {
-				//Supplier supplier = proCtr.findSupplier((textSupplier.getText()));
-				String number = textFieldNumber.getText();
-				String type = textFieldType.getText();
-				Integer length = Integer.getInteger(textFieldLength.getText());
-				Integer width = Integer.getInteger(textFieldWidth.getText());
-				Field f = new Field(number, type, length, width);
-				if(fCtr.insertField(f) > 0){
-					System.out.println("Field created ");
-				}
-				else {
-					System.out.println("Field not created");
-				}
-			}
-			catch(Exception ex) {
-				System.out.println(ex.getMessage());
-			}
-		});
-		btnCreateField.setBounds(305, 227, 117, 23);
-		panelField.add(btnCreateField);
-
-		JButton btnBackF = new JButton("Back");
-		btnBackF.addActionListener(e -> {
-			panelField.setVisible(false);
-			panelMain.setVisible(true);
-		});
-		btnBackF.setBounds(10, 227, 105, 23);
-		panelField.add(btnBackF);
-
-		JButton btnDeleteField = new JButton("Delete field");
-		btnDeleteField.addActionListener(e -> {
-			fCtr.deleteField(textFieldNumber.getText());
-		});
-		btnDeleteField.setBounds(305, 191, 117, 23);
-		panelField.add(btnDeleteField);
-
-		textFieldNumber = new JTextField();
-		textFieldNumber.setBounds(280, 27, 142, 22);
-		panelField.add(textFieldNumber);
-		textFieldNumber.setColumns(10);
-
-		textFieldLength = new JTextField();
-		textFieldLength.setBounds(280, 63, 142, 22);
-		panelField.add(textFieldLength);
-		textFieldLength.setColumns(10);
-
-		textFieldWidth = new JTextField();
-		textFieldWidth.setBounds(280, 101, 142, 22);
-		panelField.add(textFieldWidth);
-		textFieldWidth.setColumns(10);
-
-		textFieldType = new JTextField();
-		textFieldType.setBounds(280, 136, 142, 22);
-		panelField.add(textFieldType);
-		textFieldType.setColumns(10);
-
-		JLabel lblFieldNumber = new JLabel("Field Number in even numbers");
-		lblFieldNumber.setBounds(10, 30, 182, 16);
-		panelField.add(lblFieldNumber);
-
-		JLabel lblFieldlength = new JLabel("Field Length in metres");
-		lblFieldlength.setBounds(10, 66, 131, 16);
-		panelField.add(lblFieldlength);
-
-		JLabel lblFieldwidth = new JLabel("Field Width in metres");
-		lblFieldwidth.setBounds(10, 104, 131, 16);
-		panelField.add(lblFieldwidth);
-
-		JLabel lblFieldType = new JLabel("Field Type match or training");
-		lblFieldType.setBounds(10, 139, 166, 16);
-		panelField.add(lblFieldType);
-		panelMain.setBounds(0, 0, 434, 261);
-		contentPane.add(panelMain);
-
-		JButton playerBtnM = new JButton("Player");
-		playerBtnM.setBounds(163, 25, 89, 23);
-		playerBtnM.addActionListener(e -> {
-			panelMain.setVisible(false);
-			panelPlayer.setVisible(true);
-		});
-		panelMain.setLayout(null);
-		panelMain.add(playerBtnM);
-
-		JButton trainingBtnM = new JButton("Training");
-		trainingBtnM.setBounds(163, 59, 89, 23);
-		trainingBtnM.addActionListener(e -> {
-			panelMain.setVisible(false);
-			panelTraining.setVisible(true);
-		});
-		panelMain.add(trainingBtnM);
-
-		JButton fieldBtnM = new JButton("Field");
-		fieldBtnM.setBounds(163, 93, 89, 23);
-		fieldBtnM.addActionListener(e -> {
-			panelMain.setVisible(false);
-			panelField.setVisible(true);
-		});
-		panelMain.add(fieldBtnM);
-
-		JButton teamBtnM = new JButton("Team");
-		teamBtnM.setBounds(163, 127, 89, 23);
-		teamBtnM.addActionListener(e -> {
-			panelMain.setVisible(false);
-			panelTeam.setVisible(true);
-		});
-		panelMain.add(teamBtnM);
-
-		JButton exitBtnM = new JButton("Exit system");
-		exitBtnM.setBounds(149, 227, 126, 23);
-		exitBtnM.addActionListener(e -> {
-			System.exit(1);
-		});
-		panelMain.add(exitBtnM);
-
 		JPanel panelPlayer = new JPanel();
 		panelPlayer.setVisible(true);
 		panelPlayer.setVisible(false);
+
+		JPanel panelTeam = new JPanel();
+		panelTeam.setBounds(0, 0, 434, 261);
+		contentPane.add(panelTeam);
+		panelTeam.setLayout(null);
+		panelTeam.setVisible(false);
+
+		JButton btnCreateT = new JButton("Create");
+		btnCreateT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCreateT.setBounds(10, 11, 131, 23);
+		panelTeam.add(btnCreateT);
+
+		JButton btnAddPlayerT = new JButton("Add player");
+		btnAddPlayerT.setBounds(10, 43, 131, 23);
+		panelTeam.add(btnAddPlayerT);
+
+		JButton btnAddManagerT = new JButton("Add manager");
+		btnAddManagerT.setBounds(10, 77, 131, 23);
+		panelTeam.add(btnAddManagerT);
+
+		JButton btnAddTeamleaderT = new JButton("Add teamleader");
+		btnAddTeamleaderT.setBounds(10, 111, 131, 23);
+		panelTeam.add(btnAddTeamleaderT);
+
+		JButton btnBackT = new JButton("Back");
+		btnBackT.addActionListener(e -> {
+			panelTeam.setVisible(false);
+			panelMain.setVisible(true);
+		});
+		btnBackT.setBounds(10, 227, 89, 23);
+		panelTeam.add(btnBackT);
+
+		JButton btnRemovePersonT = new JButton("Remove person");
+		btnRemovePersonT.setBounds(10, 145, 131, 23);
+		panelTeam.add(btnRemovePersonT);
+
+		JButton btnFindT = new JButton("Find");
+		btnFindT.setBounds(10, 179, 131, 23);
+		panelTeam.add(btnFindT);
 		panelPlayer.setBounds(0, 0, 434, 261);
 		contentPane.add(panelPlayer);
 		panelPlayer.setLayout(null);
+
+		JPanel panelMain = new JPanel();
+		panelMain.setVisible(true);
+		panelMain.setBounds(0, 0, 434, 261);
+		contentPane.add(panelMain);
 
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(e -> {
@@ -377,47 +282,75 @@ public class MainGUI extends JFrame {
 		btnBack_1.setBounds(10, 227, 89, 23);
 		panelTraining.add(btnBack_1);
 
-		JPanel panelTeam = new JPanel();
-		panelTeam.setBounds(0, 0, 434, 261);
-		contentPane.add(panelTeam);
-		panelTeam.setLayout(null);
-		panelTeam.setVisible(false);
+		JPanel panelField = new JPanel();
+		panelField.setBounds(0, 0, 434, 261);
+		contentPane.add(panelField);
+		panelField.setLayout(null);
+		panelField.setVisible(false);
 
-		JButton btnCreateT = new JButton("Create");
-		btnCreateT.addActionListener(new ActionListener() {
+		JButton btnClearFields = new JButton("Clear textfields");
+		btnClearFields.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnCreateT.setBounds(10, 11, 131, 23);
-		panelTeam.add(btnCreateT);
+		btnClearFields.setBounds(10, 44, 105, 23);
+		panelField.add(btnClearFields);
 
-		JButton btnAddPlayerT = new JButton("Add player");
-		btnAddPlayerT.setBounds(10, 43, 131, 23);
-		panelTeam.add(btnAddPlayerT);
+		JButton btnCreateField = new JButton("Create field");
+		btnCreateField.setBounds(10, 11, 89, 23);
+		panelField.add(btnCreateField);
 
-		JButton btnAddManagerT = new JButton("Add manager");
-		btnAddManagerT.setBounds(10, 77, 131, 23);
-		panelTeam.add(btnAddManagerT);
-
-		JButton btnAddTeamleaderT = new JButton("Add teamleader");
-		btnAddTeamleaderT.setBounds(10, 111, 131, 23);
-		panelTeam.add(btnAddTeamleaderT);
-
-		JButton btnBackT = new JButton("Back");
-		btnBackT.addActionListener(e -> {
-			panelTeam.setVisible(false);
+		JButton btnBackF = new JButton("Back");
+		btnBackF.addActionListener(e -> {
+			panelField.setVisible(false);
 			panelMain.setVisible(true);
 		});
-		btnBackT.setBounds(10, 227, 89, 23);
-		panelTeam.add(btnBackT);
+		btnBackF.setBounds(10, 227, 105, 23);
+		panelField.add(btnBackF);
 
-		JButton btnRemovePersonT = new JButton("Remove person");
-		btnRemovePersonT.setBounds(10, 145, 131, 23);
-		panelTeam.add(btnRemovePersonT);
+		JButton btnDeleteField = new JButton("Delete field");
+		btnDeleteField.setBounds(10, 78, 105, 23);
+		panelField.add(btnDeleteField);
 
-		JButton btnFindT = new JButton("Find");
-		btnFindT.setBounds(10, 179, 131, 23);
-		panelTeam.add(btnFindT);
+		JButton playerBtnM = new JButton("Player");
+		playerBtnM.setBounds(163, 25, 89, 23);
+		playerBtnM.addActionListener(e -> {
+			panelMain.setVisible(false);
+			panelPlayer.setVisible(true);
+		});
+		panelMain.setLayout(null);
+		panelMain.add(playerBtnM);
+
+		JButton trainingBtnM = new JButton("Training");
+		trainingBtnM.setBounds(163, 59, 89, 23);
+		trainingBtnM.addActionListener(e -> {
+			panelMain.setVisible(false);
+			panelTraining.setVisible(true);
+		});
+		panelMain.add(trainingBtnM);
+
+		JButton fieldBtnM = new JButton("Field");
+		fieldBtnM.setBounds(163, 93, 89, 23);
+		fieldBtnM.addActionListener(e -> {
+			panelMain.setVisible(false);
+			panelField.setVisible(true);
+		});
+		panelMain.add(fieldBtnM);
+
+		JButton teamBtnM = new JButton("Team");
+		teamBtnM.setBounds(163, 127, 89, 23);
+		teamBtnM.addActionListener(e -> {
+			panelMain.setVisible(false);
+			panelTeam.setVisible(true);
+		});
+		panelMain.add(teamBtnM);
+
+		JButton exitBtnM = new JButton("Exit system");
+		exitBtnM.setBounds(149, 227, 126, 23);
+		exitBtnM.addActionListener(e -> {
+			System.exit(1);
+		});
+		panelMain.add(exitBtnM);
 
 		/**
 		 * MAIN MENU

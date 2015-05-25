@@ -29,8 +29,8 @@ public class FieldCtr {
 		return instance;
 	}
 
-	public int insertField(Field f) throws Exception {
-		return DBField.insertField(f);
+	public void insertField(Field f) {
+
 	}
 
 	/**
