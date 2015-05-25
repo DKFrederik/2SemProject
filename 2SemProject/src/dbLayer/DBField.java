@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 
 public class DBField {
-	private Connection con;
+	private static Connection con;
 	
 	public DBField() {
 		con = DBConnection.getInstance().getDBcon();
@@ -73,7 +73,7 @@ public class DBField {
 	 * @param f a Field object to be inserted.
 	 * @return 
 	 */
-	public int insertField(Field f) {
+	public static int insertField(Field f) throws Exception {
 
 		int rc = -1;
 		String query = "INSERT INTO Field(fieldNumber, type, length, width)  VALUES('"
