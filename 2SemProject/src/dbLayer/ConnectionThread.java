@@ -1,4 +1,6 @@
-package uiLayer;
+package dbLayer;
+
+import dbLayer.*;
 
 public class ConnectionThread implements Runnable {
 	
