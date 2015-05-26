@@ -15,7 +15,7 @@ import modelLayer.Team;
 
 public class DBTeamTest {
 	
-	DBTeam dbt;
+	IFTeam dbt;
 	Team t; 
 	
 	@BeforeClass
