@@ -115,7 +115,7 @@ public class DBSchedule {
 	 */
 	private Schedule searchWhere(String wClause) {
 		ResultSet results;
-		Schedule atObj = new Schedule();
+		Schedule atObj = new Schedule(null);
 
 		String query = buildQuery(wClause);
 		System.out.println(query);
@@ -160,11 +160,13 @@ public class DBSchedule {
 	 * @return
 	 */
 	private Schedule buildSchedule(ResultSet results) {
-		Schedule atObj = new Schedule();
+		Schedule sObj;
 		try 
 		{
-
-		} catch (Exception e) {
+			sObj = new Schedule();
+		} 
+		catch (Exception e) 
+		{
 			System.out.println("error in building the Schedule object");
 		}
 		return atObj;

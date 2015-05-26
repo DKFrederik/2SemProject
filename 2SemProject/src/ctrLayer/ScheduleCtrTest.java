@@ -27,15 +27,14 @@ public class ScheduleCtrTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		utilDate = new java.util.Date();
-		testDate = new java.sql.Date(utilDate.getTime());
+		testDate = new java.sql.Date(123,5,20);
 		schCtr = ScheduleCtr.getInstance();
 		teamCtr = TeamCtr.getInstance();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		schCtr.deleteSchedule(testDate);
+		//schCtr.deleteSchedule(testDate);
 	}
 
 	@Before

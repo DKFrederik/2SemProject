@@ -15,7 +15,7 @@ import modelLayer.Team;
 
 public class DBTeamTest {
 	
-	DBTeam dbt;
+	IFTeam dbt;
 	Team t; 
 	
 	@BeforeClass
@@ -29,7 +29,7 @@ public class DBTeamTest {
 	@Before
 	public void setUp() throws Exception {
 		dbt = new DBTeam();
-		t = new Team("1234");
+		t = new Team("1234", 1);
 		t.setLeague(1);
 	}
 
@@ -78,7 +78,7 @@ public class DBTeamTest {
 	}
 	@Test
 	public void findAllTeam() {
-		Team t2 = new Team("4321");
+		Team t2 = new Team("4321", 2);
 		t2.setLeague(4);
 		try {
 			dbt.insertTeam(t2);

@@ -35,11 +35,10 @@ private DBAppointment appDB;
 	{
 		int returnInt = -1;
 		
-		if(schDB.findSchedule(date) == null)
+		//if(schDB.findSchedule(date) == null)
 		{
-			schedule = new Schedule(fCtr.getFields());
+			schedule = new Schedule(fCtr.getFields(), date);
 			returnInt = 1;
-			schedule.setDate(date);
 		}
 		return returnInt;
 	}

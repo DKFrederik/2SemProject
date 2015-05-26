@@ -13,29 +13,35 @@ import java.util.ArrayList;
  * as search, insert, delete and update.
  */
 
-public class DBField {
+public class DBField implements IFField {
 	private static Connection con;
 	
+	/**
+	 * Method for getting a connection class. 
+	 */
 	public DBField() {
 		con = DBConnection.getInstance().getDBcon();
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see dbLayer.IFField#getAllFields(boolean)
+	 */
+	@Override
 	public ArrayList<Field> getAllFields(boolean retriveAssociation) {
 		return miscWhere("", retriveAssociation);
 	}
 	
-	/**
-	 * 
-	 * @param fieldNumber the Field objects phone no.
-	 * @return the Field matching the fieldnumber.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFField#findField(java.lang.String)
 	 */
+	@Override
 	public Field findField(String fieldNumber) {
 		String wClause = "  fieldNumber = '" + fieldNumber + "'";
 		return searchWhere(wClause);
 	}
 	
 	/**
-	 * 
+	 * Finds a bunch of fields in the database using the wClause.
 	 * @param wClause where clause for the query.
 	 * @param retrieveAssociation whether or not to retrieve associations.
 	 * @return An ArrayList of Fields.
@@ -69,9 +75,9 @@ public class DBField {
 	}
 	
 	/**
-	 * 
+	 * Inserts a field into the database.
 	 * @param f a Field object to be inserted.
-	 * @return 
+	 * @return An int corresponding to the amount of changed rows or -1 if failed.
 	 */
 	public static int insertField(Field f) {
 
@@ -100,11 +106,10 @@ public class DBField {
 		return (rc);
 	}
 
-	/**
-	 * 
-	 * @param f The field object that is to be updated in the database.
-	 * @return
+	/* (non-Javadoc)
+	 * @see dbLayer.IFField#updateField(modelLayer.Field)
 	 */
+	@Override
 	public int updateField(Field f) {
 		Field fObj = f;
 		int rc = -1;
@@ -129,11 +134,10 @@ public class DBField {
 	}
 
 	
-	/**
-	 * 
-	 * @param fieldNumber The number of the field that is to be removed.
-	 * @return
+	/* (non-Javadoc)
+	 * @see dbLayer.IFField#deleteField(java.lang.String)
 	 */
+	@Override
 	public int deleteField(String fieldNumber) {
 		int rc = -1;
 
@@ -152,9 +156,9 @@ public class DBField {
 	}
 
 	/**
-	 * 
-	 * @param wClause where clause for sql query
-	 * @return a Field object
+	 * Searches for a field that matches the wClause.
+	 * @param wClause where clause for sql query.
+	 * @return a Field object.
 	 */
 	private Field searchWhere(String wClause) {
 		ResultSet results;
@@ -184,7 +188,7 @@ public class DBField {
 	}
 
 	/**
-	 * 
+	 * Builds a query. 
 	 * @param wClause where clause for SQL query.
 	 * @return A String formatted as a query.
 	 */
@@ -198,7 +202,7 @@ public class DBField {
 	}
 
 	/**
-	 * 
+	 * Builds a field object. 
 	 * @param results ResultSet used for building the field
 	 * @return The build field object
 	 */

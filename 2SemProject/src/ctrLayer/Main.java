@@ -1,6 +1,8 @@
 package ctrLayer;
 import java.sql.Date;
 import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import dbLayer.DBPerson;
 import modelLayer.*;
@@ -20,10 +22,16 @@ public class Main {
 		
 		ScheduleCtr sCtr = new ScheduleCtr();
 		DBPerson pDB = new DBPerson();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
 		java.util.Date utilDate = new java.util.Date();
-		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		try {
+			utilDate = format.parse("2022-02-02");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		java.sql.Date sqlDate = new java.sql.Date((2200-1900), 8, 22);
 		sCtr.createSchedule(sqlDate);
-		System.out.println(sCtr.createSchedule(sqlDate));
+		System.out.println(sCtr.createSchedule(sqlDate) + " " + sCtr.getCurrentSchedule().getDate());
 		sCtr.addTeam("a");
 		sCtr.addTeam("b");
 		sCtr.addTeam("c");
