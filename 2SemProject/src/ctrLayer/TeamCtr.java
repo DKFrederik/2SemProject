@@ -94,11 +94,18 @@ public class TeamCtr {
 	 */
 	public boolean createTeam(String teamNumber, int league) throws Exception {
 		Team t = new Team(teamNumber, league);
-		if (0 < dbT.insertTeam(t)) {
-			return true;
-		} else {
-			return false;
+		boolean isSuccess = false;
+		try {
+			DBConnection.startTransaction();
+			if (0 < dbT.insertTeam(t)) {
+				isSuccess = true;
+			}
+			DBConnection.commitTransaction();
 		}
+		catch (Exception e) {
+			DBConnection.rollbackTransaction();
+		}
+		return isSuccess;
 	}
 	
 	/**
