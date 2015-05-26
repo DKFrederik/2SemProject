@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 public class MainGUI extends JFrame {
-BREAK SHIITIIITITITI !!! 
+ 
 	private JPanel contentPane;
 	private JTextField textFname;
 	private JTextField textLname;
