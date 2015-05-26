@@ -290,7 +290,7 @@ public class DBPerson implements IFPerson {
 	 */
 	private Person buildPerson(ResultSet results) {
 		Person personObj = new Person();
-		DBPostalcode post = new DBPostalcode();
+		IFPostalCode post = new DBPostalcode();
 
 		try {
 			if (results.getString("type").equals("P")) {

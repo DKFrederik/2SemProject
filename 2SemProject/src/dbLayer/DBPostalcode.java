@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class DBPostalcode {
+public class DBPostalcode implements IFPostalCode {
 	private Connection con;
 
 	/**
@@ -14,11 +14,20 @@ public class DBPostalcode {
 		con = DBConnection.getInstance().getDBcon();
 	}
 	
+	/* (non-Javadoc)
+	 * @see dbLayer.IFPostalCode#findCity(java.lang.String)
+	 */
+	@Override
 	public String findCity(String zipcode) {
 		String wClause = "  zipcode = '" + zipcode + "'";
 		return singleWhere(wClause);
 	}
 	
+	/**
+	 * Finds a city in the database matching the wClause.
+	 * @param wClause
+	 * @return the city name
+	 */
 	private String singleWhere(String wClause) {
 		ResultSet results;
 		String city = "";
@@ -43,6 +52,11 @@ public class DBPostalcode {
 		return city;
 	}
 	
+	/**
+	 * Builds the query
+	 * @param wClause
+	 * @return the query. 
+	 */
 	private String buildQuery(String wClause) {
 		String query = "SELECT city FROM PostalCode";
 		

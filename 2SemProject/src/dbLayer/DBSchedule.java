@@ -59,32 +59,6 @@ public class DBSchedule {
 		return (rc);
 	}
 
-	/**
-	 * 
-	 * @param
-	 * @return
-	 */
-	public int updateSchedule(Schedule s) {
-		Schedule sObj = s;
-		int rc = -1;
-
-		String query = "UPDATE Schedule SET "
-				+ 
-				;
-		System.out.println("Update query:" + query);
-		try {
-			Statement stmt = con.createStatement();
-			stmt.setQueryTimeout(5);
-			rc = stmt.executeUpdate(query);
-			stmt.close();
-		}
-		
-		catch (Exception ex) {
-			System.out.println("Update exception in Schedule DB: " + ex);
-		}
-		return (rc);
-	}
-
 	
 	/**
 	 * 
@@ -115,7 +89,8 @@ public class DBSchedule {
 	 */
 	private Schedule searchWhere(String wClause) {
 		ResultSet results;
-		Schedule atObj = new Schedule(null);
+		DBField fDb = new DBField();
+		Schedule atObj = new Schedule(fDb.getAllFields(false),null);
 
 		String query = buildQuery(wClause);
 		System.out.println(query);
@@ -160,16 +135,22 @@ public class DBSchedule {
 	 * @return
 	 */
 	private Schedule buildSchedule(ResultSet results) {
-		Schedule sObj;
+		DBField fDb = new DBField();
+		DBPerson pDb = 
+		DBAppointment aDb = new DBAppointment();
+		Schedule sObj = new Schedule(fDb.getAllFields(false),null);
+		
 		try 
 		{
-			sObj = new Schedule();
+			sObj.setDate(results.getDate("date"));
+			sObj.setCreator(results.getString("creator"));
+			sObj.setAppointments(aDb.getAllAppointments(results.getInt("id"), true));
 		} 
 		catch (Exception e) 
 		{
 			System.out.println("error in building the Schedule object");
 		}
-		return atObj;
+		return sObj;
 	}
 	
 	/**
