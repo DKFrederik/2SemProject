@@ -115,7 +115,8 @@ public class DBSchedule {
 	 */
 	private Schedule searchWhere(String wClause) {
 		ResultSet results;
-		Schedule atObj = new Schedule(null);
+		DBField fDb = new DBField();
+		Schedule atObj = new Schedule(fDb.getAllFields(false),null);
 
 		String query = buildQuery(wClause);
 		System.out.println(query);
@@ -160,16 +161,20 @@ public class DBSchedule {
 	 * @return
 	 */
 	private Schedule buildSchedule(ResultSet results) {
-		Schedule sObj;
+		DBField fDb = new DBField();
+		DBAppointment aDb = new DBAppointment();
+		Schedule sObj = new Schedule(fDb.getAllFields(false),null);
+		
 		try 
 		{
-			sObj = new Schedule();
+			sObj.setDate(results.getDate("date"));
+			sObj.setAppointments(aDb.getAllAppointments(results.getInt("id"), true));
 		} 
 		catch (Exception e) 
 		{
 			System.out.println("error in building the Schedule object");
 		}
-		return atObj;
+		return sObj;
 	}
 	
 	/**
