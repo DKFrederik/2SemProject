@@ -185,16 +185,4 @@ public class LinkedGraph implements IFGraph  {
 //		}
 //		}
 
-		@Override
-		public void bfs(Vertex vertex) {
-			// TODO Auto-generated method stub
-			
-		}
-
-@Override
-public void dfs(Vertex vertex) {
-	// TODO Auto-generated method stub
-	
-}
-
 }
