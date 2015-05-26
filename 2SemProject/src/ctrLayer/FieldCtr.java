@@ -8,6 +8,7 @@ import dbLayer.*;
 
 /**
  * Controller for Field. Controls creation, update, delete, find of Field.
+ * 
  * @author nichlas, frederik, peter, claus.
  * @version 20.05.2015
  * 
@@ -29,9 +30,19 @@ public class FieldCtr {
 		return instance;
 	}
 
-	public int insertField(Field f) throws Exception  {
-			return DBField.insertField(f);
+	public boolean insertField(Field f) throws Exception {
+		boolean isSuccess = false;
+		try {
+			DBConnection.startTransaction();
+			if (0 < DBField.insertField(f)) {
+				isSuccess = true;
+			}
+			DBConnection.commitTransaction();
+		} catch (Exception e) {
+			DBConnection.rollbackTransaction();
 		}
+		return isSuccess;
+	}
 
 	/**
 	 * Finds a Field in the DB.
@@ -52,13 +63,19 @@ public class FieldCtr {
 	 * @return true or false to indicate success.
 	 */
 	public boolean deleteField(String fieldNumber) {
-		if (0 < fDB.deleteField(fieldNumber)) {
-			return true;
-		} else {
-			return false;
+		boolean isSuccess = false;
+		try {
+			DBConnection.startTransaction();
+			if (0 < fDB.deleteField(fieldNumber)) {
+				isSuccess = true;
+			}
+			DBConnection.commitTransaction();
+		} catch (Exception e) {
+			DBConnection.rollbackTransaction();
 		}
+		return isSuccess;
 	}
-	
+
 	/**
 	 * Inserts a field into the DB
 	 * 
@@ -72,13 +89,20 @@ public class FieldCtr {
 	 *            the width of the field.
 	 * @return true or false depending on success.
 	 */
-	public boolean createField(String fieldNumber, String type, int length, int width) throws Exception {
+	public boolean createField(String fieldNumber, String type, int length,
+			int width) throws Exception {
 		Field f = new Field(fieldNumber, type, length, width);
-		if (0 < fDB.insertField(f)) {
-			return true;
-		} else {
-			return false;
+		boolean isSuccess = false;
+		try {
+			DBConnection.startTransaction();
+			if (0 < DBField.insertField(f)) {
+				isSuccess = true;
+			}
+			DBConnection.commitTransaction();
+		} catch (Exception e) {
+			DBConnection.rollbackTransaction();
 		}
+		return isSuccess;
 	}
 
 	/**
