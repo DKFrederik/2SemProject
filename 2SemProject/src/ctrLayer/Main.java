@@ -20,7 +20,7 @@ public class Main {
 		System.out.println(p.getAge());
 		System.out.println(p.getBDay());*/
 		
-		ScheduleCtr sCtr = new ScheduleCtr();
+		ScheduleCtr sCtr = ScheduleCtr.getInstance();
 		DBPerson pDB = new DBPerson();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
 		java.util.Date utilDate = new java.util.Date();
@@ -29,7 +29,7 @@ public class Main {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		java.sql.Date sqlDate = new java.sql.Date((2200-1900), 8, 22);
+		java.sql.Date sqlDate = new java.sql.Date((2350-1900), 8, 22);
 		sCtr.createSchedule(sqlDate);
 		System.out.println(sCtr.createSchedule(sqlDate) + " " + sCtr.getCurrentSchedule().getDate());
 		sCtr.addTeam("a");
@@ -43,7 +43,8 @@ public class Main {
 		sCtr.makeSchedule();
 		
 		sCtr.completeSchedule();
-		System.out.println(sCtr.getSchedule(sqlDate).getCreator().getFname());
+		System.out.println(sCtr.getSchedule(sqlDate,true).getCreator().getFname());
+		sCtr.deleteSchedule((2300-1900), 8, 22);
 	}
 
 }

@@ -3,6 +3,10 @@ package dbLayer;
 import modelLayer.*;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import ctrLayer.FieldCtr;
 
 /**
  * @Author 	Frederik, Nichlas, Claus og Peter
@@ -23,9 +27,18 @@ public class DBSchedule {
 	 * @param The date of the schedule to fetch
 	 * @return The schedule of the day.
 	 */
-	public Schedule findSchedule(Date date) {
+	public Schedule findSchedule(Date date, boolean retrieveAssociation) {
 		String wClause = " Schedule.date = '" + date + "'";
-		return searchWhere(wClause);
+		return singleWhere(wClause,retrieveAssociation);
+	}
+	
+	/**
+	 * 
+	 * @param The date of the schedule to fetch
+	 * @return The schedule of the day.
+	 */
+	public List<Schedule> findAllSchedules(boolean retrieveAssociation) {
+		return miscWhere("",retrieveAssociation);
 	}
 	
 	/**
@@ -87,32 +100,63 @@ public class DBSchedule {
 	 * @param 
 	 * @return 
 	 */
-	private Schedule searchWhere(String wClause) {
+	private Schedule singleWhere(String wClause, boolean retrieveAssociation) {
 		ResultSet results;
-		DBField fDb = new DBField();
-		Schedule atObj = new Schedule(fDb.getAllFields(false),null);
-
+		Schedule schObj = new Schedule(new DBField().getAllFields(false),null);
 		String query = buildQuery(wClause);
 		System.out.println(query);
 		try {
 			Statement stmt = con.createStatement();
 			stmt.setQueryTimeout(5);
 			results = stmt.executeQuery(query);
-
 			if (results.next()) 
 			{
-				atObj = buildSchedule(results);
+				schObj = buildSchedule(results);
+				if (retrieveAssociation) {
+					schObj.setCreator(new DBPerson().findPerson(results.getString("phoneno"),true));
+					schObj.setAppointments(new DBAppointment().getAllAppointments(results.getInt("id"), true));
+				}
 				stmt.close();
 			} 
 			else 
 			{
-				atObj = null;
+				schObj = null;
 			}
 		}
 		catch (Exception e) {
 			System.out.println("Query exception: " + e);
 		}
-		return atObj;
+		return schObj;
+	}
+	
+	private List<Schedule> miscWhere(String wClause,
+			boolean retrieveAssociation) {
+		ResultSet results;
+		List<Schedule> schedules = new ArrayList<Schedule>();
+
+		String query = buildQuery(wClause);
+
+		try {
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			results = stmt.executeQuery(query);
+
+			while (results.next()) {
+				Schedule schObj = new Schedule(new DBField().getAllFields(false),null);
+			schObj = buildSchedule(results);
+				if (retrieveAssociation) {
+					schObj.setCreator(new DBPerson().findPerson(results.getString("phoneno"),true));
+					schObj.setAppointments(new DBAppointment().getAllAppointments(results.getInt("id"), true));
+				}
+				schedules.add(schObj);
+			}// end while
+			stmt.close();
+
+		} catch (Exception e) {
+			System.out.println("Query exception - select: " + e);
+			e.printStackTrace();
+		}
+		return schedules;
 	}
 
 	/**
@@ -136,15 +180,11 @@ public class DBSchedule {
 	 * @return
 	 */
 	private Schedule buildSchedule(ResultSet results) {
-		DBField fDb = new DBField();
-		DBPerson pDb = new DBPerson();
-		DBAppointment aDb = new DBAppointment();
-		Schedule sObj = new Schedule(fDb.getAllFields(false),null);
+
+		Schedule sObj = new Schedule(new DBField().getAllFields(false),null);
 		try 
 		{
 			sObj.setDate(results.getDate("date"));		
-			sObj.setCreator(pDb.findPerson(results.getString("phoneno"), false));
-			sObj.setAppointments(aDb.getAllAppointments(results.getInt("id"), true));
 		} 
 		catch (Exception e) 
 		{

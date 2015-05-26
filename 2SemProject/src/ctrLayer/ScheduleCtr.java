@@ -16,7 +16,7 @@ public class ScheduleCtr {
 	private DBSchedule schDB;
 	private DBAppointment appDB;
 
-	ScheduleCtr() {
+	private ScheduleCtr() {
 		this.tCtr = TeamCtr.getInstance();
 		this.fCtr = FieldCtr.getInstance();
 		this.appDB = new DBAppointment();
@@ -33,7 +33,7 @@ public class ScheduleCtr {
 	public int createSchedule(java.sql.Date date) {
 		int returnInt = -1;
 
-		// if(schDB.findSchedule(date) == null)
+		if(schDB.findSchedule(date,false) == null)
 		{
 			schedule = new Schedule(fCtr.getFields(), date);
 			returnInt = 1;
@@ -43,22 +43,18 @@ public class ScheduleCtr {
 
 	public void addTeam(String teamNumber) {
 		try {
-			DBConnection.startTransaction();
 			schedule.addAppointment(tCtr.findTeam(teamNumber));
-			DBConnection.commitTransaction();
-		} catch (Exception e) {
-			DBConnection.rollbackTransaction();
+		} catch (NullPointerException e) {
+			System.out.println("Ingen Schedule er i øjeblikket aktiv.");
 		}
 	}
 
 	public void makeSchedule() {
 		try {
-			DBConnection.startTransaction();
 			schedule.createGraph();
 			schedule.makeSchedule();
-			DBConnection.commitTransaction();
-		} catch (Exception e) {
-			DBConnection.rollbackTransaction();
+		} catch (NullPointerException e) {
+			System.out.println("Ingen Schedule er i øjeblikket aktiv.");
 		}
 	}
 
@@ -99,8 +95,8 @@ public class ScheduleCtr {
 		}
 	}
 	
-	public Schedule getSchedule(Date date)
+	public Schedule getSchedule(Date date, boolean retrieveAssociation)
 	{
-		return schDB.findSchedule(date);
+		return schDB.findSchedule(date,retrieveAssociation);
 	}
 }

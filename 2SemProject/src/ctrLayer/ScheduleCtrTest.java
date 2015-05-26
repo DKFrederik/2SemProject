@@ -27,9 +27,11 @@ public class ScheduleCtrTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		testDate = new java.sql.Date(123,5,20);
+		testDate = new java.sql.Date(223,5,20);
 		schCtr = ScheduleCtr.getInstance();
 		teamCtr = TeamCtr.getInstance();
+		schCtr.createSchedule(testDate);
+		schCtr.completeSchedule();
 	}
 
 	@AfterClass
@@ -40,6 +42,7 @@ public class ScheduleCtrTest {
 	@Before
 	public void setUp() throws Exception {
 		schCtr.createSchedule(testDate);
+		schCtr.completeSchedule();
 	}
 
 	@After
@@ -49,7 +52,9 @@ public class ScheduleCtrTest {
 
 	@Test
 	public void testCreateSchedule() {
-		assertNotNull(schCtr.getCurrentSchedule());
+		schCtr.createSchedule(testDate);
+		schCtr.completeSchedule();
+		//assert(schCtr.createSchedule(testDate));
 	}
 
 	@Test
