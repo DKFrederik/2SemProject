@@ -252,7 +252,7 @@ public class DBTeam implements IFTeam {
 			Statement stmt = con.createStatement();
 			stmt.setQueryTimeout(5);
 			results = stmt.executeQuery(query);
-			DBPerson dbp = new DBPerson();
+			IFPerson dbp = new DBPerson();
 			Person p = new Person();
 			ResultSet resPer;
 			while (results.next()) {// Get phoneno of players
@@ -343,7 +343,7 @@ public class DBTeam implements IFTeam {
 			Statement stmt = con.createStatement();
 			stmt.setQueryTimeout(5);
 			results = stmt.executeQuery(query);
-			DBPerson dbp = new DBPerson();
+			IFPerson dbp = new DBPerson();
 			while (results.next())
 				m = (Manager) dbp.findPerson(results.getString("phoneno"),
 						false);
@@ -375,7 +375,7 @@ public class DBTeam implements IFTeam {
 			Statement stmt = con.createStatement();
 			stmt.setQueryTimeout(5);
 			results = stmt.executeQuery(query);
-			DBPerson dbp = new DBPerson();
+			IFPerson dbp = new DBPerson();
 			if (results.next())
 				tl = (TeamLeader) dbp.findPerson(results.getString("phoneno"),
 						false);
