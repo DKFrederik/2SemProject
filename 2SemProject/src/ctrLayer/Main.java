@@ -22,14 +22,8 @@ public class Main {
 		
 		ScheduleCtr sCtr = ScheduleCtr.getInstance();
 		DBPerson pDB = new DBPerson();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-		java.util.Date utilDate = new java.util.Date();
-		try {
-			utilDate = format.parse("2022-02-02");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		java.sql.Date sqlDate = new java.sql.Date((2350-1900), 8, 22);
+
+		java.sql.Date sqlDate = new java.sql.Date((2365-1900), 8, 22);
 		sCtr.createSchedule(sqlDate);
 		System.out.println(sCtr.createSchedule(sqlDate) + " " + sCtr.getCurrentSchedule().getDate());
 		sCtr.addTeam("a");
@@ -38,13 +32,14 @@ public class Main {
 		sCtr.addTeam("d");
 		sCtr.addTeam("e");
 		sCtr.addTeam("f");
-		sCtr.getCurrentSchedule().setCreator(pDB.findPerson("00000076", true));
+		sCtr.getCurrentSchedule().setCreator(pDB.findPerson("00000076", false));
 		
 		sCtr.makeSchedule();
 		
 		sCtr.completeSchedule();
 		System.out.println(sCtr.getSchedule(sqlDate,true).getCreator().getFname());
-		//sCtr.deleteSchedule(sqlDate);
+		
+		sCtr.deleteSchedule(sqlDate);
 	}
 
 }

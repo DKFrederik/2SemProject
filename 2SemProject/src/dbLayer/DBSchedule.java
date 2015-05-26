@@ -113,7 +113,7 @@ public class DBSchedule {
 			{
 				schObj = buildSchedule(results);
 				if (retrieveAssociation) {
-					schObj.setCreator(new DBPerson().findPerson(results.getString("phoneno"),true));
+					schObj.setCreator(new DBPerson().findPerson(results.getString("phoneno"),false));
 					schObj.setAppointments(new DBAppointment().getAllAppointments(results.getInt("id"), true));
 				}
 				stmt.close();
@@ -166,7 +166,7 @@ public class DBSchedule {
 	 */
 	private String buildQuery(String wClause) {
 		String query = "SELECT Schedule.date, Schedule.creator, Schedule.id, Person.phoneno "
-					 + "FROM Schedule INNER JOIN Person ON Schedule.creator = Person.phoneno";
+					 + "FROM Schedule INNER JOIN Person ON Schedule.creator = Person.id";
 
 		if (wClause.length() > 0)
 			query += " WHERE " + wClause;
