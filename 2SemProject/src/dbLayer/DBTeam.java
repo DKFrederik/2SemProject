@@ -471,7 +471,7 @@ public class DBTeam {
 	 *            The number of the team that you wish to remove a Manager from.
 	 * @return the number of rows affected or -1 if error.
 	 */
-	public int deleteManagerTeam(Manager m, String teamNumber) {
+	public int removeManager(Manager m, String teamNumber) {
 		int rc = -1;
 
 		String query = "DELETE FROM ManagerAssociation WHERE teamNumber = '"
@@ -501,7 +501,7 @@ public class DBTeam {
 	 *            The number of the team that you wish to remove a Player from.
 	 * @return the number of rows affected or -1 if error.
 	 */
-	public int deleteTeamerLeaderTeam(TeamLeader tl, String teamNumber) {
+	public int removeTeamLeader(TeamLeader tl, String teamNumber) {
 		int rc = -1;
 
 		String query = "DELETE FROM TeamLeaderAssociation WHERE teamNumber = '"
