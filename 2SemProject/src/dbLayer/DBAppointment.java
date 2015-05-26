@@ -12,40 +12,34 @@ import java.util.ArrayList;
  *       and update.
  */
 
-public class DBAppointment {
+public class DBAppointment implements IFAppointment {
 	private Connection con;
 
 	public DBAppointment() {
 		con = DBConnection.getInstance().getDBcon();
 	}
 	
-	/**
-	 * Retrieves all Persons from the Person table in the db.
-	 * 
-	 * @param retriveAssociation
-	 *            Determines if associations should be retrieved or not.
-	 * @return An ArrayList of Person objects.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFAppointment#getAllAppointments(int, boolean)
 	 */
+	@Override
 	public ArrayList<Appointment> getAllAppointments(int id, boolean retriveAssociation) {
 		return miscWhere(" scheduleId = '" + id + "'", retriveAssociation);
 	}
 
-	/**
-	 * 
-	 * @param The
-	 *            date of the schedule to fetch
-	 * @return The schedule of the day.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFAppointment#findAppointment(int)
 	 */
+	@Override
 	public Appointment findAppointment(int id) {
 		String wClause = " scheduleId = '" + id + "'";
 		return searchWhere(wClause);
 	}
 
-	/**
-	 * 
-	 * @param
-	 * @return
+	/* (non-Javadoc)
+	 * @see dbLayer.IFAppointment#insertAppointment(modelLayer.Appointment, int)
 	 */
+	@Override
 	public int insertAppointment(Appointment a, int scheduleId) {
 
 		int rc = -1;
@@ -71,11 +65,7 @@ public class DBAppointment {
 		return (rc);
 	}
 
-	/**
-	 * 
-	 * @param
-	 * @return
-	 */
+
 /*	public int updateAppointment(Appointment a) {
 		Appointment aObj = a;
 		int rc = -1;
@@ -101,11 +91,10 @@ public class DBAppointment {
 		return (rc);
 	}*/
 
-	/**
-	 * 
-	 * @param
-	 * @return
+	/* (non-Javadoc)
+	 * @see dbLayer.IFAppointment#deleteAppointments(int)
 	 */
+	@Override
 	public int deleteAppointments(int scheduleId) {
 		int rc = -1;
 
@@ -123,9 +112,9 @@ public class DBAppointment {
 	}
 
 	/**
-	 * 
-	 * @param
-	 * @return
+	 * Finds an appointment in the db. 
+	 * @param wClause the where clause for the select query.
+	 * @return An appointment object or null. 
 	 */
 	private Appointment searchWhere(String wClause) {
 		ResultSet results;
@@ -151,7 +140,7 @@ public class DBAppointment {
 	}
 
 	/**
-	 * 
+	 * Builds a query. 
 	 * @param wClause
 	 *            where clause for SQL query.
 	 * @return A String formatted as a query.
@@ -166,10 +155,10 @@ public class DBAppointment {
 	}
 
 	/**
-	 * 
+	 * Builds an Appointment object. 
 	 * @param results
-	 *            ResultSet used for building the Schedule
-	 * @return
+	 *            ResultSet used for building the Schedule.
+	 * @return An Appointment object.
 	 */
 	private Appointment buildAppointment(ResultSet results) {
 		DBField fDb = new DBField();
