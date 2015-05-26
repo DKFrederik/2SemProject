@@ -39,7 +39,6 @@ public class TeamCtr {
 	 * @return the matching Team.
 	 */
 	public Team findTeam(String teamNumber) {
-		Team t = new Team("STR", 2);
 		return dbT.findTeam(teamNumber, true);
 	}
 
@@ -148,5 +147,49 @@ public class TeamCtr {
 		}
 		return false;				
 	}
-
+	
+	/**
+	 * Deletes the TeamLeader from a Team. 
+	 * @param phoneno of the teamLeader.
+	 * @param teamNumber of the Team.
+	 * @return true or false to indicate success.
+	 */
+	public boolean deleteTeamLeader(String phoneno, String teamNumber) {
+		DBPerson dbp = new DBPerson();
+		Person p = dbp.findPerson(phoneno, false);
+		if(p instanceof TeamLeader) {
+		
+			try {
+				if(0 < dbT.removeTeamLeader((TeamLeader) p, teamNumber))
+					return true;
+				else 
+					return false;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;		
+	}
+	/**
+	 * Deletes the TeamLeader from a Team. 
+	 * @param phoneno of the manager.
+	 * @param teamNumber of the Team.
+	 * @return true or false to indicate success.
+	 */
+	public boolean deleteManager(String phoneno, String teamNumber) {
+		DBPerson dbp = new DBPerson();
+		Person p = dbp.findPerson(phoneno, false);
+		if(p instanceof Manager) {
+		
+			try {
+				if(0 < dbT.removeManager((Manager) p, teamNumber))
+					return true;
+				else 
+					return false;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;		
+	}
 }
