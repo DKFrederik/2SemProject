@@ -172,8 +172,13 @@ public class DBAppointment {
 	 * @return
 	 */
 	private Appointment buildAppointment(ResultSet results) {
+		DBField fDb = new DBField();
+		DBTeam tDb = new DBTeam();
 		Appointment aObj = new Appointment(null);
-		try {
+		try {		
+			aObj.setField(fDb.findField(results.getString("fieldNumber")));
+			aObj.setTeam((tDb.findTeam(results.getString("teamNumber"), true)));
+			aObj.setTimeSlot(results.getInt("timeSlotNumber"));
 
 		} catch (Exception e) {
 			System.out.println("error in building the Appointment object");
@@ -209,7 +214,7 @@ public class DBAppointment {
 				if (retrieveAssociation) {
 						aObj.setField(fDB.findField(results.getString("fieldNumber")));
 						aObj.setTeam(tDB.findTeam(results.getString("teamNumber"), true));
-						//TimeSlotNumber
+						aObj.setTimeSlot(results.getInt("timeSlotNumber"));
 					}
 				list.add(aObj);
 				}// end while
