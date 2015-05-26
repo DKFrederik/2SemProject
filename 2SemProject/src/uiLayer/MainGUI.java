@@ -69,10 +69,6 @@ public class MainGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-<<<<<<< HEAD
-=======
-		
->>>>>>> 2863914dde9e72db42772115f0450c7812847f62
 
 		JPanel panelMain = new JPanel();
 		panelMain.setVisible(true);
@@ -420,6 +416,7 @@ public class MainGUI extends JFrame {
 			System.exit(1);
 		});
 		panelMain.add(exitBtnM);
+/**
 
 		JPanel panelPlayer = new JPanel();
 		panelPlayer.setVisible(true);
@@ -722,6 +719,12 @@ public class MainGUI extends JFrame {
 		JButton btnFindT = new JButton("Find");
 		btnFindT.setBounds(10, 179, 131, 23);
 		panelTeam.add(btnFindT);
+
+
+
+
+**/
+		
 
 		/**
 		 * MAIN MENU
