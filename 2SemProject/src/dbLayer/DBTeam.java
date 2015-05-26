@@ -19,7 +19,7 @@ import modelLayer.TeamLeader;
  *          find and find all.
  */
 
-public class DBTeam {
+public class DBTeam implements IFTeam {
 	private Connection con;
 
 	/**
@@ -29,31 +29,25 @@ public class DBTeam {
 		con = DBConnection.getInstance().getDBcon();
 	}
 
-	/**
-	 * 
-	 * @param retriveAssociation
-	 *            Determines if associations should be retrieved or not.
-	 * @return An ArrayList of Team objects.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFTeam#getAllTeams(boolean)
 	 */
+	@Override
 	public ArrayList<Team> getAllTeams(boolean retriveAssociation) {
 		return miscWhere("", retriveAssociation);
 	}
 
-	/**
-	 * 
-	 * @param teamNumber
-	 *            The number of the team that you wish to find.
-	 * @param retriveAssociation
-	 *            Determines if associations should be retrieved or not.
-	 * @return A Team Object if found, null if not.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFTeam#findTeam(java.lang.String, boolean)
 	 */
+	@Override
 	public Team findTeam(String teamNumber, boolean retriveAssociation) {
 		String wClause = "  teamNumber = '" + teamNumber + "'";
 		return singleWhere(wClause, retriveAssociation);
 	}
 
 	/**
-	 * 
+	 * Used by getAllTeams() to find all teams.
 	 * @param wClause
 	 *            where clause for the query.
 	 * @param retrieveAssociation
@@ -91,7 +85,7 @@ public class DBTeam {
 	}
 
 	/**
-	 * 
+	 * Searches for a single Team object in the DB and builds it. 
 	 * @param wClause
 	 *            where clause for the query.
 	 * @param retrieveAssociation
@@ -142,13 +136,10 @@ public class DBTeam {
 		return query;
 	}
 
-	/**
-	 * Inserts teamNumber and league into the Team table in the DB.
-	 * 
-	 * @param t
-	 *            the Team to be inserted
-	 * @return the number of rows affected.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFTeam#insertTeam(modelLayer.Team)
 	 */
+	@Override
 	public int insertTeam(Team t) throws Exception {
 
 		int rc = -1;
@@ -170,16 +161,10 @@ public class DBTeam {
 
 	}
 
-	/**
-	 * Updates the teamNumber and league for a Team in the Team table in the DB.
-	 * 
-	 * @param t
-	 *            the Team which information is to be updated. The number of the
-	 *            team that you wish to find.
-	 * @param oldTeamNo
-	 *            the old teamNumber, used for Where part of query
-	 * @return the number of rows affected or -1 if error.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFTeam#updateTeam(modelLayer.Team, java.lang.String)
 	 */
+	@Override
 	public int updateTeam(Team t, String oldTeamNo) throws Exception {
 
 		int rc = -1;
@@ -203,14 +188,10 @@ public class DBTeam {
 
 	}
 
-	/**
-	 * Deletes a Team from the Team table. DBMS deletes handles deletion of
-	 * foreign key using it.
-	 * 
-	 * @param teamNumber
-	 *            The number of the team that you wish to delete.
-	 * @return the number of rows affected or -1 if error.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFTeam#deleteTeam(java.lang.String)
 	 */
+	@Override
 	public int deleteTeam(String teamNumber) {
 		int rc = -1;
 
@@ -252,7 +233,7 @@ public class DBTeam {
 	}
 
 	/**
-	 * Get allt the players belonging to a Team
+	 * Get all the players belonging to a Team
 	 * 
 	 * @param teamNumber
 	 *            The number of the team that you wish to find Players for.
@@ -271,7 +252,7 @@ public class DBTeam {
 			Statement stmt = con.createStatement();
 			stmt.setQueryTimeout(5);
 			results = stmt.executeQuery(query);
-			DBPerson dbp = new DBPerson();
+			IFPerson dbp = new DBPerson();
 			Person p = new Person();
 			ResultSet resPer;
 			while (results.next()) {// Get phoneno of players
@@ -296,16 +277,10 @@ public class DBTeam {
 		return list;
 	}
 
-	/**
-	 * Adds a Player to the Team by inserting a playerId and teamNumber in the
-	 * Association table.
-	 * 
-	 * @param p
-	 *            The player you wish to add to a team.
-	 * @param teamNumber
-	 *            The number of the team that you wish to add a Player to.
-	 * @return the number of rows affected or -1 if error.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFTeam#addPlayerTeam(modelLayer.Player, java.lang.String)
 	 */
+	@Override
 	public int addPlayerTeam(Player p, String teamNumber) throws Exception {
 		int rc = -1;
 		String query = "INSERT INTO PlayerAssociation(personId, teamNumber) VALUES("
@@ -326,16 +301,10 @@ public class DBTeam {
 		return (rc);
 	}
 
-	/**
-	 * Removes a Player from the Team by deleting playerId and teamNumber in the
-	 * Association table.
-	 * 
-	 * @param p
-	 *            The player you wish to remove from the team.
-	 * @param teamNumber
-	 *            The number of the team that you wish to remove a Player from.
-	 * @return the number of rows affected or -1 if error.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFTeam#deletePlayerTeam(modelLayer.Player, java.lang.String)
 	 */
+	@Override
 	public int deletePlayerTeam(Player p, String teamNumber) {
 		int rc = -1;
 
@@ -374,7 +343,7 @@ public class DBTeam {
 			Statement stmt = con.createStatement();
 			stmt.setQueryTimeout(5);
 			results = stmt.executeQuery(query);
-			DBPerson dbp = new DBPerson();
+			IFPerson dbp = new DBPerson();
 			while (results.next())
 				m = (Manager) dbp.findPerson(results.getString("phoneno"),
 						false);
@@ -406,7 +375,7 @@ public class DBTeam {
 			Statement stmt = con.createStatement();
 			stmt.setQueryTimeout(5);
 			results = stmt.executeQuery(query);
-			DBPerson dbp = new DBPerson();
+			IFPerson dbp = new DBPerson();
 			if (results.next())
 				tl = (TeamLeader) dbp.findPerson(results.getString("phoneno"),
 						false);
@@ -418,6 +387,10 @@ public class DBTeam {
 		return tl;
 	}
 
+	/* (non-Javadoc)
+	 * @see dbLayer.IFTeam#insertTeamLeader(modelLayer.TeamLeader, java.lang.String)
+	 */
+	@Override
 	public int insertTeamLeader(TeamLeader tl, String teamNumber)
 			throws Exception {
 		int rc = -1;
@@ -439,7 +412,11 @@ public class DBTeam {
 		}
 		return (rc);
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see dbLayer.IFTeam#insertManager(modelLayer.Manager, java.lang.String)
+	 */
+	@Override
 	public int insertManager(Manager m, String teamNumber) throws Exception {
 		int rc = -1;
 		String query = "INSERT INTO ManagerAssociation(leaderId, teamNumber) VALUES("
@@ -461,16 +438,10 @@ public class DBTeam {
 		return (rc);
 	}
 
-	/**
-	 * Removes a Manager from the Team by deleting managerId and teamNumber in
-	 * the ManagerAssociation table.
-	 * 
-	 * @param p
-	 *            The manager you wish to remove from the team.
-	 * @param teamNumber
-	 *            The number of the team that you wish to remove a Manager from.
-	 * @return the number of rows affected or -1 if error.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFTeam#removeManager(modelLayer.Manager, java.lang.String)
 	 */
+	@Override
 	public int removeManager(Manager m, String teamNumber) {
 		int rc = -1;
 
@@ -491,16 +462,10 @@ public class DBTeam {
 		return (rc);
 	}
 
-	/**
-	 * Removes a TeamLeader from the Team by deleting leaderId and teamNumber in
-	 * the Association table.
-	 * 
-	 * @param p
-	 *            The teamleader you wish to remove from the team.
-	 * @param teamNumber
-	 *            The number of the team that you wish to remove a Player from.
-	 * @return the number of rows affected or -1 if error.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFTeam#removeTeamLeader(modelLayer.TeamLeader, java.lang.String)
 	 */
+	@Override
 	public int removeTeamLeader(TeamLeader tl, String teamNumber) {
 		int rc = -1;
 
