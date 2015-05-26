@@ -19,7 +19,7 @@ public class DBPersonTest {
 	private TeamLeader tl;
 	private Manager m;
 	private Staff s;
-	private DBPerson dbP;
+	private IFPerson dbP;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -49,7 +49,6 @@ public class DBPersonTest {
 			assertEquals(1, dbP.insertPerson(pl));
 			dbP.deletePerson(pl.getPhone());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 
@@ -62,7 +61,6 @@ public class DBPersonTest {
 			dbP.deletePerson(r.getPhone());
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -75,7 +73,6 @@ public class DBPersonTest {
 			dbP.deletePerson(tl.getPhone());
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -87,7 +84,6 @@ public class DBPersonTest {
 			assertEquals(1, dbP.insertPerson(m));
 			dbP.deletePerson(m.getPhone());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -99,7 +95,6 @@ public class DBPersonTest {
 			assertEquals(1, dbP.insertPerson(s));
 			dbP.deletePerson(s.getPhone());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -115,7 +110,6 @@ public class DBPersonTest {
 			System.out.println(pl2.getFname());
 			dbP.deletePerson(pl2.getPhone());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -130,7 +124,6 @@ public class DBPersonTest {
 			assertTrue((pl2.getFname() + pl2.getLname()).equals(pl.getFname() + pl.getLname()));
 			dbP.deletePerson(pl.getPhone());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -143,7 +136,6 @@ public class DBPersonTest {
 			assertTrue((m2.getFname() + m2.getLname()).equals(m.getFname() + m.getLname()));
 			dbP.deletePerson(m.getPhone());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -156,7 +148,6 @@ public class DBPersonTest {
 			assertTrue((s2.getFname() + s2.getLname()).equals(s.getFname() + s.getLname()));
 			dbP.deletePerson(s.getPhone());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -169,7 +160,6 @@ public class DBPersonTest {
 			assertTrue((tl2.getFname() + tl2.getLname()).equals(tl.getFname() + tl.getLname()));
 			dbP.deletePerson(tl.getPhone());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -182,7 +172,6 @@ public class DBPersonTest {
 			assertTrue((r2.getFname() + r2.getLname()).equals(r.getFname() + r.getLname()));
 			dbP.deletePerson(r.getPhone());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}
@@ -200,7 +189,6 @@ public class DBPersonTest {
 			dbP.deletePerson(m.getPhone());
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail();
 		}

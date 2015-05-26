@@ -323,7 +323,6 @@ public class DBPerson implements IFPerson {
 			pl.stringSetBDay(results.getString("birthday"));
 			pl.setPosition(results.getString("position"));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -343,7 +342,6 @@ public class DBPerson implements IFPerson {
 			tl.setUsername(results.getString("username"));
 			tl.setPassword(results.getString("password"));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -366,7 +364,6 @@ public class DBPerson implements IFPerson {
 			m.setPassword(results.getString("password"));
 			m.setSalary(Double.parseDouble(results.getString("salary")));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -389,7 +386,6 @@ public class DBPerson implements IFPerson {
 			s.setPassword(results.getString("password"));
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
