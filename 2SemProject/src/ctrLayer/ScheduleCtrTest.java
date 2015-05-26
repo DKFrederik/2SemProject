@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import modelLayer.Manager;
+import modelLayer.Person;
 import modelLayer.Player;
 import modelLayer.Referee;
 import modelLayer.Staff;
@@ -23,6 +24,7 @@ public class ScheduleCtrTest {
 	private static java.sql.Date testDate;
 	private static ScheduleCtr schCtr;
 	private static TeamCtr teamCtr;
+	private static Person person;
 	
 	
 	@BeforeClass
@@ -30,11 +32,12 @@ public class ScheduleCtrTest {
 		testDate = new java.sql.Date(223,5,20);
 		schCtr = ScheduleCtr.getInstance();
 		teamCtr = TeamCtr.getInstance();
+		person = new Person();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		schCtr.deleteSchedule(testDate);
+		//schCtr.deleteSchedule(testDate);
 	}
 
 	@Before
@@ -65,12 +68,17 @@ public class ScheduleCtrTest {
 		schCtr.addTeam("a");
 		schCtr.addTeam("b");
 		schCtr.makeSchedule();
-		schCtr.getCurrentSchedule();
+		assertNotNull(schCtr.getCurrentSchedule().getAppointments().get(0).getField());
 	}
 
 	@Test
 	public void testCompleteSchedule() {
-		fail("Not yet implemented");
+		schCtr.addTeam("a");
+		schCtr.addTeam("b");
+		schCtr.getCurrentSchedule().setCreator(person);
+		schCtr.makeSchedule();
+		schCtr.completeSchedule();
+		assertNotNull(schCtr.getSchedule(testDate, false));
 	}
 
 }

@@ -65,7 +65,6 @@ public class ScheduleCtr {
 			schDB.insertSchedule(schedule);
 
 			int scheduleId = schDB.findMaxId();
-			Appointment app = schedule.getAppointments().get(1);
 			System.out.println(size);
 			System.out.println(scheduleId);
 			for (int i = 0; i < size; i++) {

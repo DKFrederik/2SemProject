@@ -10,6 +10,7 @@ public class Schedule {
 	private LinkedGraph teamGraph;
 	private List<Field> fields;
 	private Person creator;
+	private boolean isComplete;
 	
 
 
@@ -17,6 +18,7 @@ public class Schedule {
 		appointments = new ArrayList<>();
 		this.fields = fields;
 		this.date = date;
+		this.isComplete = false;
 	}
 	
 	public Person getCreator() {
@@ -102,6 +104,7 @@ public class Schedule {
 				colors[3]++;
 			}
 			
+			isComplete = true;
 		}
 	}
 
@@ -161,5 +164,9 @@ public class Schedule {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public boolean isComplete() {
+		return isComplete;
 	}
 }
