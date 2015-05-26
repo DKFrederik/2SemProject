@@ -19,9 +19,10 @@ public class Schedule {
 		this.creator = creator;
 	}
 
-	public Schedule(List<Field> fields){
+	public Schedule(List<Field> fields, java.sql.Date date){
 		appointments = new ArrayList<>();
 		this.fields = fields;
+		this.date = date;
 	}
 	
 	public void createGraph()
