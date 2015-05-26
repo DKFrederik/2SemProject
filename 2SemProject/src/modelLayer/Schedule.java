@@ -24,7 +24,9 @@ public class Schedule {
 		this.fields = fields;
 		this.date = date;
 	}
-	
+	/**
+	 * Create the graph for the schedule using. 
+	 */
 	public void createGraph()
 	{
 		int numberOfTeams = appointments.size();
@@ -52,7 +54,9 @@ public class Schedule {
 		}
 
 	}
-	
+	/**
+	 * Creates the finished schedule with fields and timeslots assigned.
+	 */
 	public void makeSchedule()
 	{
 		teamGraph.graphColoring();
@@ -107,7 +111,12 @@ public class Schedule {
 					" Time: " + appointments.get(i).getTimeSlot());
 		}
 	}
-	
+	/**
+	 * Compares two lists of Players to see if duplicate exist.
+	 * @param list1
+	 * @param list2
+	 * @return
+	 */
 	private boolean compareLists(List<Player> list1, List<Player> list2)
 	{
 		int sizeOne = list1.size();
@@ -116,7 +125,7 @@ public class Schedule {
 		for(int i = 0; i < sizeOne && found == false; i++)
 			for(int j = 0; j < sizeTwo && found == false; j++)
 			{
-				if(list1.get(i).equals(list2.get(j)))
+				if(list1.get(i).getPhone().equals((list2.get(j).getPhone())))
 				{
 					found = true;
 				}
