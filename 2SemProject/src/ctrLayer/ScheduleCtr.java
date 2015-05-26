@@ -99,4 +99,9 @@ public class ScheduleCtr {
 	{
 		return schDB.findSchedule(date,retrieveAssociation);
 	}
+	
+	public void removeCurrentSchedule()
+	{
+		this.schedule = null;
+	}
 }

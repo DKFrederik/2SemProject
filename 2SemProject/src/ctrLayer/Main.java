@@ -44,7 +44,7 @@ public class Main {
 		
 		sCtr.completeSchedule();
 		System.out.println(sCtr.getSchedule(sqlDate,true).getCreator().getFname());
-		sCtr.deleteSchedule((2300-1900), 8, 22);
+		sCtr.deleteSchedule(sqlDate);
 	}
 
 }
