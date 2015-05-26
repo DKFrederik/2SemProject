@@ -101,5 +101,52 @@ public class TeamCtr {
 			return false;
 		}
 	}
+	
+	/**
+	 * inserts a manager in ManagerAssociaiton
+	 * @param phoneno of a manager
+	 * @param teamNumber of the Team
+	 * @return true or false to indicate success
+	 */
+	public boolean insertManager(String phoneno, String teamNumber) {
+		DBPerson dbp = new DBPerson();
+		Person p = dbp.findPerson(phoneno, false);
+		if(p instanceof Manager) {
+		
+			try {
+				if(0 < dbT.insertManager((Manager) p, teamNumber))
+					return true;
+				else 
+					return false;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+		
+	}
+	
+	/**
+	 * Inserts a teamLeader and teamNumber into the TeamLeaderAssociation.
+	 * @param phoneno of a TeamLeader
+	 * @param teamNumber of the Team
+	 * @return true or false to indicate success
+	 */
+	public boolean insertTeamLeader(String phoneno, String teamNumber) {
+		DBPerson dbp = new DBPerson();
+		Person p = dbp.findPerson(phoneno, false);
+		if(p instanceof TeamLeader) {
+		
+			try {
+				if(0 < dbT.insertTeamLeader((TeamLeader) p, teamNumber))
+					return true;
+				else 
+					return false;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;				
+	}
 
 }
