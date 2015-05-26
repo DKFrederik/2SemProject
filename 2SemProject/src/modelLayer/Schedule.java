@@ -134,6 +134,11 @@ public class Schedule {
 		return this.appointments;
 	}
 	
+	public void setAppointments(List<Appointment> appList)
+	{
+		this.appointments = appList;
+	}
+	
 	public void removeAppointment(Team t)
 	{
 		boolean found = false;
