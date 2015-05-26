@@ -6,11 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * DBPerson.java
- * 
  * @author Peter, Frederik, Claus og Nichlas.
- * @version 12.05.2015 Database class for Person and childre of Person. Handles
- *          insertion, delete, update and find and find all.
+ * @version 12.05.2015. 
+ * Database class for Person and childre of Person. Handles
+ * insertion, delete, update and find and find all.
  */
 public class DBPerson implements IFPerson {
 	private Connection con;
@@ -22,7 +21,9 @@ public class DBPerson implements IFPerson {
 		con = DBConnection.getInstance().getDBcon();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dbLayer.IFPerson#getAllPersons(boolean)
 	 */
 	@Override
@@ -30,7 +31,9 @@ public class DBPerson implements IFPerson {
 		return miscWhere("", retriveAssociation);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dbLayer.IFPerson#findPerson(java.lang.String, boolean)
 	 */
 	@Override
@@ -39,7 +42,9 @@ public class DBPerson implements IFPerson {
 		return singleWhere(wClause, retriveAssociation);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dbLayer.IFPerson#insertPerson(modelLayer.Person)
 	 */
 	@Override
@@ -93,7 +98,9 @@ public class DBPerson implements IFPerson {
 		return (rc);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dbLayer.IFPerson#updatePerson(modelLayer.Person, java.lang.String)
 	 */
 	@Override
@@ -153,7 +160,9 @@ public class DBPerson implements IFPerson {
 		return (rc);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dbLayer.IFPerson#deletePerson(java.lang.String)
 	 */
 	@Override
