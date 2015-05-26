@@ -59,32 +59,6 @@ public class DBSchedule {
 		return (rc);
 	}
 
-	/**
-	 * 
-	 * @param
-	 * @return
-	 */
-	public int updateSchedule(Schedule s) {
-		Schedule sObj = s;
-		int rc = -1;
-
-		String query = "UPDATE Schedule SET "
-				+ 
-				;
-		System.out.println("Update query:" + query);
-		try {
-			Statement stmt = con.createStatement();
-			stmt.setQueryTimeout(5);
-			rc = stmt.executeUpdate(query);
-			stmt.close();
-		}
-		
-		catch (Exception ex) {
-			System.out.println("Update exception in Schedule DB: " + ex);
-		}
-		return (rc);
-	}
-
 	
 	/**
 	 * 
@@ -162,12 +136,14 @@ public class DBSchedule {
 	 */
 	private Schedule buildSchedule(ResultSet results) {
 		DBField fDb = new DBField();
+		DBPerson pDb = 
 		DBAppointment aDb = new DBAppointment();
 		Schedule sObj = new Schedule(fDb.getAllFields(false),null);
 		
 		try 
 		{
 			sObj.setDate(results.getDate("date"));
+			sObj.setCreator(results.getString("creator"));
 			sObj.setAppointments(aDb.getAllAppointments(results.getInt("id"), true));
 		} 
 		catch (Exception e) 
