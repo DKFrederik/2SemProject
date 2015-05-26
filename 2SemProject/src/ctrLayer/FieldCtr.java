@@ -16,10 +16,10 @@ import dbLayer.*;
 public class FieldCtr {
 
 	private static FieldCtr instance = null;
-	private DBField fDB;
+	private DBField dbF;
 
-	public FieldCtr() {
-		fDB = new DBField();
+	private FieldCtr() {
+		dbF = new DBField();
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class FieldCtr {
 		boolean isSuccess = false;
 		try {
 			DBConnection.startTransaction();
-			if (0 < fDB.insertField(f)) {
+			if (0 < dbF.insertField(f)) {
 				isSuccess = true;
 			}
 			DBConnection.commitTransaction();
@@ -62,7 +62,7 @@ public class FieldCtr {
 	 * @return the matching Field.
 	 */
 	public Field findField(String fieldNumber) {
-		return fDB.findField(fieldNumber);
+		return dbF.findField(fieldNumber);
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class FieldCtr {
 		boolean isSuccess = false;
 		try {
 			DBConnection.startTransaction();
-			if (0 < fDB.deleteField(fieldNumber)) {
+			if (0 < dbF.deleteField(fieldNumber)) {
 				isSuccess = true;
 			}
 			DBConnection.commitTransaction();
@@ -105,7 +105,7 @@ public class FieldCtr {
 		boolean isSuccess = false;
 		try {
 			DBConnection.startTransaction();
-			if (0 < fDB.insertField(f)) {
+			if (0 < dbF.insertField(f)) {
 				isSuccess = true;
 			}
 			DBConnection.commitTransaction();
@@ -121,6 +121,6 @@ public class FieldCtr {
 	 * @return A list of all Fields.
 	 */
 	public List<Field> getFields() {
-		return fDB.getAllFields(true);
+		return dbF.getAllFields(true);
 	}
 }
