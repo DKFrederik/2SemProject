@@ -7,13 +7,13 @@ public class Field {
 	
 	private String type;
 	//A field can contain n numbers of smaller fields. Example: field "1a", field "1b", field "1c"
-	private String number; 
+	private String fieldNumber; 
 	private int length;
 	private int width;
 	private List<Field> fields;
 	
 	public Field(String number, String type, int length, int width){
-		this.number = number;
+		this.fieldNumber = number;
 		this.type = type;
 		this.length = length;
 		this.width = width;
@@ -70,21 +70,25 @@ public class Field {
 	 * @return the field number 
 	 */
 	public String getFieldNumber() {
-		return number;
+		return fieldNumber;
 	}
 	
 	public void setFieldNumber(String number) {
-		this.number = number;
+		this.fieldNumber = number;
 	}
 	
 	/**
 	 * @return size of field
 	 */
-	public void getFieldSize() {
-		fields.size();
+	public int getFieldSize() {
+		return fields.size();
 	}
 
 	public void deleteField() {
 		fields.remove(getFieldNumber());
+	}
+	
+	public void addField(Field f) {
+		fields.add(f);
 	}
 }
