@@ -16,6 +16,10 @@ public class PersonCtr {
 	private PersonCtr() {
 		dbP = new DBPerson();
 	}
+	
+	/**
+	 * Creates an instance of the PersonCtr.
+	 */
 
 	public static PersonCtr getInstance() {
 		if (instance == null) {
@@ -24,6 +28,28 @@ public class PersonCtr {
 
 		return instance;
 	}
+	
+	/**
+	 * Inserts a Manager into the DB
+	 * 
+	 * @param fname
+	 *            the first name of the manager.
+	 * @param lname
+	 *            the last name of the manager.
+	 * @param email
+	 *            the email of the manager.
+	 * @param phoneno
+	 *            the phonenumber of the manager.
+	 * @param zipcode
+	 *            the zipcode of the manager.
+	 * @param username
+	 *			  the username assigned to the manager.
+	 * @param password
+	 *			  the password assigned to the manager.
+	 * @param salary
+	 *			  the salary of the manager.
+	 * @return true or false depending on success.
+	 */
 	
 	public boolean createManager(String fname, String lname, String email,
 			String phoneno, String zipcode, String username, String password, double salary)
@@ -36,8 +62,26 @@ public class PersonCtr {
 			return false;
 		}
 	}
-
-
+	
+	/**
+	 * Inserts a Player into the DB
+	 * 
+	 * @param fname
+	 *            the first name of the player.
+	 * @param lname
+	 *            the last name of the player.
+	 * @param email
+	 *            the email of the player.
+	 * @param phoneno
+	 *            the phonenumber of the player.
+	 * @param zipcode
+	 *            the zipcode of the player.
+	 * @param sbDay
+	 *			  the birthday of the player.
+	 * @param position
+	 *			  the position assigned to the player.
+	 * @return true or false depending on success.
+	 */
 	public boolean createPlayer(String fname, String lname, String email,
 			String phoneno, String zipcode, String sbDay, String position)
 			throws Exception {
@@ -51,11 +95,96 @@ public class PersonCtr {
 		}
 
 	}
+	/**
+	 * Inserts a TeamLeader into the DB
+	 * 
+	 * @param fname
+	 *            the first name of the teamleader.
+	 * @param lname
+	 *            the last name of the teamleader.
+	 * @param email
+	 *            the email of the teamleader.
+	 * @param phoneno
+	 *            the phonenumber of the teamleader.
+	 * @param zipcode
+	 *            the zipcode of the teamleader.
+	 * @param username
+	 *			  the username assigned to the teamleader.
+	 * @param password
+	 *			  the password assigned to the teamleader.
+	 * @param salary
+	 *			  the salary of the teamleader.
+	 * @return true or false depending on success.
+	 */
+	public boolean createTeamLeader(String fname, String lname, String email,
+			String phoneno, String zipcode, String username, String password)
+			throws Exception {
+
+		if(0 < dbP.insertPerson(new TeamLeader(fname, lname, email, phoneno, zipcode, username,
+				password))) {
+			return true;
+		}
+		else {
+			return false;
+		}
+
+	}
 	
+	/**
+	 * Inserts a Referee into the DB
+	 * 
+	 * @param fname
+	 *            the first name of the referee.
+	 * @param lname
+	 *            the last name of the referee.
+	 * @param email
+	 *            the email of the referee.
+	 * @param phoneno
+	 *            the phonenumber of the referee.
+	 * @param zipcode
+	 *            the zipcode of the referee.
+
+	 * @return true or false depending on success.
+	 */
+	public boolean createReferee(String fname, String lname, String email,
+			String phoneno, String zipcode)
+			throws Exception {
+
+		if(0 < dbP.insertPerson(new Referee(fname, lname, email, phoneno, zipcode))) {
+			return true;
+		}
+		else {
+			return false;
+		}
+
+	}
+	
+	/**
+	 * Finds a person from the DB.
+	 * @param phoneno
+	 * 			the parameter used to finding a person.
+	 * @return a person.
+	 */
 	public Person findPerson(String phoneno) {
 		return dbP.findPerson(phoneno, true);
 	}
 	
+	/**
+	 * Updates a referee in the DB
+	 * @param fname
+	 * 			updates the first name
+	 * @param lname
+	 * 			updates the last name
+	 * @param email
+	 * 			updates the email
+	 * @param phoneno
+	 * 			updates the phoneno
+	 * @param zipcode
+	 * 			updates the zipcode
+	 * @param oldPhone
+	 * 			updates the oldPh
+	 * @return
+	 */
 	public boolean updateReferee(String fname, String lname, String email,
 			String phoneno, String zipcode, String oldPhone) {
 		Referee r = new Referee(fname, lname, email, phoneno, zipcode);
@@ -68,7 +197,7 @@ public class PersonCtr {
 		}
 	}
 	
-	public boolean updateStaff(String fname, String lname, String email,
+/*	public boolean updateStaff(String fname, String lname, String email,
 			String phoneno, String zipcode, String username, String password, String oldPhone) {
 		Staff s = new Staff(fname, lname, email, phoneno, zipcode, username, password);
 		
@@ -78,7 +207,7 @@ public class PersonCtr {
 		else {
 			return false;
 		}
-	}
+	}*/
 	
 	public boolean updateTeamLeader(String fname, String lname, String email,
 			String phoneno, String zipcode, String username, String password, String oldPhone) {
