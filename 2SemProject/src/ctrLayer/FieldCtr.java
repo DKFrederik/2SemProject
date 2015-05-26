@@ -21,7 +21,10 @@ public class FieldCtr {
 	public FieldCtr() {
 		fDB = new DBField();
 	}
-
+	
+	/**
+	 * Creates an instance of the FieldCtr
+	 */
 	public static FieldCtr getInstance() {
 		if (instance == null) {
 			instance = new FieldCtr();
@@ -30,6 +33,13 @@ public class FieldCtr {
 		return instance;
 	}
 
+	/**
+	 * Inserts a Field in the DB.
+	 * 
+	 * @param Field f
+	 *            the Field object inserted.
+	 * @return true or false to indicate success.
+	 */
 	public boolean insertField(Field f) throws Exception {
 		boolean isSuccess = false;
 		try {
