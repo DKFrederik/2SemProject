@@ -162,6 +162,4 @@ public class Schedule {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	
 }
