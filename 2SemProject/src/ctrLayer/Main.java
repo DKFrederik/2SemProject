@@ -43,6 +43,7 @@ public class Main {
 		sCtr.makeSchedule();
 		
 		sCtr.completeSchedule();
+		System.out.println(sCtr.getSchedule(sqlDate).getCreator().getFname());
 	}
 
 }

@@ -98,4 +98,9 @@ public class ScheduleCtr {
 			DBConnection.rollbackTransaction();
 		}
 	}
+	
+	public Schedule getSchedule(Date date)
+	{
+		return schDB.findSchedule(date);
+	}
 }

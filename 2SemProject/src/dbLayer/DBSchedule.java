@@ -24,7 +24,7 @@ public class DBSchedule {
 	 * @return The schedule of the day.
 	 */
 	public Schedule findSchedule(Date date) {
-		String wClause = "   = '" + date + "'";
+		String wClause = " Schedule.date = '" + date + "'";
 		return searchWhere(wClause);
 	}
 	
@@ -121,7 +121,8 @@ public class DBSchedule {
 	 * @return A String formatted as a query.
 	 */
 	private String buildQuery(String wClause) {
-		String query = "";
+		String query = "SELECT Schedule.date, Schedule.creator, Schedule.id, Person.phoneno "
+					 + "FROM Schedule INNER JOIN Person ON Schedule.creator = Person.phoneno";
 
 		if (wClause.length() > 0)
 			query += " WHERE " + wClause;
@@ -136,14 +137,13 @@ public class DBSchedule {
 	 */
 	private Schedule buildSchedule(ResultSet results) {
 		DBField fDb = new DBField();
-		DBPerson pDb = 
+		DBPerson pDb = new DBPerson();
 		DBAppointment aDb = new DBAppointment();
 		Schedule sObj = new Schedule(fDb.getAllFields(false),null);
-		
 		try 
 		{
-			sObj.setDate(results.getDate("date"));
-			sObj.setCreator(results.getString("creator"));
+			sObj.setDate(results.getDate("date"));		
+			sObj.setCreator(pDb.findPerson(results.getString("phoneno"), false));
 			sObj.setAppointments(aDb.getAllAppointments(results.getInt("id"), true));
 		} 
 		catch (Exception e) 
