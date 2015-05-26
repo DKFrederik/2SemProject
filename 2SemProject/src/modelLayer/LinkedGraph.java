@@ -170,19 +170,4 @@ public class LinkedGraph implements IFGraph  {
 		{
 			return this.vertices.get(index);
 		}
-
-//		@Override
-//		public void dfs(Vertex vertex){
-//		System.out.println(vertex.getName() + " is marked");
-//		vertex.setColor(1);
-//		int index = vertices.indexOf(vertex);
-//		for(int i = 0; i < adjList.get(index).size(); i++)
-//		{
-//			if(!adjList.get(index).get(i).isColor())
-//			{
-//				dfs(adjList.get(index).get(i));
-//			}
-//		}
-//		}
-
 }

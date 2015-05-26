@@ -11,6 +11,14 @@ public class Schedule {
 	private List<Field> fields;
 	private Person creator;
 	
+
+
+	public Schedule(List<Field> fields, java.sql.Date date){
+		appointments = new ArrayList<>();
+		this.fields = fields;
+		this.date = date;
+	}
+	
 	public Person getCreator() {
 		return creator;
 	}
@@ -18,12 +26,7 @@ public class Schedule {
 	public void setCreator(Person creator) {
 		this.creator = creator;
 	}
-
-	public Schedule(List<Field> fields, java.sql.Date date){
-		appointments = new ArrayList<>();
-		this.fields = fields;
-		this.date = date;
-	}
+	
 	/**
 	 * Create the graph for the schedule using. 
 	 */

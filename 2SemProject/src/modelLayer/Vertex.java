@@ -26,13 +26,4 @@ public class Vertex {
 	public void setColor(int color){
 		this.color = color;
 	}
-	
-	public boolean equals(Object obj) {
-		Vertex other = (Vertex)obj;
-		return name.equals(other.getName());
-	}
-	
-	public int getHashCode() {
-		return name.hashCode();
-	}
 }
