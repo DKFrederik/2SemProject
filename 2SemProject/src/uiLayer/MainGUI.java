@@ -416,7 +416,7 @@ public class MainGUI extends JFrame {
 			System.exit(1);
 		});
 		panelMain.add(exitBtnM);
-/**
+
 
 		JPanel panelPlayer = new JPanel();
 		panelPlayer.setVisible(true);
@@ -723,7 +723,6 @@ public class MainGUI extends JFrame {
 
 
 
-**/
 		
 
 		/**
