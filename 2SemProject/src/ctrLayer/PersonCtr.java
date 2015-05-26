@@ -182,8 +182,8 @@ public class PersonCtr {
 	 * @param zipcode
 	 * 			updates the zipcode
 	 * @param oldPhone
-	 * 			updates the oldPh
-	 * @return
+	 * 			uses the phoneno to update
+	 * @return true or false depending on success.
 	 */
 	public boolean updateReferee(String fname, String lname, String email,
 			String phoneno, String zipcode, String oldPhone) {
@@ -209,6 +209,26 @@ public class PersonCtr {
 		}
 	}*/
 	
+	/**
+	 * Updates a teamleader in the DB
+	 * @param fname
+	 * 			updates the first name
+	 * @param lname
+	 * 			updates the last name
+	 * @param email
+	 * 			updates the email
+	 * @param phoneno
+	 * 			updates the phoneno
+	 * @param zipcode
+	 * 			updates the zipcode
+	 * @param username
+	 * 			updates the username
+	 * @param password
+	 * 			updates the password
+	 * @param oldPhone
+	 * 			uses the phoneno to update
+	 * @return true or false depending on success.
+	 */
 	public boolean updateTeamLeader(String fname, String lname, String email,
 			String phoneno, String zipcode, String username, String password, String oldPhone) {
 		TeamLeader tl = new TeamLeader(fname, lname, email, phoneno, zipcode, username, password);
@@ -221,6 +241,28 @@ public class PersonCtr {
 		}
 	}
 
+	/**
+	 * Updates a manager in the DB.
+	 * @param fname
+	 * 			updates the first name
+	 * @param lname
+	 * 			updates the last name
+	 * @param email
+	 * 			updates the email
+	 * @param phoneno
+	 * 			updates the phoneno
+	 * @param zipcode
+	 * 			updates the zipcode
+	 * @param username
+	 * 			updates the username
+	 * @param password
+	 * 			updates the password
+	 * @param salary
+	 * 			updates the salary
+	 * @param oldPhone
+	 * 			uses the phoneno to update
+	 * @return true or false depending on success.
+	 */
 	public boolean updateManager(String fname, String lname, String email,
 			String phoneno, String zipcode, String username, String password,
 			double salary, String oldPhone) {
@@ -234,6 +276,26 @@ public class PersonCtr {
 		}
 	}
 
+	/**
+	 * Updates a player in the DB.
+	 * @param fname
+	 * 			updates the first name
+	 * @param lname
+	 * 			updates the last name
+	 * @param email
+	 * 			updates the email
+	 * @param phoneno
+	 * 			updates the phoneno
+	 * @param zipcode
+	 * 			updates the zipcode
+	 * @param sbDay
+	 * 			updates the sbDay
+	 * @param position
+	 * 			updates the position
+	 * @param oldPhone
+	 * 			uses the phoneno to update
+	 * @return true or false depending on success.
+	 */
 	public boolean updatePlayer(String fname, String lname, String email,
 			String phoneno, String zipcode, String sbDay, String position,
 			String oldPhone) {
@@ -246,6 +308,12 @@ public class PersonCtr {
 		}
 	}
 
+	/**
+	 * Deletes a person from the DB.
+	 * @param phoneno
+	 * 			used to finding the person
+	 * @return true or false depending on success.
+	 */
 	public boolean deletePerson(String phoneno) {
 		if (0 < dbP.deletePerson(phoneno)) {
 			return true;
