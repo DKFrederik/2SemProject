@@ -30,31 +30,28 @@ public class ScheduleCtrTest {
 		testDate = new java.sql.Date(223,5,20);
 		schCtr = ScheduleCtr.getInstance();
 		teamCtr = TeamCtr.getInstance();
-		schCtr.createSchedule(testDate);
-		schCtr.completeSchedule();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		//schCtr.deleteSchedule(testDate);
+		schCtr.deleteSchedule(testDate);
 	}
 
 	@Before
 	public void setUp() throws Exception {
 		schCtr.createSchedule(testDate);
-		schCtr.completeSchedule();
+
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		schCtr.removeCurrentSchedule();
 	}
 	
 
 	@Test
 	public void testCreateSchedule() {
-		schCtr.createSchedule(testDate);
-		schCtr.completeSchedule();
-		//assert(schCtr.createSchedule(testDate));
+		assertNotNull(schCtr.getCurrentSchedule());
 	}
 
 	@Test
@@ -65,7 +62,10 @@ public class ScheduleCtrTest {
 
 	@Test
 	public void testMakeSchedule() {
-		fail("Not yet implemented");
+		schCtr.addTeam("a");
+		schCtr.addTeam("b");
+		schCtr.makeSchedule();
+		schCtr.getCurrentSchedule();
 	}
 
 	@Test
