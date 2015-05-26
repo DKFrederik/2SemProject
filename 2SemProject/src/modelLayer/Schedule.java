@@ -104,16 +104,7 @@ public class Schedule {
 			
 		}
 	}
-	
-	public void print()
-	{
-		for(int i = 0; i < appointments.size(); i++)
-		{
-			System.out.println("Team: " + appointments.get(i).getTeam().getTeamNumber() + 
-					" Field: " + appointments.get(i).getField().getFieldNumber() + 
-					" Time: " + appointments.get(i).getTimeSlot());
-		}
-	}
+
 	/**
 	 * Compares two lists of Players to see if duplicate exist.
 	 * @param list1
