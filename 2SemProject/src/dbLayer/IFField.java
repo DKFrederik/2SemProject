@@ -33,5 +33,11 @@ public interface IFField {
 	 * @return An int corresponding to the amount of changed rows or -1 if failed.
 	 */
 	public abstract int deleteField(String fieldNumber);
-
+	
+	/**
+	 * Inserts a field into the database.
+	 * @param f a field.
+	 * @return An int corresponding to the amount of changed rows or -1 if failed.
+	 */
+	public abstract int insertField(Field f);
 }

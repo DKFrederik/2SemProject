@@ -73,13 +73,12 @@ public class DBField implements IFField {
 		}
 		return list;
 	}
-	
-	/**
-	 * Inserts a field into the database.
-	 * @param f a Field object to be inserted.
-	 * @return An int corresponding to the amount of changed rows or -1 if failed.
+	/*
+	 * (non-Javadoc)
+	 * @see dbLayer.IFField#insertField(modelLayer.Field)
 	 */
-	public static int insertField(Field f) {
+	@Override 
+	public int insertField(Field f) {
 
 		int rc = -1;
 		String query = "INSERT INTO Field(fieldNumber, type, length, width)  VALUES('"
