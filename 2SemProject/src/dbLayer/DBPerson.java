@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @version 12.05.2015 Database class for Person and childre of Person. Handles
  *          insertion, delete, update and find and find all.
  */
-public class DBPerson {
+public class DBPerson implements IFPerson {
 	private Connection con;
 
 	/**
@@ -22,39 +22,27 @@ public class DBPerson {
 		con = DBConnection.getInstance().getDBcon();
 	}
 
-	/**
-	 * Retrieves all Persons from the Person table in the db.
-	 * 
-	 * @param retriveAssociation
-	 *            Determines if associations should be retrieved or not.
-	 * @return An ArrayList of Person objects.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFPerson#getAllPersons(boolean)
 	 */
+	@Override
 	public ArrayList<Person> getAllPersons(boolean retriveAssociation) {
 		return miscWhere("", retriveAssociation);
 	}
 
-	/**
-	 * 
-	 * @param phone
-	 *            The phone number of the person that you wish to find.
-	 * @param retriveAssoc
-	 *            .iation Determines if associations should be retrieved or not.
-	 * @return A Person Object if found, null if not.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFPerson#findPerson(java.lang.String, boolean)
 	 */
+	@Override
 	public Person findPerson(String phone, boolean retriveAssociation) {
 		String wClause = "  phoneno = '" + phone + "'";
 		return singleWhere(wClause, retriveAssociation);
 	}
 
-	/**
-	 * Inserts firstname, lastname and so on into the Person table in the
-	 * database.
-	 * 
-	 * @param p
-	 *            The person that is to be inserted
-	 * @return the number of rows changed in the database.
-	 * @throws Exception
+	/* (non-Javadoc)
+	 * @see dbLayer.IFPerson#insertPerson(modelLayer.Person)
 	 */
+	@Override
 	public int insertPerson(Person p) throws Exception {
 		int rc = -1;
 		String query = "INSERT INTO Person(firstname, lastname, email, phoneno, zipcode, birthday, position, username, password, salary, type)  VALUES('"
@@ -105,14 +93,10 @@ public class DBPerson {
 		return (rc);
 	}
 
-	/**
-	 * Updates the basic information of a Person in the Person table in the
-	 * database.
-	 * 
-	 * @param p
-	 *            The Person object that is to be updated in the database.
-	 * @return the number of rows change in the database
+	/* (non-Javadoc)
+	 * @see dbLayer.IFPerson#updatePerson(modelLayer.Person, java.lang.String)
 	 */
+	@Override
 	public int updatePerson(Person p, String oldPhone) {
 		Person personObj = p;
 		int rc = -1;
@@ -169,14 +153,10 @@ public class DBPerson {
 		return (rc);
 	}
 
-	/**
-	 * Deletes a Person from the Person table in the database. The delete
-	 * process also remove foreign keys using that Person tuple
-	 * 
-	 * @param phone
-	 *            The phone number of the person that you wish to delete.
-	 * @return the number of rows change in the database.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFPerson#deletePerson(java.lang.String)
 	 */
+	@Override
 	public int deletePerson(String phone) {
 		int rc = -1;
 
@@ -455,7 +435,7 @@ public class DBPerson {
 			Statement stmt = con.createStatement();
 			stmt.setQueryTimeout(5);
 			results = stmt.executeQuery(query);
-			DBTeam dbt = new DBTeam();
+			IFTeam dbt = new DBTeam();
 			Team t = new Team();
 			while (results.next()) {
 				t = dbt.findTeam(results.getString("teamNumber"),
