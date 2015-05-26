@@ -34,7 +34,7 @@ public class FieldCtr {
 		boolean isSuccess = false;
 		try {
 			DBConnection.startTransaction();
-			if (0 < DBField.insertField(f)) {
+			if (0 < fDB.insertField(f)) {
 				isSuccess = true;
 			}
 			DBConnection.commitTransaction();
@@ -95,7 +95,7 @@ public class FieldCtr {
 		boolean isSuccess = false;
 		try {
 			DBConnection.startTransaction();
-			if (0 < DBField.insertField(f)) {
+			if (0 < fDB.insertField(f)) {
 				isSuccess = true;
 			}
 			DBConnection.commitTransaction();
