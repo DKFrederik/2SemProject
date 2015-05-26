@@ -9,6 +9,7 @@ import dbLayer.*;
 /**
  * Controller for Team. Controls creation, update, delete, find of Team and
  * adding players, manager and teamLeader to a team.
+ * 
  * @author nichlas, frederik, peter, claus.
  * @version 20.05.2015
  * 
@@ -101,102 +102,114 @@ public class TeamCtr {
 				isSuccess = true;
 			}
 			DBConnection.commitTransaction();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			DBConnection.rollbackTransaction();
 		}
 		return isSuccess;
 	}
-	
+
 	/**
 	 * inserts a manager in ManagerAssociaiton
-	 * @param phoneno of a manager
-	 * @param teamNumber of the Team
+	 * 
+	 * @param phoneno
+	 *            of a manager
+	 * @param teamNumber
+	 *            of the Team
 	 * @return true or false to indicate success
 	 */
 	public boolean insertManager(String phoneno, String teamNumber) {
 		DBPerson dbp = new DBPerson();
 		Person p = dbp.findPerson(phoneno, false);
-		if(p instanceof Manager) {
-		
+		if (p instanceof Manager) {
+
 			try {
-				if(0 < dbT.insertManager((Manager) p, teamNumber))
+				if (0 < dbT.insertManager((Manager) p, teamNumber))
 					return true;
-				else 
+				else
 					return false;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return false;
-		
+
 	}
-	
+
 	/**
 	 * Inserts a teamLeader and teamNumber into the TeamLeaderAssociation.
-	 * @param phoneno of a TeamLeader
-	 * @param teamNumber of the Team
+	 * 
+	 * @param phoneno
+	 *            of a TeamLeader
+	 * @param teamNumber
+	 *            of the Team
 	 * @return true or false to indicate success
 	 */
 	public boolean insertTeamLeader(String phoneno, String teamNumber) {
 		DBPerson dbp = new DBPerson();
 		Person p = dbp.findPerson(phoneno, false);
-		if(p instanceof TeamLeader) {
-		
+		if (p instanceof TeamLeader) {
+
 			try {
-				if(0 < dbT.insertTeamLeader((TeamLeader) p, teamNumber))
+				if (0 < dbT.insertTeamLeader((TeamLeader) p, teamNumber))
 					return true;
-				else 
+				else
 					return false;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return false;				
+		return false;
 	}
-	
+
 	/**
-	 * Deletes the TeamLeader from a Team. 
-	 * @param phoneno of the teamLeader.
-	 * @param teamNumber of the Team.
+	 * Deletes the TeamLeader from a Team.
+	 * 
+	 * @param phoneno
+	 *            of the teamLeader.
+	 * @param teamNumber
+	 *            of the Team.
 	 * @return true or false to indicate success.
 	 */
 	public boolean deleteTeamLeader(String phoneno, String teamNumber) {
 		DBPerson dbp = new DBPerson();
 		Person p = dbp.findPerson(phoneno, false);
-		if(p instanceof TeamLeader) {
-		
+		if (p instanceof TeamLeader) {
+
 			try {
-				if(0 < dbT.removeTeamLeader((TeamLeader) p, teamNumber))
+				if (0 < dbT.removeTeamLeader((TeamLeader) p, teamNumber))
 					return true;
-				else 
+				else
 					return false;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return false;		
+		return false;
 	}
+
 	/**
-	 * Deletes the TeamLeader from a Team. 
-	 * @param phoneno of the manager.
-	 * @param teamNumber of the Team.
+	 * Deletes the TeamLeader from a Team.
+	 * 
+	 * @param phoneno
+	 *            of the manager.
+	 * @param teamNumber
+	 *            of the Team.
 	 * @return true or false to indicate success.
 	 */
 	public boolean deleteManager(String phoneno, String teamNumber) {
 		DBPerson dbp = new DBPerson();
 		Person p = dbp.findPerson(phoneno, false);
-		if(p instanceof Manager) {
-		
+		if (p instanceof Manager) {
+
 			try {
-				if(0 < dbT.removeManager((Manager) p, teamNumber))
+				if (0 < dbT.removeManager((Manager) p, teamNumber))
 					return true;
-				else 
+				else
 					return false;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return false;		
+		return false;
 	}
 }
