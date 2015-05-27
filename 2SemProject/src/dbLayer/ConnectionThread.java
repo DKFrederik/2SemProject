@@ -20,8 +20,10 @@ public class ConnectionThread implements Runnable {
 			while(DBConnection.getInstance() != null)
 				Thread.sleep(4000);
 				System.out.println("MyRunnable is running");
+				System.out.println("Connection to database is avaliable.");
 		} catch(Exception e){
 			System.out.println("MyRunnable stopped running.");
+			System.out.println("Connection to database is unavaliable.");
 		}
 		
 	}
