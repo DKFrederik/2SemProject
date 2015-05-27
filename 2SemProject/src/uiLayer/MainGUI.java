@@ -74,6 +74,32 @@ public class MainGUI extends JFrame {
 		panelMain.setVisible(true);
 		panelMain.setBounds(0, 0, 434, 261);
 		contentPane.add(panelMain);
+		
+		JPanel panelPlayer = new JPanel();
+		panelPlayer.setVisible(true);
+		panelPlayer.setVisible(false);
+		panelPlayer.setBounds(0, 0, 434, 261);
+		contentPane.add(panelPlayer);
+		panelPlayer.setLayout(null);
+		
+		JPanel panelTraining = new JPanel();
+		panelTraining.setBounds(0, 0, 434, 261);
+		contentPane.add(panelTraining);
+		panelTraining.setLayout(null);
+		panelTraining.setVisible(false);
+		
+		JPanel panelField = new JPanel();
+		panelField.setBounds(0, 0, 434, 261);
+		contentPane.add(panelField);
+		panelField.setLayout(null);
+		panelField.setVisible(false);
+		
+
+		JPanel panelTeam = new JPanel();
+		panelTeam.setBounds(0, 0, 434, 261);
+		contentPane.add(panelTeam);
+		panelTeam.setLayout(null);
+		panelTeam.setVisible(false);
 
 		JButton playerBtnM = new JButton("Player");
 		playerBtnM.setBounds(163, 25, 89, 23);
@@ -115,12 +141,7 @@ public class MainGUI extends JFrame {
 		});
 		panelMain.add(exitBtnM);
 
-		JPanel panelPlayer = new JPanel();
-		panelPlayer.setVisible(true);
-		panelPlayer.setVisible(false);
-		panelPlayer.setBounds(0, 0, 434, 261);
-		contentPane.add(panelPlayer);
-		panelPlayer.setLayout(null);
+
 
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addActionListener(e -> {
@@ -270,11 +291,7 @@ public class MainGUI extends JFrame {
 		lblPosiotionLabel.setBounds(111, 208, 72, 16);
 		panelPlayer.add(lblPosiotionLabel);
 
-		JPanel panelTraining = new JPanel();
-		panelTraining.setBounds(0, 0, 434, 261);
-		contentPane.add(panelTraining);
-		panelTraining.setLayout(null);
-		panelTraining.setVisible(false);
+
 
 		JButton btnCreate_1 = new JButton("Show training schedule");
 		btnCreate_1.setBounds(132, 181, 198, 23);
@@ -288,11 +305,7 @@ public class MainGUI extends JFrame {
 		btnBack_1.setBounds(10, 227, 89, 23);
 		panelTraining.add(btnBack_1);
 
-		JPanel panelField = new JPanel();
-		panelField.setBounds(0, 0, 434, 261);
-		contentPane.add(panelField);
-		panelField.setLayout(null);
-		panelField.setVisible(false);
+
 
 		JButton btnClearFields = new JButton("Clear textfields");
 		btnClearFields.addActionListener(e -> {
@@ -312,7 +325,7 @@ public class MainGUI extends JFrame {
 				Integer length = Integer.getInteger(textFieldLength.getText());
 				Integer width = Integer.getInteger(textFieldWidth.getText());
 				Field f = new Field(number, type, length, width);
-				if (fCtr.insertField(f) > 0) {
+				if (fCtr.insertField(f)) {
 					System.out.println("Field created ");
 				} else {
 					System.out.println("Field not created");
@@ -375,11 +388,6 @@ public class MainGUI extends JFrame {
 		lblFieldWidth.setBounds(10, 130, 193, 16);
 		panelField.add(lblFieldWidth);
 
-		JPanel panelTeam = new JPanel();
-		panelTeam.setBounds(0, 0, 434, 261);
-		contentPane.add(panelTeam);
-		panelTeam.setLayout(null);
-		panelTeam.setVisible(false);
 
 		JButton btnCreateT = new JButton("Create");
 		btnCreateT.addActionListener(new ActionListener() {
