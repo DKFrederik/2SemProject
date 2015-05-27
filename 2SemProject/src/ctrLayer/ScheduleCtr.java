@@ -62,8 +62,7 @@ public class ScheduleCtr {
 		try {
 			DBConnection.startTransaction();
 			int size = schedule.getAppointments().size();
-			schDB.insertSchedule(schedule);
-
+			this.schDB.insertSchedule(schedule);
 			int scheduleId = schDB.findMaxId();
 			System.out.println(size);
 			System.out.println(scheduleId);

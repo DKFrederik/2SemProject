@@ -40,9 +40,10 @@ public class Schedule {
 		
 		for(int i=0; i<numberOfTeams; i++)
 		{
+			System.out.println("Tipohøj");
 			teamGraph.addVertex(new Vertex("Hold " + appointments.get(i).getTeam().getTeamNumber()));
 			
-			//System.out.println(teamGraph.getNoOfVertices() + " " + teamGraph.getVertex(i).getName());
+			System.out.println("HOOOHØØØJ" +teamGraph.getNoOfVertices() + " " + teamGraph.getVertex(i).getName());
 		}
 		
 		System.out.println(numberOfTeams);

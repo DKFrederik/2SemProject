@@ -22,7 +22,7 @@ public interface IFAppointment {
 	 *            date of the schedule to fetch
 	 * @return The schedule of the day.
 	 */
-	public abstract Appointment findAppointment(int id);
+	public abstract Appointment findAppointment(int id, boolean retrieveAssociation);
 
 	/**
 	 * Inserts an appoinment into the db. 

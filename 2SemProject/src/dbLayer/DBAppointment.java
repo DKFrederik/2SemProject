@@ -31,9 +31,9 @@ public class DBAppointment implements IFAppointment {
 	 * @see dbLayer.IFAppointment#findAppointment(int)
 	 */
 	@Override
-	public Appointment findAppointment(int id) {
+	public Appointment findAppointment(int id, boolean retrieveAssociation) {
 		String wClause = " scheduleId = '" + id + "'";
-		return searchWhere(wClause);
+		return searchWhere(wClause, retrieveAssociation);
 	}
 
 	/* (non-Javadoc)
@@ -116,7 +116,7 @@ public class DBAppointment implements IFAppointment {
 	 * @param wClause the where clause for the select query.
 	 * @return An appointment object or null. 
 	 */
-	private Appointment searchWhere(String wClause) {
+	private Appointment searchWhere(String wClause, boolean retrieveAssociation) {
 		ResultSet results;
 		Appointment aObj = new Appointment(null);
 
@@ -129,6 +129,14 @@ public class DBAppointment implements IFAppointment {
 
 			if (results.next()) {
 				aObj = buildAppointment(results);
+				if (retrieveAssociation) {
+					aObj.setTeam((new DBTeam().findTeam(results.getString("teamNumber"), true)));
+				}
+				else
+				{
+					aObj.setTeam((new DBTeam().findTeam(results.getString("teamNumber"), false)));
+				}
+				
 				stmt.close();
 			} else {
 				aObj = null;
@@ -166,7 +174,6 @@ public class DBAppointment implements IFAppointment {
 		Appointment aObj = new Appointment(null);
 		try {		
 			aObj.setField(fDb.findField(results.getString("fieldNumber")));
-			aObj.setTeam((tDb.findTeam(results.getString("teamNumber"), true)));
 			aObj.setTimeSlot(results.getInt("timeSlotNumber"));
 
 		} catch (Exception e) {
@@ -201,10 +208,13 @@ public class DBAppointment implements IFAppointment {
 				Appointment aObj = new Appointment(null);
 				aObj = buildAppointment(results);
 				if (retrieveAssociation) {
-						aObj.setField(fDB.findField(results.getString("fieldNumber")));
-						aObj.setTeam(tDB.findTeam(results.getString("teamNumber"), true));
-						aObj.setTimeSlot(results.getInt("timeSlotNumber"));
-					}
+					aObj.setTeam((new DBTeam().findTeam(results.getString("teamNumber"), true)));
+				}
+				else
+				{
+					aObj.setTeam((new DBTeam().findTeam(results.getString("teamNumber"), false)));
+				}
+				
 				list.add(aObj);
 				}// end while
 

@@ -23,7 +23,7 @@ public class Main {
 		ScheduleCtr sCtr = ScheduleCtr.getInstance();
 		DBPerson pDB = new DBPerson();
 
-		java.sql.Date sqlDate = new java.sql.Date((2365-1900), 8, 22);
+		java.sql.Date sqlDate = new java.sql.Date((2366-1900), 8, 22);
 		sCtr.createSchedule(sqlDate);
 		System.out.println(sCtr.createSchedule(sqlDate) + " " + sCtr.getCurrentSchedule().getDate());
 		sCtr.addTeam("a");
@@ -33,10 +33,16 @@ public class Main {
 		sCtr.addTeam("e");
 		sCtr.addTeam("f");
 		sCtr.getCurrentSchedule().setCreator(pDB.findPerson("00000076", false));
-		
+
 		sCtr.makeSchedule();
 		
 		sCtr.completeSchedule();
+		for(int i = 0; i < 100; i++)
+		{	
+			System.out.println("");
+			i++;
+		}
+			
 		System.out.println(sCtr.getSchedule(sqlDate,true).getCreator().getFname());
 		
 		sCtr.deleteSchedule(sqlDate);

@@ -113,8 +113,8 @@ public class DBSchedule {
 			{
 				schObj = buildSchedule(results);
 				if (retrieveAssociation) {
-					schObj.setCreator(new DBPerson().findPerson(results.getString("phoneno"),false));
-					schObj.setAppointments(new DBAppointment().getAllAppointments(results.getInt("id"), true));
+					schObj.setCreator(new DBPerson().findPerson(results.getString("phoneno"),true));
+					schObj.setAppointments(new DBAppointment().getAllAppointments(results.getInt("id"), false));
 				}
 				stmt.close();
 			} 
