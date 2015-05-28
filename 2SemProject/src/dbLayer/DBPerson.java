@@ -326,7 +326,7 @@ public class DBPerson implements IFPerson {
 	private Player buildPlayer(ResultSet results) {
 		Player pl = new Player();
 		try {
-			pl.stringSetBDay(results.getString("birthday"));
+			pl.setBDay(results.getString("birthday"));
 			pl.setPosition(results.getString("position"));
 		} catch (SQLException e) {
 			e.printStackTrace();

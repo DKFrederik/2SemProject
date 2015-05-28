@@ -16,7 +16,7 @@ public class Player extends Person{
 		super(fname, lname, email, phone, zipcode);
 		
 		teams = new ArrayList<Team>();
-		stringSetBDay(sbDay);
+		setBDay(sbDay);
 		this.position = position;
 	}
 	
@@ -43,12 +43,8 @@ public class Player extends Person{
 	public Date getBDay() {
 		return bDay;
 	}
-	
-	public void setBday(Date bDay) {
-		this.bDay = bDay;
-	}
 
-	public void stringSetBDay(String sbDay) {
+	public void setBDay(String sbDay) {
 		if (sbDay != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			sdf.setLenient(false);
