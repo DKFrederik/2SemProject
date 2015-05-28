@@ -81,7 +81,7 @@ public class DBField implements IFField {
 	public int insertField(Field f) {
 
 		int rc = -1;
-		String query = "INSERT INTO Field(fieldNumber, type, length, width)  VALUES('"
+		String query = "INSERT INTO Field(fieldNumber, type, length, width) VALUES('"
 				+ f.getFieldNumber()
 				+ "','"
 				+ f.getType()
@@ -90,7 +90,7 @@ public class DBField implements IFField {
 				+ "','"
 				+ f.getWidth()
 				+ "')";
-
+		
 		System.out.println("insert : " + query);
 		
 		try { 
@@ -113,10 +113,18 @@ public class DBField implements IFField {
 		Field fObj = f;
 		int rc = -1;
 
-		String query = "UPDATE field SET " + "fieldNumber ='" + fObj.getFieldNumber()
-				+ "', " + "type ='" + fObj.getType() + "', " 
-				+ "length ='" + fObj.getLength() + "', " 
-				+ "width ='" + fObj.getWidth() + "', " 
+		String query = "UPDATE field SET " + "fieldNumber ='" 
+				+ fObj.getFieldNumber()
+				+ "', " 
+				+ "type ='" 
+				+ fObj.getType() 
+				+ "', " 
+				+ "length ='" 
+				+ fObj.getLength() 
+				+ "', " 
+				+ "width ='" 
+				+ fObj.getWidth() 
+				+ "', " 
 				+ " WHERE fieldNumber = '" + fObj.getFieldNumber() + "'";
 		System.out.println("Update query:" + query);
 		try {
@@ -132,7 +140,6 @@ public class DBField implements IFField {
 		return (rc);
 	}
 
-	
 	/* (non-Javadoc)
 	 * @see dbLayer.IFField#deleteField(java.lang.String)
 	 */
