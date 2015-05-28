@@ -117,7 +117,8 @@ public class MainGUI extends JFrame {
 		JButton btnAddPlayerT = new JButton("Add player");
 		btnAddPlayerT.addActionListener(e -> {
 			try {
-				tCtr.insertPlayer(textPhoneNo.getText(), textTeamNumber.getText());
+				tCtr.insertPlayer(textPhoneNo.getText(),
+						textTeamNumber.getText());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -126,14 +127,26 @@ public class MainGUI extends JFrame {
 		panelTeam.add(btnAddPlayerT);
 
 		JButton btnAddManagerT = new JButton("Add manager");
-		btnAddManagerT.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnAddManagerT.addActionListener(e -> {
+			try {
+				tCtr.insertManager(textPhoneNo.getText(),
+						textTeamNumber.getText());
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		});
 		btnAddManagerT.setBounds(10, 111, 131, 23);
 		panelTeam.add(btnAddManagerT);
 
 		JButton btnAddTeamleaderT = new JButton("Add teamleader");
+		btnAddTeamleaderT.addActionListener(e -> {
+			try {	
+				tCtr.insertTeamLeader(textPhoneNo.getText(), 
+						textTeamNumber.getText());
+			} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+		});
 		btnAddTeamleaderT.setBounds(10, 155, 131, 23);
 		panelTeam.add(btnAddTeamleaderT);
 
@@ -146,6 +159,10 @@ public class MainGUI extends JFrame {
 		panelTeam.add(btnBackT);
 
 		JButton btnRemovePersonT = new JButton("Remove person");
+		btnRemovePersonT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnRemovePersonT.setBounds(10, 191, 131, 23);
 		panelTeam.add(btnRemovePersonT);
 
@@ -204,62 +221,62 @@ public class MainGUI extends JFrame {
 		textTeamEmail.setColumns(10);
 		textTeamEmail.setBounds(281, 29, 116, 22);
 		panelTeam.add(textTeamEmail);
-		
+
 		textTeamPosition = new JTextField();
 		textTeamPosition.setColumns(10);
 		textTeamPosition.setBounds(281, 192, 116, 22);
 		panelTeam.add(textTeamPosition);
-		
+
 		textTeamSbDay = new JTextField();
 		textTeamSbDay.setColumns(10);
 		textTeamSbDay.setBounds(281, 157, 116, 22);
 		panelTeam.add(textTeamSbDay);
-		
+
 		textTeamZipcode = new JTextField();
 		textTeamZipcode.setColumns(10);
 		textTeamZipcode.setBounds(281, 111, 116, 22);
 		panelTeam.add(textTeamZipcode);
-		
+
 		JLabel lblTeamLname = new JLabel("Last name");
 		lblTeamLname.setBounds(153, 210, 71, 16);
 		panelTeam.add(lblTeamLname);
-		
+
 		JLabel lblFirstName = new JLabel("First name");
 		lblFirstName.setBounds(153, 179, 71, 16);
 		panelTeam.add(lblFirstName);
-		
+
 		JLabel lblTeamLeader = new JLabel("Team leader");
 		lblTeamLeader.setBounds(153, 130, 82, 34);
 		panelTeam.add(lblTeamLeader);
-		
+
 		JLabel lblTeamManager = new JLabel("Team manager");
 		lblTeamManager.setBounds(153, 85, 82, 29);
 		panelTeam.add(lblTeamManager);
-		
+
 		JLabel lblTeamLeague = new JLabel("Team League");
 		lblTeamLeague.setBounds(153, 46, 94, 23);
 		panelTeam.add(lblTeamLeague);
-		
+
 		JLabel lblTeamNumber = new JLabel("Team number");
 		lblTeamNumber.setBounds(153, 0, 94, 37);
 		panelTeam.add(lblTeamNumber);
-		
+
 		JLabel lblTeamPhoneNumber = new JLabel("phone number");
 		lblTeamPhoneNumber.setBounds(280, 46, 142, 23);
 		panelTeam.add(lblTeamPhoneNumber);
-		
+
 		JLabel lblTeamEmail = new JLabel("email");
 		lblTeamEmail.setBounds(280, 0, 94, 37);
 		panelTeam.add(lblTeamEmail);
-		
+
 		JLabel lblManager = new JLabel("Zipcode");
 		lblManager.setBounds(281, 80, 82, 29);
 		panelTeam.add(lblManager);
-		
+
 		JLabel lblTeamZipcode = new JLabel("Birthday");
 		lblTeamZipcode.setBounds(281, 130, 82, 34);
 		panelTeam.add(lblTeamZipcode);
-		
+
 		JLabel lblName = new JLabel("Position");
 		lblName.setBounds(281, 179, 71, 16);
 		panelTeam.add(lblName);
@@ -499,12 +516,11 @@ public class MainGUI extends JFrame {
 
 		JButton btnCreateField = new JButton("Create field");
 		btnCreateField.addActionListener(e -> {
-			
-			
+
 			try {
-				fCtr.createField(textFieldNumber.getText(), 
-						textFieldtype.getText(), 
-						Integer.parseInt(textFieldLength.getText()), 
+				fCtr.createField(textFieldNumber.getText(),
+						textFieldtype.getText(),
+						Integer.parseInt(textFieldLength.getText()),
 						Integer.parseInt(textFieldWidth.getText()));
 			} catch (Exception e1) {
 				e1.printStackTrace();
