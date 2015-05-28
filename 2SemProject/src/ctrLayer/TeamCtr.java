@@ -107,6 +107,20 @@ public class TeamCtr {
 		}
 		return isSuccess;
 	}
+	
+	public boolean insertTeam(Team t) throws Exception {
+		boolean isSuccess = false;
+		try {
+			DBConnection.startTransaction();
+			if (0 < dbT.insertTeam(t)) {
+				isSuccess = true;
+			}
+			DBConnection.commitTransaction();
+		} catch (Exception e) {
+			DBConnection.rollbackTransaction();
+		}
+		return isSuccess;
+	}
 
 	/**
 	 * inserts a manager in ManagerAssociaiton
