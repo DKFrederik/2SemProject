@@ -36,6 +36,7 @@ public class MainGUI extends JFrame {
 
 	private Person p;
 	private Field f;
+	private Team t;
 	private JTextField textFieldNumber;
 	private JTextField textFieldtype;
 	private JTextField textFieldLength;
@@ -83,13 +84,35 @@ public class MainGUI extends JFrame {
 
 		JPanel panelMain = new JPanel();
 		panelMain.setVisible(true);
+		panelMain.setBounds(0, 0, 434, 261);
+		contentPane.add(panelMain);
+		
+		JPanel panelPlayer = new JPanel();
+		panelPlayer.setVisible(true);
+		panelPlayer.setVisible(false);
+		panelPlayer.setBounds(0, 0, 434, 261);
+		contentPane.add(panelPlayer);
+		panelPlayer.setLayout(null);
+		
+		JPanel panelTraining = new JPanel();
+		panelTraining.setBounds(0, 0, 434, 261);
+		contentPane.add(panelTraining);
+		panelTraining.setLayout(null);
+		panelTraining.setVisible(false);
+		
+		JPanel panelField = new JPanel();
+		panelField.setBounds(0, 0, 434, 261);
+		contentPane.add(panelField);
+		panelField.setLayout(null);
+		panelField.setVisible(false);
+		
 
 		JPanel panelTeam = new JPanel();
 		panelTeam.setBounds(0, 0, 434, 261);
 		contentPane.add(panelTeam);
 		panelTeam.setLayout(null);
 		panelTeam.setVisible(false);
-
+		
 		JButton btnCreateT = new JButton("Create");
 		btnCreateT.addActionListener(e -> {
 			try {
@@ -134,6 +157,16 @@ public class MainGUI extends JFrame {
 		panelTeam.add(btnRemovePersonT);
 
 		JButton btnFindT = new JButton("Find");
+		btnFindT.addActionListener(e -> {
+			t = tCtr.findTeam(textTeamNumber.getText());
+			if (t instanceof Team) {
+				Team t1 = (Team) t;
+				textTeamNumber.setText(t1.getTeamNumber());
+				//textTeamLeague.setText(t.getLeague());
+			} else {
+				// fejlmdl. her
+			}
+		});
 		btnFindT.setBounds(10, 179, 131, 23);
 		panelTeam.add(btnFindT);
 
@@ -178,25 +211,6 @@ public class MainGUI extends JFrame {
 		panelTeam.add(textField_7);
 		panelMain.setBounds(0, 0, 434, 261);
 		contentPane.add(panelMain);
-
-		JPanel panelPlayer = new JPanel();
-		panelPlayer.setVisible(true);
-		panelPlayer.setVisible(false);
-		panelPlayer.setBounds(0, 0, 434, 261);
-		contentPane.add(panelPlayer);
-		panelPlayer.setLayout(null);
-
-		JPanel panelTraining = new JPanel();
-		panelTraining.setBounds(0, 0, 434, 261);
-		contentPane.add(panelTraining);
-		panelTraining.setLayout(null);
-		panelTraining.setVisible(false);
-
-		JPanel panelField = new JPanel();
-		panelField.setBounds(0, 0, 434, 261);
-		contentPane.add(panelField);
-		panelField.setLayout(null);
-		panelField.setVisible(false);
 
 		JButton playerBtnM = new JButton("Player");
 		playerBtnM.setBounds(163, 25, 89, 23);
