@@ -111,7 +111,7 @@ public class MainGUI extends JFrame {
 			}
 		});
 
-		btnCreateT.setBounds(10, 11, 131, 23);
+		btnCreateT.setBounds(10, 28, 131, 23);
 		panelTeam.add(btnCreateT);
 
 		JButton btnAddPlayerT = new JButton("Add player");
@@ -122,7 +122,7 @@ public class MainGUI extends JFrame {
 				e1.printStackTrace();
 			}
 		});
-		btnAddPlayerT.setBounds(10, 43, 131, 23);
+		btnAddPlayerT.setBounds(10, 64, 131, 23);
 		panelTeam.add(btnAddPlayerT);
 
 		JButton btnAddManagerT = new JButton("Add manager");
@@ -130,11 +130,11 @@ public class MainGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnAddManagerT.setBounds(10, 77, 131, 23);
+		btnAddManagerT.setBounds(10, 111, 131, 23);
 		panelTeam.add(btnAddManagerT);
 
 		JButton btnAddTeamleaderT = new JButton("Add teamleader");
-		btnAddTeamleaderT.setBounds(10, 111, 131, 23);
+		btnAddTeamleaderT.setBounds(10, 155, 131, 23);
 		panelTeam.add(btnAddTeamleaderT);
 
 		JButton btnBackT = new JButton("Back");
@@ -142,11 +142,11 @@ public class MainGUI extends JFrame {
 			panelTeam.setVisible(false);
 			panelMain.setVisible(true);
 		});
-		btnBackT.setBounds(10, 227, 89, 23);
+		btnBackT.setBounds(308, 227, 89, 23);
 		panelTeam.add(btnBackT);
 
 		JButton btnRemovePersonT = new JButton("Remove person");
-		btnRemovePersonT.setBounds(10, 145, 131, 23);
+		btnRemovePersonT.setBounds(10, 191, 131, 23);
 		panelTeam.add(btnRemovePersonT);
 
 		JButton btnFindT = new JButton("Find");
@@ -162,63 +162,107 @@ public class MainGUI extends JFrame {
 				// fejlmdl. her
 			}
 		});
-		btnFindT.setBounds(10, 179, 131, 23);
+		btnFindT.setBounds(10, 227, 131, 23);
 		panelTeam.add(btnFindT);
 
 		textTeamNumber = new JTextField();
-		textTeamNumber.setBounds(153, 11, 116, 22);
+		textTeamNumber.setBounds(153, 29, 116, 22);
 		panelTeam.add(textTeamNumber);
 		textTeamNumber.setColumns(10);
 
 		textTeamLeague = new JTextField();
 		textTeamLeague.setColumns(10);
-		textTeamLeague.setBounds(153, 43, 116, 22);
+		textTeamLeague.setBounds(153, 64, 116, 22);
 		panelTeam.add(textTeamLeague);
 
 		textTeamManager = new JTextField();
 		textTeamManager.setColumns(10);
-		textTeamManager.setBounds(153, 77, 116, 22);
+		textTeamManager.setBounds(153, 111, 116, 22);
 		panelTeam.add(textTeamManager);
 
 		textTeamLeader = new JTextField();
 		textTeamLeader.setColumns(10);
-		textTeamLeader.setBounds(153, 111, 116, 22);
+		textTeamLeader.setBounds(153, 157, 116, 22);
 		panelTeam.add(textTeamLeader);
 
 		textTeamFname = new JTextField();
 		textTeamFname.setColumns(10);
-		textTeamFname.setBounds(153, 145, 116, 22);
+		textTeamFname.setBounds(153, 192, 116, 22);
 		panelTeam.add(textTeamFname);
 
 		textTeamPhoneNo = new JTextField();
 		textTeamPhoneNo.setColumns(10);
-		textTeamPhoneNo.setBounds(281, 43, 116, 22);
+		textTeamPhoneNo.setBounds(281, 64, 116, 22);
 		panelTeam.add(textTeamPhoneNo);
 
 		textTeamLname = new JTextField();
 		textTeamLname.setColumns(10);
-		textTeamLname.setBounds(153, 179, 116, 22);
+		textTeamLname.setBounds(153, 227, 116, 22);
 		panelTeam.add(textTeamLname);
 
 		textTeamEmail = new JTextField();
 		textTeamEmail.setColumns(10);
-		textTeamEmail.setBounds(281, 13, 116, 22);
+		textTeamEmail.setBounds(281, 29, 116, 22);
 		panelTeam.add(textTeamEmail);
 		
 		textTeamPosition = new JTextField();
 		textTeamPosition.setColumns(10);
-		textTeamPosition.setBounds(281, 145, 116, 22);
+		textTeamPosition.setBounds(281, 192, 116, 22);
 		panelTeam.add(textTeamPosition);
 		
 		textTeamSbDay = new JTextField();
 		textTeamSbDay.setColumns(10);
-		textTeamSbDay.setBounds(281, 111, 116, 22);
+		textTeamSbDay.setBounds(281, 157, 116, 22);
 		panelTeam.add(textTeamSbDay);
 		
 		textTeamZipcode = new JTextField();
 		textTeamZipcode.setColumns(10);
-		textTeamZipcode.setBounds(281, 77, 116, 22);
+		textTeamZipcode.setBounds(281, 111, 116, 22);
 		panelTeam.add(textTeamZipcode);
+		
+		JLabel lblTeamLname = new JLabel("Last name");
+		lblTeamLname.setBounds(153, 210, 71, 16);
+		panelTeam.add(lblTeamLname);
+		
+		JLabel lblFirstName = new JLabel("First name");
+		lblFirstName.setBounds(153, 179, 71, 16);
+		panelTeam.add(lblFirstName);
+		
+		JLabel lblTeamLeader = new JLabel("Team leader");
+		lblTeamLeader.setBounds(153, 130, 82, 34);
+		panelTeam.add(lblTeamLeader);
+		
+		JLabel lblTeamManager = new JLabel("Team manager");
+		lblTeamManager.setBounds(153, 85, 82, 29);
+		panelTeam.add(lblTeamManager);
+		
+		JLabel lblTeamLeague = new JLabel("Team League");
+		lblTeamLeague.setBounds(153, 46, 94, 23);
+		panelTeam.add(lblTeamLeague);
+		
+		JLabel lblTeamNumber = new JLabel("Team number");
+		lblTeamNumber.setBounds(153, 0, 94, 37);
+		panelTeam.add(lblTeamNumber);
+		
+		JLabel lblTeamPhoneNumber = new JLabel("phone number");
+		lblTeamPhoneNumber.setBounds(280, 46, 142, 23);
+		panelTeam.add(lblTeamPhoneNumber);
+		
+		JLabel lblTeamEmail = new JLabel("email");
+		lblTeamEmail.setBounds(280, 0, 94, 37);
+		panelTeam.add(lblTeamEmail);
+		
+		JLabel lblManager = new JLabel("Zipcode");
+		lblManager.setBounds(281, 80, 82, 29);
+		panelTeam.add(lblManager);
+		
+		JLabel lblTeamZipcode = new JLabel("Birthday");
+		lblTeamZipcode.setBounds(281, 130, 82, 34);
+		panelTeam.add(lblTeamZipcode);
+		
+		JLabel lblName = new JLabel("Position");
+		lblName.setBounds(281, 179, 71, 16);
+		panelTeam.add(lblName);
 		panelMain.setBounds(0, 0, 434, 261);
 		contentPane.add(panelMain);
 
