@@ -12,6 +12,7 @@ import ctrLayer.FieldCtr;
 import ctrLayer.PersonCtr;
 import ctrLayer.TeamCtr;
 import modelLayer.Field;
+import modelLayer.Manager;
 import modelLayer.Person;
 import modelLayer.Player;
 import modelLayer.Team;
@@ -43,12 +44,15 @@ public class MainGUI extends JFrame {
 	private JTextField textFieldWidth;
 	private JTextField textTeamNumber;
 	private JTextField textTeamLeague;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField textTeamManager;
+	private JTextField textTeamLeader;
+	private JTextField textTeamFname;
+	private JTextField textTeamPhoneNo;
+	private JTextField textTeamLname;
+	private JTextField textTeamEmail;
+	private JTextField textTeamPosition;
+	private JTextField textTeamSbDay;
+	private JTextField textTeamZipcode;
 
 	/**
 	 * Launch the application.
@@ -84,35 +88,13 @@ public class MainGUI extends JFrame {
 
 		JPanel panelMain = new JPanel();
 		panelMain.setVisible(true);
-		panelMain.setBounds(0, 0, 434, 261);
-		contentPane.add(panelMain);
-		
-		JPanel panelPlayer = new JPanel();
-		panelPlayer.setVisible(true);
-		panelPlayer.setVisible(false);
-		panelPlayer.setBounds(0, 0, 434, 261);
-		contentPane.add(panelPlayer);
-		panelPlayer.setLayout(null);
-		
-		JPanel panelTraining = new JPanel();
-		panelTraining.setBounds(0, 0, 434, 261);
-		contentPane.add(panelTraining);
-		panelTraining.setLayout(null);
-		panelTraining.setVisible(false);
-		
-		JPanel panelField = new JPanel();
-		panelField.setBounds(0, 0, 434, 261);
-		contentPane.add(panelField);
-		panelField.setLayout(null);
-		panelField.setVisible(false);
-		
 
 		JPanel panelTeam = new JPanel();
 		panelTeam.setBounds(0, 0, 434, 261);
 		contentPane.add(panelTeam);
 		panelTeam.setLayout(null);
 		panelTeam.setVisible(false);
-		
+
 		JButton btnCreateT = new JButton("Create");
 		btnCreateT.addActionListener(e -> {
 			try {
@@ -128,15 +110,26 @@ public class MainGUI extends JFrame {
 				System.out.println(ex.getMessage());
 			}
 		});
-		
+
 		btnCreateT.setBounds(10, 11, 131, 23);
 		panelTeam.add(btnCreateT);
 
 		JButton btnAddPlayerT = new JButton("Add player");
+		btnAddPlayerT.addActionListener(e -> {
+			try {
+				tCtr.insertPlayer(textPhoneNo.getText(), textTeamNumber.getText());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
 		btnAddPlayerT.setBounds(10, 43, 131, 23);
 		panelTeam.add(btnAddPlayerT);
 
 		JButton btnAddManagerT = new JButton("Add manager");
+		btnAddManagerT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnAddManagerT.setBounds(10, 77, 131, 23);
 		panelTeam.add(btnAddManagerT);
 
@@ -162,7 +155,9 @@ public class MainGUI extends JFrame {
 			if (t instanceof Team) {
 				Team t1 = (Team) t;
 				textTeamNumber.setText(t1.getTeamNumber());
-				//textTeamLeague.setText(t.getLeague());
+				textTeamLeague.setText(String.valueOf(t1.getLeague()));
+				textTeamManager.setText(String.valueOf(t1.getManager()));
+				textTeamLeader.setText(String.valueOf(t1.getTeamLeader()));
 			} else {
 				// fejlmdl. her
 			}
@@ -180,35 +175,71 @@ public class MainGUI extends JFrame {
 		textTeamLeague.setBounds(153, 43, 116, 22);
 		panelTeam.add(textTeamLeague);
 
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(153, 77, 116, 22);
-		panelTeam.add(textField_2);
+		textTeamManager = new JTextField();
+		textTeamManager.setColumns(10);
+		textTeamManager.setBounds(153, 77, 116, 22);
+		panelTeam.add(textTeamManager);
 
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(153, 111, 116, 22);
-		panelTeam.add(textField_3);
+		textTeamLeader = new JTextField();
+		textTeamLeader.setColumns(10);
+		textTeamLeader.setBounds(153, 111, 116, 22);
+		panelTeam.add(textTeamLeader);
 
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(153, 145, 116, 22);
-		panelTeam.add(textField_4);
+		textTeamFname = new JTextField();
+		textTeamFname.setColumns(10);
+		textTeamFname.setBounds(153, 145, 116, 22);
+		panelTeam.add(textTeamFname);
 
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(153, 179, 116, 22);
-		panelTeam.add(textField_5);
+		textTeamPhoneNo = new JTextField();
+		textTeamPhoneNo.setColumns(10);
+		textTeamPhoneNo.setBounds(281, 43, 116, 22);
+		panelTeam.add(textTeamPhoneNo);
 
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(281, 11, 116, 22);
-		panelTeam.add(textField_6);
+		textTeamLname = new JTextField();
+		textTeamLname.setColumns(10);
+		textTeamLname.setBounds(153, 179, 116, 22);
+		panelTeam.add(textTeamLname);
 
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(281, 43, 116, 22);
-		panelTeam.add(textField_7);
+		textTeamEmail = new JTextField();
+		textTeamEmail.setColumns(10);
+		textTeamEmail.setBounds(281, 13, 116, 22);
+		panelTeam.add(textTeamEmail);
+		
+		textTeamPosition = new JTextField();
+		textTeamPosition.setColumns(10);
+		textTeamPosition.setBounds(281, 145, 116, 22);
+		panelTeam.add(textTeamPosition);
+		
+		textTeamSbDay = new JTextField();
+		textTeamSbDay.setColumns(10);
+		textTeamSbDay.setBounds(281, 111, 116, 22);
+		panelTeam.add(textTeamSbDay);
+		
+		textTeamZipcode = new JTextField();
+		textTeamZipcode.setColumns(10);
+		textTeamZipcode.setBounds(281, 77, 116, 22);
+		panelTeam.add(textTeamZipcode);
+		panelMain.setBounds(0, 0, 434, 261);
+		contentPane.add(panelMain);
+
+		JPanel panelPlayer = new JPanel();
+		panelPlayer.setVisible(true);
+		panelPlayer.setVisible(false);
+		panelPlayer.setBounds(0, 0, 434, 261);
+		contentPane.add(panelPlayer);
+		panelPlayer.setLayout(null);
+
+		JPanel panelTraining = new JPanel();
+		panelTraining.setBounds(0, 0, 434, 261);
+		contentPane.add(panelTraining);
+		panelTraining.setLayout(null);
+		panelTraining.setVisible(false);
+
+		JPanel panelField = new JPanel();
+		panelField.setBounds(0, 0, 434, 261);
+		contentPane.add(panelField);
+		panelField.setLayout(null);
+		panelField.setVisible(false);
 		panelMain.setBounds(0, 0, 434, 261);
 		contentPane.add(panelMain);
 
@@ -424,19 +455,15 @@ public class MainGUI extends JFrame {
 
 		JButton btnCreateField = new JButton("Create field");
 		btnCreateField.addActionListener(e -> {
+			
+			
 			try {
-				String number = textFieldNumber.getText();
-				String type = textFieldtype.getText();
-				Integer length = Integer.getInteger(textFieldLength.getText());
-				Integer width = Integer.getInteger(textFieldWidth.getText());
-				Field f = new Field(number, type, length, width);
-				if (fCtr.insertField(f)) {
-					System.out.println("Field created ");
-				} else {
-					System.out.println("Field not created");
-				}
-			} catch (Exception ex) {
-				System.out.println(ex.getMessage());
+				fCtr.createField(textFieldNumber.getText(), 
+						textFieldtype.getText(), 
+						Integer.parseInt(textFieldLength.getText()), 
+						Integer.parseInt(textFieldWidth.getText()));
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		});
 		btnCreateField.setBounds(303, 191, 119, 23);

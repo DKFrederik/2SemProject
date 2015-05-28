@@ -123,6 +123,34 @@ public class TeamCtr {
 	}
 
 	/**
+	 * inserts a player in ManagerAssociaiton
+	 * 
+	 * @param phoneno
+	 *            of a player
+	 * @param teamNumber
+	 *            of the Team
+	 * @return true or false to indicate success
+	 */
+	public boolean insertPlayer(String phoneno, String teamNumber) {
+		DBPerson dbp = new DBPerson();
+//		Person p = dbp.findPerson(phoneno, false);
+		Player pl = (Player) dbp.findPerson(phoneno, false);
+		if (pl instanceof Player) {
+
+			try {
+				if (0 < dbT.addPlayerTeam(pl, teamNumber))
+					return true;
+				else
+					return false;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+
+	}
+	
+	/**
 	 * inserts a manager in ManagerAssociaiton
 	 * 
 	 * @param phoneno
