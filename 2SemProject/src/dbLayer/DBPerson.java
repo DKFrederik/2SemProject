@@ -61,9 +61,7 @@ public class DBPerson implements IFPerson {
 			Player pl = (Player) p;
 			query += pl.getBDay() + "','" + pl.getPosition() + "','" + "null"
 					+ "','" + "null" + "','" + "-1" + "','" + "P";
-		}
-
-		if (p instanceof TeamLeader) {
+		} else if (p instanceof TeamLeader) {
 			TeamLeader tl = (TeamLeader) p;
 			query += "null" + "','" + "null" + "','" + tl.getUsername() + "','"
 					+ tl.getPassword() + "','" + "-1" + "','" + "T";
@@ -75,8 +73,7 @@ public class DBPerson implements IFPerson {
 			Staff s = (Staff) p;
 			query += "null" + "','" + "null" + "','" + s.getUsername() + "','"
 					+ s.getPassword() + "','" + "-1" + "','" + "S";
-		}
-		if (p instanceof Referee) {
+		} else if (p instanceof Referee) {
 			query += "null" + "','" + "null" + "','" + "null" + "','" + "null"
 					+ "','" + "-1" + "','" + "R";
 		}
