@@ -107,7 +107,7 @@ public class TeamCtr {
 		}
 		return isSuccess;
 	}
-	
+
 	public boolean insertTeam(Team t) throws Exception {
 		boolean isSuccess = false;
 		try {
@@ -133,7 +133,7 @@ public class TeamCtr {
 	 */
 	public boolean insertPlayer(String phoneno, String teamNumber) {
 		DBPerson dbp = new DBPerson();
-//		Person p = dbp.findPerson(phoneno, false);
+		// Person p = dbp.findPerson(phoneno, false);
 		Player pl = (Player) dbp.findPerson(phoneno, false);
 		if (pl instanceof Player) {
 
@@ -149,7 +149,7 @@ public class TeamCtr {
 		return false;
 
 	}
-	
+
 	/**
 	 * inserts a manager in ManagerAssociaiton
 	 * 
@@ -174,7 +174,6 @@ public class TeamCtr {
 			}
 		}
 		return false;
-
 	}
 
 	/**
@@ -198,6 +197,27 @@ public class TeamCtr {
 					return false;
 			} catch (Exception e) {
 				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 */
+	public boolean deletePlayer(String phoneno, String teamNumber) {
+		DBPerson dbp = new DBPerson();
+		Person p = dbp.findPerson(phoneno, false);
+		if (p instanceof Player) {
+			try {
+				if (0 < dbT.deletePlayerTeam((Player) p, teamNumber))
+					return true;
+				else {
+					return false;
+				}
+			}
+				catch (Exception e) {
+					e.printStackTrace();
 			}
 		}
 		return false;

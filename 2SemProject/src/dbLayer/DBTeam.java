@@ -419,7 +419,7 @@ public class DBTeam implements IFTeam {
 	@Override
 	public int insertManager(Manager m, String teamNumber) throws Exception {
 		int rc = -1;
-		String query = "INSERT INTO ManagerAssociation(leaderId, teamNumber) VALUES("
+		String query = "INSERT INTO ManagerAssociation(ManagerId, teamNumber) VALUES("
 				+ "(SELECT id FROM Person WHERE phoneno = '"
 				+ m.getPhone()
 				+ "'),'" + teamNumber + "')";
