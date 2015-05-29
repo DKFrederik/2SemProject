@@ -16,7 +16,7 @@ public class DBConnection
    //private static final String  driver = "jdbc:sqlserver://kraka.ucn.dk:1433";
    private static final String  driver = "jdbc:sqlserver://localhost:1433";
    //private static final String  databaseName = ";databaseName=dmab0914_2Sem_4";
-   private static final String  databaseName = ";databaseName=BSI";
+   protected static final String  databaseName = ";databaseName=BSI";
    // SQL Server
    //
    //private static String  userName = ";user=dmab0914_2Sem_4";

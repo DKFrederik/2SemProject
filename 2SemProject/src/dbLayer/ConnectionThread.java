@@ -2,30 +2,25 @@ package dbLayer;
 
 import dbLayer.*;
 
-public class ConnectionThread implements Runnable {
+public class ConnectionThread extends Thread {
 	
 	public static void main(String[] args) throws InterruptedException{
-		Thread thread = new Thread(new ConnectionThread());
-		thread.start();
-		for(int i = 0; i < 3; i++){
-			thread.sleep(4000);
-			System.out.println("Connection to database is avaliable.");
-		}
-		System.out.println("Thread stopped");
+		ConnectionThread ct1 = new ConnectionThread();
+		ct1.start();
 	}
 	
 	@Override
 	public void run() {
 		try{
-			while(DBConnection.getInstance() != null)
-				Thread.sleep(4000);
-				System.out.println("MyRunnable is running");
-				System.out.println("Connection to database is avaliable.");
-		} catch(Exception e){
-			System.out.println("MyRunnable stopped running.");
-			System.out.println("Connection to database is unavaliable.");
+		while(DBConnection.getInstance() != null){
+			System.out.println("Connected to " + DBConnection.databaseName);
+			Thread.sleep(3000);		
 		}
+			}catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		
+	
 	}
 
 }
