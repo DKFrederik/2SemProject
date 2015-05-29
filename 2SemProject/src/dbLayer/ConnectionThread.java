@@ -14,6 +14,7 @@ public class ConnectionThread extends Thread {
 			while (DBConnection.getInstance() != null) {
 				System.out.println("Connected to database: " + Str.substring(14, 17));
 				Thread.sleep(3000);
+				Thread.currentThread().interrupt();
 			}
 		} catch (InterruptedException e) {
 				System.out.println("Lost connection to database: " + Str.substring(14,17));
