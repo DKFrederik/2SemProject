@@ -33,4 +33,20 @@ public class Appointment {
 	public void setField(Field field) {
 		this.field = field;
 	}
+	
+	public String getTime() {
+		if(timeSlot == 0) {
+			return "17:01 - 18:00";
+		}
+		else if(timeSlot == 1) {
+			return "18:01 - 19:00";
+		}
+		else if(timeSlot == 2) {
+			return "19:01 - 20:00";
+		}
+		else if(timeSlot == 3) {
+			return "20:01 - 21:00";
+		}
+		return "Fail";
+	}
 }

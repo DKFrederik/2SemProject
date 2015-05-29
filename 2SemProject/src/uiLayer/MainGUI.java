@@ -3,25 +3,53 @@ package uiLayer;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+
+
+
+
+
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+
+
+
+
+
+
 
 import ctrLayer.FieldCtr;
 import ctrLayer.PersonCtr;
+import ctrLayer.ScheduleCtr;
 import ctrLayer.TeamCtr;
 import modelLayer.Field;
 import modelLayer.Manager;
 import modelLayer.Person;
 import modelLayer.Player;
+import modelLayer.Schedule;
 import modelLayer.Team;
+
+
+
+
+
+
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.transaction.TransactionRolledbackException;
 
 public class MainGUI extends JFrame {
 
@@ -53,6 +81,13 @@ public class MainGUI extends JFrame {
 	private JTextField textTeamPosition;
 	private JTextField textTeamSbDay;
 	private JTextField textTeamZipcode;
+	private JTable table;
+	private JTextField textTrainDate;
+	private JTextField textTrainCreator;
+	private JTextField trainTeamName;
+	private DefaultTableModel dtm;
+	private JTextField textTrainCName;
+	private JTextField textTrainCLName;
 
 	/**
 	 * Launch the application.
@@ -78,9 +113,11 @@ public class MainGUI extends JFrame {
 		PersonCtr pCtr = PersonCtr.getInstance();
 		FieldCtr fCtr = FieldCtr.getInstance();
 		TeamCtr tCtr = TeamCtr.getInstance();
+		ScheduleCtr sCtr = ScheduleCtr.getInstance();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		// setBounds(100, 100, 450, 300);
+		setBounds(300, 300, 700, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -89,8 +126,201 @@ public class MainGUI extends JFrame {
 		JPanel panelMain = new JPanel();
 		panelMain.setVisible(true);
 
+		JPanel panelTraining = new JPanel();
+		panelTraining.setBounds(0, 0, 682, 453);
+		contentPane.add(panelTraining);
+		panelTraining.setLayout(null);
+		panelTraining.setVisible(false);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(143, 152, 390, 238);
+		panelTraining.add(scrollPane);
+		
+		table = new JTable();
+		dtm = new DefaultTableModel (0, 0);
+		
+		String[] header = new String[] {"Team", "Field", "Time"};
+		dtm.setColumnIdentifiers(header);
+		table.setModel(dtm);				
+		scrollPane.setViewportView(table);
+
+		JButton btnCreate_1 = new JButton("Show training schedule");
+		btnCreate_1.addActionListener(e -> {
+			try{
+				sCtr.makeSchedule();
+				Schedule s = sCtr.getCurrentSchedule();
+				setupSchedule(s);
+			}
+			catch (NullPointerException npe) {
+				//fejl    Intet aktivt skema
+			}
+		});
+		btnCreate_1.setBounds(247, 417, 198, 23);
+		panelTraining.add(btnCreate_1);
+
+		JButton btnBack_1 = new JButton("Back");
+		btnBack_1.addActionListener(e -> {
+			panelTraining.setVisible(false);
+			panelMain.setVisible(true);
+		});
+		btnBack_1.setBounds(12, 417, 89, 23);
+		panelTraining.add(btnBack_1);
+				
+		JButton btnAddDate = new JButton("Add");
+		btnAddDate.addActionListener(e -> {
+			if(checkDate()) {
+				String date = textTrainDate.getText();
+				int year = Integer.parseInt(date.substring(0, 4));
+				int month = Integer.parseInt(date.substring(5, 7));
+				int day = Integer.parseInt(date.substring(8, 10));
+				if(sCtr.createSchedule(new java.sql.Date(year - 1900, month - 1, day)) != -1) {
+					
+				}
+				else {
+					//fejl msg Skema findes
+					setupSchedule(sCtr.getSchedule(new java.sql.Date(year - 1900, month - 1, day), true));
+					textTrainCreator.setText(sCtr.getSchedule(new java.sql.Date(year - 1900, month - 1, day), true).getCreator().getPhone());
+					
+				}
+			}
+			else {
+				//fejl
+			}
+		});
+		btnAddDate.setBounds(259, 9, 97, 25);
+		panelTraining.add(btnAddDate);
+		
+		JLabel lblDato = new JLabel("Dato yyyy-mm-dd");
+		lblDato.setBounds(12, 13, 109, 16);
+		panelTraining.add(lblDato);
+		
+		textTrainDate = new JTextField();
+		textTrainDate.setBounds(123, 10, 124, 22);
+		panelTraining.add(textTrainDate);
+		textTrainDate.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Tlf. nr. p\u00E5 opretter");
+		lblNewLabel.setBounds(12, 54, 109, 16);
+		panelTraining.add(lblNewLabel);
+		
+		textTrainCreator = new JTextField();
+		textTrainCreator.setBounds(123, 51, 124, 22);
+		panelTraining.add(textTrainCreator);
+		textTrainCreator.setColumns(10);
+		
+		JButton btnAddCreator = new JButton("Add");
+		btnAddCreator.addActionListener(e -> {
+			if(checkPhone(textTrainCreator.getText())) {
+				if(sCtr.setCreator(textTrainCreator.getText())) {
+					p = pCtr.findPerson(textTrainCreator.getText());
+					textTrainCName.setText(p.getFname());
+					textTrainCLName.setText(p.getLname());
+				}
+				else {
+					//fejl PERSON FANDTES IKKE
+				}
+			}
+			else {
+				//fejl TLF WROOOONG
+			}
+		});
+		btnAddCreator.setBounds(259, 50, 97, 25);
+		panelTraining.add(btnAddCreator);
+		
+		JButton btnnAddTeam = new JButton("Add");
+		btnnAddTeam.addActionListener(e -> {
+			if(sCtr.addTeam(trainTeamName.getText())) {
+				dtm.addRow(new Object[] { trainTeamName.getText() });
+			}
+			else {
+				//fejl
+			}
+		});
+		btnnAddTeam.setBounds(259, 88, 97, 25);
+		panelTraining.add(btnnAddTeam);
+		
+		JLabel lblHoldNavn = new JLabel("Hold navn");
+		lblHoldNavn.setBounds(12, 92, 109, 16);
+		panelTraining.add(lblHoldNavn);
+		
+		trainTeamName = new JTextField();
+		trainTeamName.setColumns(10);
+		trainTeamName.setBounds(123, 89, 124, 22);
+		panelTraining.add(trainTeamName);
+		
+		JButton btnTrainClear = new JButton("Clear");
+		btnTrainClear.addActionListener(e -> {
+			sCtr.removeCurrentSchedule();
+			textTrainCreator.setText("");
+			textTrainCName.setText("");
+			textTrainCLName.setText("");
+			trainTeamName.setText("");
+			textTrainDate.setText("");
+			
+			int rc = dtm.getRowCount();
+			for (int i = rc - 1; i >= 0; i--) {
+			    dtm.removeRow(i);
+			}
+		});
+		btnTrainClear.setBounds(24, 344, 97, 25);
+		panelTraining.add(btnTrainClear);
+		
+		JButton btnSaveSchedule = new JButton("Save");
+		btnSaveSchedule.addActionListener(e -> {
+			try {
+				sCtr.completeSchedule();
+			}
+			catch (TransactionRolledbackException trbe) {
+				//trbe.toString()
+			}
+		});
+		btnSaveSchedule.setBounds(24, 306, 97, 25);
+		panelTraining.add(btnSaveSchedule);
+		
+		textTrainCName = new JTextField();
+		textTrainCName.setEditable(false);
+		textTrainCName.setBounds(388, 51, 116, 22);
+		panelTraining.add(textTrainCName);
+		textTrainCName.setColumns(10);
+		
+		textTrainCLName = new JTextField();
+		textTrainCLName.setEditable(false);
+		textTrainCLName.setColumns(10);
+		textTrainCLName.setBounds(388, 89, 116, 22);
+		panelTraining.add(textTrainCLName);
+		
+		JButton btnTrainDelete = new JButton("Delete");
+		btnTrainDelete.addActionListener(e -> {
+			if(checkDate()) {
+				String date = textTrainDate.getText();
+				int year = Integer.parseInt(date.substring(0, 4));
+				int month = Integer.parseInt(date.substring(5, 7));
+				int day = Integer.parseInt(date.substring(8, 10));
+				try {
+					sCtr.deleteSchedule(new java.sql.Date(year - 1900, month - 1, day));
+					textTrainCLName.setText("");
+					textTrainCName.setText("");
+					textTrainCreator.setText("");
+					textTrainDate.setText("");
+					int rc = dtm.getRowCount();
+					for (int i = rc - 1; i >= 0; i--) {
+					    dtm.removeRow(i);
+					}
+				}
+				catch (TransactionRolledbackException trbe) {
+					//fejl
+				}
+	
+			}
+			else {
+				//fejl
+			}
+		});
+		btnTrainDelete.setBounds(12, 230, 109, 25);
+		panelTraining.add(btnTrainDelete);
+
 		JPanel panelTeam = new JPanel();
-		panelTeam.setBounds(0, 0, 434, 261);
+		panelTeam.setBounds(0, 0, 682, 453);
 		contentPane.add(panelTeam);
 		panelTeam.setLayout(null);
 		panelTeam.setVisible(false);
@@ -140,12 +370,12 @@ public class MainGUI extends JFrame {
 
 		JButton btnAddTeamleaderT = new JButton("Add teamleader");
 		btnAddTeamleaderT.addActionListener(e -> {
-			try {	
-				tCtr.insertTeamLeader(textPhoneNo.getText(), 
+			try {
+				tCtr.insertTeamLeader(textPhoneNo.getText(),
 						textTeamNumber.getText());
 			} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				e1.printStackTrace();
+			}
 		});
 		btnAddTeamleaderT.setBounds(10, 155, 131, 23);
 		panelTeam.add(btnAddTeamleaderT);
@@ -280,28 +510,22 @@ public class MainGUI extends JFrame {
 		JLabel lblName = new JLabel("Position");
 		lblName.setBounds(281, 179, 71, 16);
 		panelTeam.add(lblName);
-		panelMain.setBounds(0, 0, 434, 261);
+		panelMain.setBounds(0, 0, 682, 453);
 		contentPane.add(panelMain);
 
 		JPanel panelPlayer = new JPanel();
 		panelPlayer.setVisible(true);
 		panelPlayer.setVisible(false);
-		panelPlayer.setBounds(0, 0, 434, 261);
+		panelPlayer.setBounds(0, 0, 682, 453);
 		contentPane.add(panelPlayer);
 		panelPlayer.setLayout(null);
 
-		JPanel panelTraining = new JPanel();
-		panelTraining.setBounds(0, 0, 434, 261);
-		contentPane.add(panelTraining);
-		panelTraining.setLayout(null);
-		panelTraining.setVisible(false);
-
 		JPanel panelField = new JPanel();
-		panelField.setBounds(0, 0, 434, 261);
+		panelField.setBounds(0, 0, 682, 453);
 		contentPane.add(panelField);
 		panelField.setLayout(null);
 		panelField.setVisible(false);
-		panelMain.setBounds(0, 0, 434, 261);
+		panelMain.setBounds(0, 0, 682, 453);
 		contentPane.add(panelMain);
 
 		JButton playerBtnM = new JButton("Player");
@@ -492,18 +716,6 @@ public class MainGUI extends JFrame {
 		lblPosiotionLabel.setBounds(111, 208, 72, 16);
 		panelPlayer.add(lblPosiotionLabel);
 
-		JButton btnCreate_1 = new JButton("Show training schedule");
-		btnCreate_1.setBounds(132, 181, 198, 23);
-		panelTraining.add(btnCreate_1);
-
-		JButton btnBack_1 = new JButton("Back");
-		btnBack_1.addActionListener(e -> {
-			panelTraining.setVisible(false);
-			panelMain.setVisible(true);
-		});
-		btnBack_1.setBounds(10, 227, 89, 23);
-		panelTraining.add(btnBack_1);
-
 		JButton btnClearFields = new JButton("Clear textfields");
 		btnClearFields.addActionListener(e -> {
 			textFieldNumber.setText("");
@@ -580,9 +792,48 @@ public class MainGUI extends JFrame {
 		lblFieldWidth.setBounds(10, 130, 193, 16);
 		panelField.add(lblFieldWidth);
 
-		/**
-		 * MAIN MENU
-		 */
+	}
+	
+	private boolean checkDate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		format.setLenient(false);
+	     try {
+	          format.parse(textTrainDate.getText());	
+	          return true;
+	     }
+	     catch(ParseException ex){
+	    	 return false;
+	     }
+	}
+	
+	private boolean checkPhone(String phone) {
+		if(phone.length() != 8) {
+			return false;
+		}
+		try {
+			Integer.parseInt(phone);
+			return true;
+		}
+		catch (NumberFormatException e ) {
+			return false;
+		}
+	}
+	
+	private void setupSchedule(Schedule s) {
+		int apps = s.getAppointments().size();
+		int rc = dtm.getRowCount();
+		
+		for (int i = rc - 1; i >= 0; i--) {
+		    dtm.removeRow(i);
+		}
+		for (int i = 0; i < apps; i++) {
+			dtm.addRow(new Object[] { s.getAppointments().get(i).getTeam().getTeamNumber(), 
+					s.getAppointments().get(i).getField().getFieldNumber(), 
+					s.getAppointments().get(i).getTime() });
+		}
 
+		textTrainCreator.setText(s.getCreator().getPhone());
+		textTrainCName.setText(s.getCreator().getFname());
+		textTrainCLName.setText(s.getCreator().getLname());
 	}
 }

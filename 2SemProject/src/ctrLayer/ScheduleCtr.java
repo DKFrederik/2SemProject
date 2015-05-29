@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.List;
 import java.sql.Connection;
 
+import javax.transaction.TransactionRolledbackException;
+
 import modelLayer.*;
 import dbLayer.*;
 
@@ -11,6 +13,7 @@ public class ScheduleCtr {
 
 	private static ScheduleCtr instance;
 	private TeamCtr tCtr;
+	private PersonCtr pCtr;
 	private FieldCtr fCtr;
 	private Schedule schedule;
 	private DBSchedule schDB;
@@ -19,6 +22,7 @@ public class ScheduleCtr {
 	private ScheduleCtr() {
 		this.tCtr = TeamCtr.getInstance();
 		this.fCtr = FieldCtr.getInstance();
+		this.pCtr = PersonCtr.getInstance();
 		this.appDB = new DBAppointment();
 		schDB = new DBSchedule();
 	}
@@ -41,11 +45,18 @@ public class ScheduleCtr {
 		return returnInt;
 	}
 
-	public void addTeam(String teamNumber) {
+	public boolean addTeam(String teamNumber) {
 		try {
-			schedule.addAppointment(tCtr.findTeam(teamNumber));
+			if(tCtr.findTeam(teamNumber) != null) {
+				schedule.addAppointment(tCtr.findTeam(teamNumber));
+				return true;
+			}
+			else {
+				return false;
+			}
 		} catch (NullPointerException e) {
 			System.out.println("Ingen Schedule er i øjeblikket aktiv.");
+			return false;
 		}
 	}
 
@@ -55,10 +66,11 @@ public class ScheduleCtr {
 			schedule.makeSchedule();
 		} catch (NullPointerException e) {
 			System.out.println("Ingen Schedule er i øjeblikket aktiv.");
+			throw new NullPointerException();
 		}
 	}
 
-	public void completeSchedule() {
+	public void completeSchedule() throws TransactionRolledbackException {
 		try {
 			DBConnection.startTransaction();
 			int size = schedule.getAppointments().size();
@@ -76,6 +88,7 @@ public class ScheduleCtr {
 			DBConnection.commitTransaction();
 		} catch (Exception e) {
 			DBConnection.rollbackTransaction();
+			throw new TransactionRolledbackException("Transaction rolled back");
 		}
 	}
 
@@ -83,13 +96,14 @@ public class ScheduleCtr {
 		return this.schedule;
 	}
 
-	public void deleteSchedule(Date date) {
+	public void deleteSchedule(Date date) throws TransactionRolledbackException {
 		try {
 			DBConnection.startTransaction();
 			schDB.deleteSchedule(date);
 			DBConnection.commitTransaction();
 		} catch (Exception e) {
 			DBConnection.rollbackTransaction();
+			throw new TransactionRolledbackException("Transaction rolled back");
 		}
 	}
 	
@@ -101,5 +115,16 @@ public class ScheduleCtr {
 	public void removeCurrentSchedule()
 	{
 		this.schedule = null;
+	}
+	
+	public boolean setCreator(String phone) {
+		Person p = pCtr.findPerson(phone);
+		if(p instanceof Staff) {
+			schedule.setCreator(p);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
