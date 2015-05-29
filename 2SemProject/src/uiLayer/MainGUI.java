@@ -103,25 +103,7 @@ public class MainGUI extends JFrame {
 		JPanel panelPlayer = new JPanel();
 		panelPlayer.setVisible(true);
 		panelPlayer.setVisible(false);
-		
-		JPanel panelField = new JPanel();
-		panelField.setBounds(0, 0, 682, 453);
-		contentPane.add(panelField);
-		panelField.setLayout(null);
-		panelField.setVisible(false);
-		
-		JPanel panelTraining = new JPanel();
-		panelTraining.setBounds(0, 0, 682, 453);
-		contentPane.add(panelTraining);
-		panelTraining.setLayout(null);
-		panelTraining.setVisible(false);
 
-		JPanel panelTeam = new JPanel();
-		panelTeam.setBounds(0, 0, 682, 453);
-		contentPane.add(panelTeam);
-		panelTeam.setLayout(null);
-		panelTeam.setVisible(false);
-		
 		JPanel panelMain = new JPanel();
 		panelMain.setVisible(true);
 		panelMain.setBounds(0, 0, 682, 453);
@@ -130,7 +112,7 @@ public class MainGUI extends JFrame {
 		contentPane.add(panelMain);
 
 		JButton playerBtnM = new JButton("Player");
-		playerBtnM.setBounds(163, 25, 89, 23);
+		playerBtnM.setBounds(209, 13, 250, 74);
 		playerBtnM.addActionListener(e -> {
 			panelMain.setVisible(false);
 			panelPlayer.setVisible(true);
@@ -138,8 +120,26 @@ public class MainGUI extends JFrame {
 		panelMain.setLayout(null);
 		panelMain.add(playerBtnM);
 
+		JPanel panelTeam = new JPanel();
+		panelTeam.setBounds(0, 0, 682, 453);
+		contentPane.add(panelTeam);
+		panelTeam.setLayout(null);
+		panelTeam.setVisible(false);
+		
+		JPanel panelTraining = new JPanel();
+		panelTraining.setBounds(0, 0, 682, 453);
+		contentPane.add(panelTraining);
+		panelTraining.setLayout(null);
+		panelTraining.setVisible(false);
+		
+		JPanel panelField = new JPanel();
+		panelField.setBounds(0, 0, 682, 453);
+		contentPane.add(panelField);
+		panelField.setLayout(null);
+		panelField.setVisible(false);
+
 		JButton trainingBtnM = new JButton("Training");
-		trainingBtnM.setBounds(163, 59, 89, 23);
+		trainingBtnM.setBounds(209, 94, 250, 74);
 		trainingBtnM.addActionListener(e -> {
 			panelMain.setVisible(false);
 			panelTraining.setVisible(true);
@@ -147,7 +147,7 @@ public class MainGUI extends JFrame {
 		panelMain.add(trainingBtnM);
 
 		JButton fieldBtnM = new JButton("Field");
-		fieldBtnM.setBounds(163, 93, 89, 23);
+		fieldBtnM.setBounds(209, 255, 250, 74);
 		fieldBtnM.addActionListener(e -> {
 			panelMain.setVisible(false);
 			panelField.setVisible(true);
@@ -155,7 +155,7 @@ public class MainGUI extends JFrame {
 		panelMain.add(fieldBtnM);
 
 		JButton teamBtnM = new JButton("Team");
-		teamBtnM.setBounds(163, 127, 89, 23);
+		teamBtnM.setBounds(209, 174, 250, 74);
 		teamBtnM.addActionListener(e -> {
 			panelMain.setVisible(false);
 			panelTeam.setVisible(true);
@@ -163,7 +163,7 @@ public class MainGUI extends JFrame {
 		panelMain.add(teamBtnM);
 
 		JButton exitBtnM = new JButton("Exit system");
-		exitBtnM.setBounds(149, 227, 126, 23);
+		exitBtnM.setBounds(245, 342, 186, 74);
 		exitBtnM.addActionListener(e -> {
 			System.exit(1);
 		});

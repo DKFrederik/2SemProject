@@ -4,28 +4,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Person {
-	
+
 	private String fname;
 	private String lname;
 	private String email;
 	private String phone;
 	private String zipcode;
 	private String city;
-	
-	public Person(String fname, String lname, String email, String phone, String zipcode){
-		if(email == null){
-			email = "";
-		}
+
+	public Person(String fname, String lname, String email, String phone,
+			String zipcode) {
+
 		this.zipcode = zipcode;
 		this.fname = fname;
 		this.lname = lname;
-		this.email = email;
+		if(checkEmail(email))
+			this.email = email;
 		this.phone = phone;
 	}
-	
-	public Person(){
+
+	public Person() {
 	}
-	
+
 	public String getFname() {
 		return fname;
 	}
@@ -33,7 +33,7 @@ public class Person {
 	public void setFname(String fname) {
 		this.fname = fname;
 	}
-	
+
 	public String getLname() {
 		return lname;
 	}
@@ -57,32 +57,35 @@ public class Person {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 	public String getZipcode() {
 		return zipcode;
 	}
-	
+
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
-	
+
 	public String getCity() {
 		return city;
 	}
-	
+
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
-	public boolean checkEmail(String email) {
-	       String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
-	        
-	        Pattern pattern = Pattern.compile(emailPattern);
-	        Matcher m = pattern.matcher(email);
 
-	        if(m.find())
-	            return true;
-	        else
-	            return false;
+	public boolean checkEmail(String email) {
+		if (email == null) {
+			email = "";
+		}
+		String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
+
+		Pattern pattern = Pattern.compile(emailPattern);
+		Matcher m = pattern.matcher(email);
+
+		if (m.find())
+			return true;
+		else
+			return false;
 	}
 }
