@@ -51,17 +51,15 @@ public class LinkedGraph implements IFGraph  {
 		   }
 		   
 		   //For each vertex
-		   for(int i = 1; i <= noVer; i++){
-			   
+		   for(int i = 1; i <= noVer; i++){	   
 			   //For each adjacency
 			   for(int j = 0; j < adjList.get(i).size(); j++){
-				   
-				   //If vertex of the adjacency is colored set the corresponding index in the temporary list to true
+				   //If vertex of the adjacency is colored set the 
+				   //corresponding index in the temporary list to true
 				   if(adjList.get(i).get(j).getColor() != -1){
 					   tempList.set(adjList.get(i).get(j).getColor(), true);
 					   }
 				   }
-			   
 			   //Loops through the temporary list and finds the first available color and assigns it to the vertex
 			   // increments the color-count of the index by 1 if assigned.
 			   int u = 0;
@@ -74,7 +72,6 @@ public class LinkedGraph implements IFGraph  {
 				   }
 				   u++;
 			   }
-			   
 			   //Resets the temporary list for the next iteration
 			   for(int k = 0; k <= noVer; k++){
 				   tempList.set(k, false);
