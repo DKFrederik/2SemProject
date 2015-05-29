@@ -74,16 +74,15 @@ public class Person {
 		this.city = city;
 	}
 	
-	public void checkEmail() {
-	       String email = "clausjoergensen91@gmail.com";
+	public boolean checkEmail(String email) {
 	       String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
 	        
 	        Pattern pattern = Pattern.compile(emailPattern);
 	        Matcher m = pattern.matcher(email);
 
 	        if(m.find())
-	            System.out.println(email + " is ok");
+	            return true;
 	        else
-	            System.out.println(email + " is not ok");
+	            return false;
 	}
 }

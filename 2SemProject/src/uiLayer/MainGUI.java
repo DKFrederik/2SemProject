@@ -1,6 +1,5 @@
 package uiLayer;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,7 +13,6 @@ import ctrLayer.PersonCtr;
 import ctrLayer.ScheduleCtr;
 import ctrLayer.TeamCtr;
 import modelLayer.Field;
-import modelLayer.Manager;
 import modelLayer.Person;
 import modelLayer.Player;
 import modelLayer.Schedule;
@@ -102,32 +100,96 @@ public class MainGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JPanel panelMain = new JPanel();
-		panelMain.setVisible(true);
-
 		JPanel panelPlayer = new JPanel();
 		panelPlayer.setVisible(true);
 		panelPlayer.setVisible(false);
+		
+		JPanel panelField = new JPanel();
+		panelField.setBounds(0, 0, 682, 453);
+		contentPane.add(panelField);
+		panelField.setLayout(null);
+		panelField.setVisible(false);
+		
+		JPanel panelTraining = new JPanel();
+		panelTraining.setBounds(0, 0, 682, 453);
+		contentPane.add(panelTraining);
+		panelTraining.setLayout(null);
+		panelTraining.setVisible(false);
 
 		JPanel panelTeam = new JPanel();
 		panelTeam.setBounds(0, 0, 682, 453);
 		contentPane.add(panelTeam);
 		panelTeam.setLayout(null);
 		panelTeam.setVisible(false);
+		
+		JPanel panelMain = new JPanel();
+		panelMain.setVisible(true);
+		panelMain.setBounds(0, 0, 682, 453);
+		contentPane.add(panelMain);
+		panelMain.setBounds(0, 0, 682, 453);
+		contentPane.add(panelMain);
+
+		JButton playerBtnM = new JButton("Player");
+		playerBtnM.setBounds(163, 25, 89, 23);
+		playerBtnM.addActionListener(e -> {
+			panelMain.setVisible(false);
+			panelPlayer.setVisible(true);
+		});
+		panelMain.setLayout(null);
+		panelMain.add(playerBtnM);
+
+		JButton trainingBtnM = new JButton("Training");
+		trainingBtnM.setBounds(163, 59, 89, 23);
+		trainingBtnM.addActionListener(e -> {
+			panelMain.setVisible(false);
+			panelTraining.setVisible(true);
+		});
+		panelMain.add(trainingBtnM);
+
+		JButton fieldBtnM = new JButton("Field");
+		fieldBtnM.setBounds(163, 93, 89, 23);
+		fieldBtnM.addActionListener(e -> {
+			panelMain.setVisible(false);
+			panelField.setVisible(true);
+		});
+		panelMain.add(fieldBtnM);
+
+		JButton teamBtnM = new JButton("Team");
+		teamBtnM.setBounds(163, 127, 89, 23);
+		teamBtnM.addActionListener(e -> {
+			panelMain.setVisible(false);
+			panelTeam.setVisible(true);
+		});
+		panelMain.add(teamBtnM);
+
+		JButton exitBtnM = new JButton("Exit system");
+		exitBtnM.setBounds(149, 227, 126, 23);
+		exitBtnM.addActionListener(e -> {
+			System.exit(1);
+		});
+		panelMain.add(exitBtnM);
 
 		JButton btnCreateT = new JButton("Create");
 		btnCreateT.addActionListener(e -> {
+
+			String teamNumber = textTeamNumber.getText();
 			try {
-				String teamNumber = textTeamNumber.getText();
-				Integer league = Integer.getInteger(textTeamLeague.getText());
-				Team t = new Team(teamNumber, league);
+				int league = Integer.parseInt(textTeamLeague.getText());
+				t = new Team(teamNumber, league);
+			} catch (NumberFormatException nfe) {
+				textTeamFejl.setText("League is not an number.");
+			}
+
+			try {
 				if (tCtr.insertTeam(t)) {
 					textTeamFejl.setText("Team created");
+					t = null;
 				} else {
 					textTeamFejl.setText("Team not created");
 				}
-			} catch (Exception ex) {
-				textTeamFejl.setText("Error");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				textTeamFejl.setText("Failed to create teams");
 			}
 		});
 
@@ -136,8 +198,8 @@ public class MainGUI extends JFrame {
 
 		JButton btnAddPlayerT = new JButton("Add player");
 		btnAddPlayerT.addActionListener(e -> {
-			if (checkPhone(textPhoneNo.getText())) {
-				if (tCtr.insertPlayer(textPhoneNo.getText(),
+			if (checkPhone(textTeamPhoneNo.getText())) {
+				if (tCtr.insertPlayer(textTeamPhoneNo.getText(),
 						textTeamNumber.getText())) {
 					textTeamFejl.setText("Player added.");
 				} else {
@@ -151,8 +213,9 @@ public class MainGUI extends JFrame {
 
 		JButton btnAddManagerT = new JButton("Add manager");
 		btnAddManagerT.addActionListener(e -> {
-			if (checkPhone(textPhoneNo.getText())) {
-				if (tCtr.insertManager(textPhoneNo.getText(),textTeamNumber.getText())) {
+			if (checkPhone(textTeamPhoneNo.getText())) {
+				if (tCtr.insertManager(textTeamPhoneNo.getText(),
+						textTeamNumber.getText())) {
 					textTeamFejl.setText("Manager added.");
 				} else {
 					textTeamFejl.setText("Manager not found.");
@@ -165,8 +228,9 @@ public class MainGUI extends JFrame {
 
 		JButton btnAddTeamleaderT = new JButton("Add teamleader");
 		btnAddTeamleaderT.addActionListener(e -> {
-			if (checkPhone(textPhoneNo.getText())) {
-				if (tCtr.insertTeamLeader(textPhoneNo.getText(),textTeamNumber.getText())) {
+			if (checkPhone(textTeamPhoneNo.getText())) {
+				if (tCtr.insertTeamLeader(textTeamPhoneNo.getText(),
+						textTeamNumber.getText())) {
 					textTeamFejl.setText("Teamleader added.");
 				} else {
 					textTeamFejl.setText("Teamleader not found.");
@@ -188,16 +252,16 @@ public class MainGUI extends JFrame {
 		JButton btnRemovePersonT = new JButton("Remove person");
 		btnRemovePersonT.addActionListener(e -> {
 			if (checkPhone(textPhoneNo.getText())) {
-				if(tCtr.deletePlayer(textPhoneNo.getText(), textTeamNumber.getText())) {
+				if (tCtr.deletePlayer(textPhoneNo.getText(),
+						textTeamNumber.getText())) {
 					textTeamFejl.setText("Player deleted");
-				}
-				else if (tCtr.deleteTeamLeader(textPhoneNo.getText(), textTeamNumber.getText())) {
+				} else if (tCtr.deleteTeamLeader(textPhoneNo.getText(),
+						textTeamNumber.getText())) {
 					textTeamFejl.setText("Teamleader deleted");
-				}
-				else if (tCtr.deleteManager(textPhoneNo.getText(), textTeamNumber.getText())) {
+				} else if (tCtr.deleteManager(textPhoneNo.getText(),
+						textTeamNumber.getText())) {
 					textTeamFejl.setText("Manger deleted ");
-				}
-				else {
+				} else {
 					textTeamFejl.setText("No such person");
 				}
 			}
@@ -212,8 +276,14 @@ public class MainGUI extends JFrame {
 				Team t1 = (Team) t;
 				textTeamNumber.setText(t1.getTeamNumber());
 				textTeamLeague.setText(String.valueOf(t1.getLeague()));
-				textTeamManager.setText(String.valueOf(t1.getManager()));
-				textTeamLeader.setText(String.valueOf(t1.getTeamLeader()));
+				if (t1.getManager() != null) {
+					textTeamManager.setText(String.valueOf(t1.getManager()
+							.getFname() + " " + t1.getManager().getLname()));
+				}
+				if (t1.getTeamLeader() != null) {
+					textTeamLeader.setText(String.valueOf(t1.getTeamLeader()
+							.getFname() + " " + t1.getTeamLeader().getLname()));
+				}
 			} else {
 				textTeamFejl.setText("Team not found.");
 			}
@@ -435,12 +505,6 @@ public class MainGUI extends JFrame {
 		textPlayerFejl.setBounds(149, 418, 464, 22);
 		panelPlayer.add(textPlayerFejl);
 
-		JPanel panelTraining = new JPanel();
-		panelTraining.setBounds(0, 0, 682, 453);
-		contentPane.add(panelTraining);
-		panelTraining.setLayout(null);
-		panelTraining.setVisible(false);
-
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(269, 13, 401, 335);
 		panelTraining.add(scrollPane);
@@ -634,56 +698,6 @@ public class MainGUI extends JFrame {
 		textFejl.setColumns(10);
 		textFejl.setBounds(269, 417, 401, 22);
 		panelTraining.add(textFejl);
-		panelMain.setBounds(0, 0, 682, 453);
-		contentPane.add(panelMain);
-
-		JPanel panelField = new JPanel();
-		panelField.setBounds(0, 0, 682, 453);
-		contentPane.add(panelField);
-		panelField.setLayout(null);
-		panelField.setVisible(false);
-		panelMain.setBounds(0, 0, 682, 453);
-		contentPane.add(panelMain);
-
-		JButton playerBtnM = new JButton("Player");
-		playerBtnM.setBounds(163, 25, 89, 23);
-		playerBtnM.addActionListener(e -> {
-			panelMain.setVisible(false);
-			panelPlayer.setVisible(true);
-		});
-		panelMain.setLayout(null);
-		panelMain.add(playerBtnM);
-
-		JButton trainingBtnM = new JButton("Training");
-		trainingBtnM.setBounds(163, 59, 89, 23);
-		trainingBtnM.addActionListener(e -> {
-			panelMain.setVisible(false);
-			panelTraining.setVisible(true);
-		});
-		panelMain.add(trainingBtnM);
-
-		JButton fieldBtnM = new JButton("Field");
-		fieldBtnM.setBounds(163, 93, 89, 23);
-		fieldBtnM.addActionListener(e -> {
-			panelMain.setVisible(false);
-			panelField.setVisible(true);
-		});
-		panelMain.add(fieldBtnM);
-
-		JButton teamBtnM = new JButton("Team");
-		teamBtnM.setBounds(163, 127, 89, 23);
-		teamBtnM.addActionListener(e -> {
-			panelMain.setVisible(false);
-			panelTeam.setVisible(true);
-		});
-		panelMain.add(teamBtnM);
-
-		JButton exitBtnM = new JButton("Exit system");
-		exitBtnM.setBounds(149, 227, 126, 23);
-		exitBtnM.addActionListener(e -> {
-			System.exit(1);
-		});
-		panelMain.add(exitBtnM);
 
 		JButton btnClearFields = new JButton("Clear textfields");
 		btnClearFields.addActionListener(e -> {
@@ -692,7 +706,7 @@ public class MainGUI extends JFrame {
 			textFieldLength.setText("");
 			textFieldWidth.setText("");
 		});
-		btnClearFields.setBounds(10, 191, 119, 23);
+		btnClearFields.setBounds(183, 417, 119, 23);
 		panelField.add(btnClearFields);
 
 		JButton btnCreateField = new JButton("Create field");
@@ -707,7 +721,7 @@ public class MainGUI extends JFrame {
 				e1.printStackTrace();
 			}
 		});
-		btnCreateField.setBounds(303, 191, 119, 23);
+		btnCreateField.setBounds(551, 417, 119, 23);
 		panelField.add(btnCreateField);
 
 		JButton btnBackF = new JButton("Back");
@@ -715,33 +729,33 @@ public class MainGUI extends JFrame {
 			panelField.setVisible(false);
 			panelMain.setVisible(true);
 		});
-		btnBackF.setBounds(10, 227, 105, 23);
+		btnBackF.setBounds(12, 417, 105, 23);
 		panelField.add(btnBackF);
 
 		JButton btnDeleteField = new JButton("Delete field");
 		btnDeleteField.addActionListener(e -> {
 			fCtr.deleteField(textFieldNumber.getText());
 		});
-		btnDeleteField.setBounds(303, 227, 119, 23);
+		btnDeleteField.setBounds(367, 417, 119, 23);
 		panelField.add(btnDeleteField);
 
 		textFieldNumber = new JTextField();
-		textFieldNumber.setBounds(215, 26, 207, 22);
+		textFieldNumber.setBounds(215, 26, 434, 22);
 		panelField.add(textFieldNumber);
 		textFieldNumber.setColumns(10);
 
 		textFieldtype = new JTextField();
-		textFieldtype.setBounds(215, 57, 207, 22);
+		textFieldtype.setBounds(215, 103, 434, 22);
 		panelField.add(textFieldtype);
 		textFieldtype.setColumns(10);
 
 		textFieldLength = new JTextField();
-		textFieldLength.setBounds(215, 92, 207, 22);
+		textFieldLength.setBounds(215, 188, 434, 22);
 		panelField.add(textFieldLength);
 		textFieldLength.setColumns(10);
 
 		textFieldWidth = new JTextField();
-		textFieldWidth.setBounds(215, 127, 207, 22);
+		textFieldWidth.setBounds(215, 276, 434, 22);
 		panelField.add(textFieldWidth);
 		textFieldWidth.setColumns(10);
 
@@ -750,15 +764,15 @@ public class MainGUI extends JFrame {
 		panelField.add(lblFieldNumber);
 
 		JLabel labelFieldType = new JLabel("Field Type Match or Training");
-		labelFieldType.setBounds(10, 60, 193, 16);
+		labelFieldType.setBounds(10, 106, 193, 16);
 		panelField.add(labelFieldType);
 
 		JLabel lblFieldLength = new JLabel("Field Length");
-		lblFieldLength.setBounds(10, 95, 193, 16);
+		lblFieldLength.setBounds(10, 191, 193, 16);
 		panelField.add(lblFieldLength);
 
 		JLabel lblFieldWidth = new JLabel("Field Width");
-		lblFieldWidth.setBounds(10, 130, 193, 16);
+		lblFieldWidth.setBounds(12, 279, 193, 16);
 		panelField.add(lblFieldWidth);
 
 	}
