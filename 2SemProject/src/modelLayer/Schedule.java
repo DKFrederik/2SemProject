@@ -40,19 +40,15 @@ public class Schedule {
 		
 		for(int i=0; i<numberOfTeams; i++)
 		{
-			System.out.println("Tipohøj");
-			teamGraph.addVertex(new Vertex("Hold " + appointments.get(i).getTeam().getTeamNumber()));
-			
-			System.out.println("HOOOHØØØJ" +teamGraph.getNoOfVertices() + " " + teamGraph.getVertex(i).getName());
+			teamGraph.addVertex(new Vertex(appointments.get(i).getTeam().getTeamNumber()));
 		}
-		
-		System.out.println(numberOfTeams);
 		
 		for(int i = 0; i < numberOfTeams-1; i++)
 		{
 			for(int j = i+1; j < numberOfTeams; j++)
 			{
-				if(compareLists(appointments.get(i).getTeam().getPlayers(),appointments.get(j).getTeam().getPlayers()))
+				if(appointments.get(i).getTeam().getManager().getPhone().equals(appointments.get(j).getTeam().getManager().getPhone()) ||
+						compareLists(appointments.get(i).getTeam().getPlayers(),appointments.get(j).getTeam().getPlayers()))
 				{
 					teamGraph.addEdge(teamGraph.getVertex(i), teamGraph.getVertex(j));
 				}
@@ -69,7 +65,7 @@ public class Schedule {
 		
 		int numberOfColors = teamGraph.getNoOfColors();
 		
-		int[] colors = new int[numberOfColors];
+		int[] fieldList = new int[numberOfColors];
 		
 		for(int i = 0;i < teamGraph.getNoOfVertices();i++)
 		{
@@ -77,32 +73,31 @@ public class Schedule {
 			if(teamGraph.getVertex(i).getColor() == 0)
 			{
 				appointments.get(i).setTimeSlot(0);
-				appointments.get(i).setField(fields.get(colors[0]));
-				colors[0]++;
-				//System.out.println("Hold " + i + " skal spille 18-19");
+				appointments.get(i).setField(fields.get(fieldList[0]));
+				fieldList[0]++;
 			}
 			
 			else if(teamGraph.getVertex(i).getColor() == 1)
 			{
 				appointments.get(i).setTimeSlot(1);
-				appointments.get(i).setField(fields.get(colors[1]));
-				colors[1]++;
+				appointments.get(i).setField(fields.get(fieldList[1]));
+				fieldList[1]++;
 				//System.out.println("Hold " + i + " skal spille 19-20");
 			}
 			
 			else if(teamGraph.getVertex(i).getColor() == 2)
 			{
 				appointments.get(i).setTimeSlot(2);
-				appointments.get(i).setField(fields.get(colors[2]));
-				colors[2]++;
+				appointments.get(i).setField(fields.get(fieldList[2]));
+				fieldList[2]++;
 				//System.out.println("Hold " + i + " skal spille 20-21");
 			}
 			
 			else if(teamGraph.getVertex(i).getColor() == 3)
 			{
 				appointments.get(i).setTimeSlot(3);
-				appointments.get(i).setField(fields.get(colors[3]));
-				colors[3]++;
+				appointments.get(i).setField(fields.get(fieldList[3]));
+				fieldList[3]++;
 			}
 			
 			isComplete = true;
