@@ -671,8 +671,7 @@ public class MainGUI extends JFrame {
 				int month = Integer.parseInt(date.substring(5, 7));
 				int day = Integer.parseInt(date.substring(8, 10));
 				try {
-					sCtr.deleteSchedule(new java.sql.Date(year - 1900,
-							month - 1, day));
+					sCtr.deleteSchedule(new java.sql.Date(year - 1900, month - 1, day));
 					textTrainCLName.setText("");
 					textTrainCName.setText("");
 					textTrainCreator.setText("");
