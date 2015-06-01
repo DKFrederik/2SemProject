@@ -9,7 +9,7 @@ public class ConnectionThread extends Thread {
 
 	@Override
 	public void run() {
-		String Str = new String(DBConnection.databaseName);
+		String Str = new String("");//DB NAME HERE
 		try {
 			while (DBConnection.getInstance() != null) {
 				System.out.println("Connected to database: " + Str.substring(14, 17));
