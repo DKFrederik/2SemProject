@@ -44,9 +44,6 @@ public class DBSchedule implements IFSchedule {
 	 */
 	@Override
 	public int insertSchedule(Schedule s) {
-		
-		DBPerson pDB = new DBPerson();
-
 		int rc = -1;
 		String query = "INSERT INTO Schedule(date, creator)  VALUES('"
 				+ s.getDate()

@@ -21,7 +21,7 @@ public class ScheduleCtr {
 	private PersonCtr pCtr;
 	private FieldCtr fCtr;
 	private Schedule schedule;
-	private DBSchedule schDB;
+	private IFSchedule schDB;
 	private DBAppointment appDB;
 
 	private ScheduleCtr() {
