@@ -15,37 +15,34 @@ import ctrLayer.FieldCtr;
  * as search, insert, delete and update.
  */
 
-public class DBSchedule {
+public class DBSchedule implements IFSchedule {
 	private Connection con;
 	
 	public DBSchedule() {
 		con = DBConnection.getInstance().getDBcon();
 	}
 
-	/**
-	 * finds a schedule with the date.
-	 * @param The date of the schedule to fetch
-	 * @return The schedule of the day.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFSchedule#findSchedule(java.sql.Date, boolean)
 	 */
+	@Override
 	public Schedule findSchedule(Date date, boolean retrieveAssociation) {
 		String wClause = " Schedule.date = '" + date + "'";
 		return singleWhere(wClause,retrieveAssociation);
 	}
 	
-	/**
-	 * Gets all schedules from the database.
-	 * @param The date of the schedule to fetch
-	 * @return The schedule of the day.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFSchedule#findAllSchedules(boolean)
 	 */
+	@Override
 	public List<Schedule> findAllSchedules(boolean retrieveAssociation) {
 		return miscWhere("",retrieveAssociation);
 	}
 	
-	/**
-	 * Inserts a Schedule into the database.
-	 * @param s The schedule to be inserted.
-	 * @return An int corresponding to the amount of changed rows or -1 if failed.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFSchedule#insertSchedule(modelLayer.Schedule)
 	 */
+	@Override
 	public int insertSchedule(Schedule s) {
 		
 		DBPerson pDB = new DBPerson();
@@ -72,11 +69,10 @@ public class DBSchedule {
 		return (rc);
 	}
 
-	/**
-	 * Deletes a schedule from the database that matches the date parameter.
-	 * @param date the date of the schedule that is to be deleted.
-	 * @return An int corresponding to the amount of changed rows or -1 if failed.
+	/* (non-Javadoc)
+	 * @see dbLayer.IFSchedule#deleteSchedule(java.sql.Date)
 	 */
+	@Override
 	public int deleteSchedule(Date date) {
 		int rc = -1;
 
@@ -198,10 +194,10 @@ public class DBSchedule {
 		return sObj;
 	}
 	
-	/**
-	 * Finds the max id of the Schedule table.
-	 * @return the max id used in the Schedule table. 
+	/* (non-Javadoc)
+	 * @see dbLayer.IFSchedule#findMaxId()
 	 */
+	@Override
 	public int findMaxId() {
 		int id = 0;
 		ResultSet results;
