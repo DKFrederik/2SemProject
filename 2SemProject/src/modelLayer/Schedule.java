@@ -13,18 +13,28 @@ public class Schedule {
 	private boolean isComplete;
 	
 
-
+	/**
+	 * Contructor for the Schedule class.
+	 * @param fields a list of fields.
+	 * @param date the schedules date.
+	 */
 	public Schedule(List<Field> fields, java.sql.Date date){
 		appointments = new ArrayList<>();
 		this.fields = fields;
 		this.date = date;
 		this.isComplete = false;
 	}
-	
+	/**
+	 * Getter for the creator
+	 * @return a Person.
+	 */
 	public Person getCreator() {
 		return creator;
 	}
-
+	/**
+	 * Setter for the creator.
+	 * @param creator a Person.
+	 */
 	public void setCreator(Person creator) {
 		this.creator = creator;
 	}
@@ -106,9 +116,9 @@ public class Schedule {
 
 	/**
 	 * Compares two lists of Players to see if duplicate exist.
-	 * @param list1
-	 * @param list2
-	 * @return
+	 * @param list1 first list to compare.
+	 * @param list2 second list to compare.
+	 * @return True if duplicates found, else false.
 	 */
 	private boolean compareLists(List<Player> list1, List<Player> list2)
 	{
@@ -125,22 +135,34 @@ public class Schedule {
 			}
 		return found;
 	}
-	
+	/**
+	 * Adds an appointement to the Schedule.
+	 * @param t a Team for the Appointment.
+	 */
 	public void addAppointment(Team t)
 	{ 
 		appointments.add(new Appointment(t));
 	}
-	
+	/**
+	 * Returns the list of appointments.
+	 * @return A list of Appointments.
+	 */
 	public List<Appointment> getAppointments()
 	{
 		return this.appointments;
 	}
-	
+	/**
+	 * Sets the appointment field using a list of appointments.
+	 * @param appList list of Appointments.
+	 */
 	public void setAppointments(List<Appointment> appList)
 	{
 		this.appointments = appList;
 	}
-	
+	/**
+	 * Removes an appointment for a Team.
+	 * @param t the Team to remove the appointment for.
+	 */
 	public void removeAppointment(Team t)
 	{
 		boolean found = false;
@@ -153,15 +175,24 @@ public class Schedule {
 			}
 		}
 	}
-
+	/**
+	 * Getter for date.
+	 * @return the date.
+	 */
 	public Date getDate() {
 		return date;
 	}
-
+	/**
+	 * Setter for date
+	 * @param date a date
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
+	/**
+	 * Getter for isComplete. isComplete is true if makeSchedule() has been run.
+	 * @return true if makeSchedule() has run, false if not.
+	 */
 	public boolean isComplete() {
 		return isComplete;
 	}
