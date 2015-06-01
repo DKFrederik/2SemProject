@@ -10,7 +10,7 @@ import modelLayer.*;
 import dbLayer.*;
 
 /**
- * 
+ *  
  * @author peter, claus, frederik, nichlas
  * Ctr class handling the creation and deletion of schedules. 
  */
