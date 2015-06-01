@@ -251,14 +251,14 @@ public class MainGUI extends JFrame {
 
 		JButton btnRemovePersonT = new JButton("Remove person");
 		btnRemovePersonT.addActionListener(e -> {
-			if (checkPhone(textPhoneNo.getText())) {
-				if (tCtr.deletePlayer(textPhoneNo.getText(),
+			if (checkPhone(textTeamPhoneNo.getText())) {
+				if (tCtr.deletePlayer(textTeamPhoneNo.getText(),
 						textTeamNumber.getText())) {
 					textTeamFejl.setText("Player deleted");
-				} else if (tCtr.deleteTeamLeader(textPhoneNo.getText(),
+				} else if (tCtr.deleteTeamLeader(textTeamPhoneNo.getText(),
 						textTeamNumber.getText())) {
 					textTeamFejl.setText("Teamleader deleted");
-				} else if (tCtr.deleteManager(textPhoneNo.getText(),
+				} else if (tCtr.deleteManager(textTeamPhoneNo.getText(),
 						textTeamNumber.getText())) {
 					textTeamFejl.setText("Manger deleted ");
 				} else {
