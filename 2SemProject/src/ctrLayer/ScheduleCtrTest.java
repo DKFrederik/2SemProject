@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import javax.transaction.TransactionRolledbackException;
+
 import modelLayer.Manager;
 import modelLayer.Person;
 import modelLayer.Player;
@@ -77,7 +79,12 @@ public class ScheduleCtrTest {
 		schCtr.addTeam("b");
 		schCtr.getCurrentSchedule().setCreator(person);
 		schCtr.makeSchedule();
-		schCtr.completeSchedule();
+		try {
+			schCtr.completeSchedule();
+		} catch (TransactionRolledbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertNotNull(schCtr.getSchedule(testDate, false));
 	}
 
