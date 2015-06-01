@@ -23,7 +23,7 @@ public class DBSchedule {
 	}
 
 	/**
-	 * 
+	 * finds a schedule with the date.
 	 * @param The date of the schedule to fetch
 	 * @return The schedule of the day.
 	 */
@@ -33,7 +33,7 @@ public class DBSchedule {
 	}
 	
 	/**
-	 * 
+	 * Gets all schedules from the database.
 	 * @param The date of the schedule to fetch
 	 * @return The schedule of the day.
 	 */
@@ -42,9 +42,9 @@ public class DBSchedule {
 	}
 	
 	/**
-	 * 
-	 * @param
-	 * @return 
+	 * Inserts a Schedule into the database.
+	 * @param s The schedule to be inserted.
+	 * @return An int corresponding to the amount of changed rows or -1 if failed.
 	 */
 	public int insertSchedule(Schedule s) {
 		
@@ -72,11 +72,10 @@ public class DBSchedule {
 		return (rc);
 	}
 
-	
 	/**
-	 * 
-	 * @param 
-	 * @return
+	 * Deletes a schedule from the database that matches the date parameter.
+	 * @param date the date of the schedule that is to be deleted.
+	 * @return An int corresponding to the amount of changed rows or -1 if failed.
 	 */
 	public int deleteSchedule(Date date) {
 		int rc = -1;
@@ -94,11 +93,12 @@ public class DBSchedule {
 		}
 		return (rc);
 	}
-
+	
 	/**
-	 * 
-	 * @param 
-	 * @return 
+	 * Method for finding a single Schedule.
+	 * @param wClause where clause. 
+	 * @param retrieveAssociation whether associations should be build as well.
+	 * @return A schedule object or null.
 	 */
 	private Schedule singleWhere(String wClause, boolean retrieveAssociation) {
 		ResultSet results;
@@ -128,7 +128,12 @@ public class DBSchedule {
 		}
 		return schObj;
 	}
-	
+	/**
+	 * Gets a list of all Schedules in the database.
+	 * @param wClause Where clause.
+	 * @param retrieveAssociation Whether associations should be build as well.
+	 * @return A list of Schedules.
+	 */
 	private List<Schedule> miscWhere(String wClause,
 			boolean retrieveAssociation) {
 		ResultSet results;
@@ -160,7 +165,7 @@ public class DBSchedule {
 	}
 
 	/**
-	 * 
+	 * Builds a SELECT query.
 	 * @param wClause where clause for SQL query.
 	 * @return A String formatted as a query.
 	 */
@@ -175,9 +180,9 @@ public class DBSchedule {
 	}
 
 	/**
-	 * 
+	 * Method for building Schedule objects.
 	 * @param results ResultSet used for building the Schedule
-	 * @return
+	 * @return a Schedule object
 	 */
 	private Schedule buildSchedule(ResultSet results) {
 
