@@ -592,6 +592,7 @@ public class MainGUI extends JFrame {
 					p = pCtr.findPerson(textTrainCreator.getText());
 					textTrainCName.setText(p.getFname());
 					textTrainCLName.setText(p.getLname());
+					textFejl.setText("");
 				} else {
 					textFejl.setText("The person does not exist.");
 				}
